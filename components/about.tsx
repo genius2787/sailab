@@ -80,15 +80,18 @@ export function About() {
       <GL hovering={hovering} />
 
       <div className="relative z-10 container mx-auto py-24 px-6">
-        {/* Header Section */}
-        <div className="text-center mb-16" ref={el => sectionRefs.current.header = el}>
-          <Pill className={`mb-6 ${isLoaded ? 'animate-fade-in-up' : ''}`}>TOKYO-BASED</Pill>
-          <h1 className={`text-5xl sm:text-6xl md:text-7xl font-sentient mb-8 ${isLoaded ? 'animate-fade-in-up animate-delay-200' : ''}`}>
+        <section className="py-20 md:py-32">
+          {/* Header Section */}
+          <div className="text-center mb-16" ref={el => sectionRefs.current.header = el}>
+          <h2 className={`text-4xl md:text-5xl lg:text-6xl font-sentient mb-6 ${isLoaded ? 'animate-fade-in-up animate-delay-200' : ''}`}>
             About <br />
-            <i className="font-light">SAIL Lab</i>
-          </h1>
-          <p className={`font-mono text-lg text-foreground/80 text-balance max-w-3xl mx-auto leading-relaxed ${isLoaded ? 'animate-fade-in-up animate-delay-400' : ''}`}>
-            SAIL Lab is a Tokyo-based AI financial technology company offering innovative solutions for financial services
+            <i className="font-light">SAIL Lab Co., Ltd.</i>
+          </h2>
+          <p className={`font-mono text-sm text-foreground/60 mb-4 ${isLoaded ? 'animate-fade-in-up animate-delay-300' : ''}`}>
+            株式会社セール・ラボ
+          </p>
+          <p className={`font-mono text-foreground/60 text-lg max-w-2xl mx-auto ${isLoaded ? 'animate-fade-in-up animate-delay-400' : ''}`}>
+            At SAIL Laboratory, we pioneer the intersection of LLM Agent and financial investment, empowering individuals and organizations with cutting-edge tools for stock portfolio management.
           </p>
         </div>
 
@@ -99,33 +102,14 @@ export function About() {
               <CardTitle className={`text-3xl font-sentient ${visibleSections.has('mission') ? 'animate-fade-in-up animate-delay-200' : ''}`}>Our Mission</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className={`text-xl font-mono text-foreground/90 text-center leading-relaxed ${visibleSections.has('mission') ? 'animate-fade-in-up animate-delay-400' : ''}`}>
-                We focus on AI-driven automation, intelligent risk management, and cutting-edge quantitative trading
-                to transform how financial institutions operate in the modern market landscape.
+              <p className={`text-xl font-mono text-foreground/90 text-center leading-relaxed mb-6 ${visibleSections.has('mission') ? 'animate-fade-in-up animate-delay-400' : ''}`}>
+                Our core mission is to empower individuals and organizations with cutting-edge tools for portfolio management, driven by our proprietary LLM-based multi-agent analysis engine.
+              </p>
+              <p className={`text-lg font-mono text-foreground/80 text-center leading-relaxed ${visibleSections.has('mission') ? 'animate-fade-in-up animate-delay-600' : ''}`}>
+                Developed by a team of AI researchers and financial experts, our technology continuously monitors and analyzes global markets, financial news, and institutional insights—offering dynamic, data-driven recommendations with human-level understanding.
               </p>
             </CardContent>
           </Card>
-        </div>
-
-        {/* Values Section */}
-        <div className="mb-20" ref={el => sectionRefs.current.values = el}>
-          <h2 className={`text-4xl font-sentient text-center mb-12 ${visibleSections.has('values') ? 'animate-fade-in-up' : ''}`}>Our Values</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {values.map((value, index) => (
-              <Card key={index} className={`bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 hover-lift transition-all duration-300 ${visibleSections.has('values') ? 'animate-fade-in-up' : ''}`} style={{animationDelay: visibleSections.has('values') ? `${index * 0.1 + 0.2}s` : '0s'}}>
-                <CardHeader>
-                  <CardTitle className="text-xl font-sentient text-primary hover:text-primary/80 transition-colors duration-300">
-                    {value.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="font-mono text-foreground/70">
-                    {value.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
         </div>
 
         {/* Team Section */}
@@ -225,11 +209,44 @@ export function About() {
           </div>
         </div>
 
+        {/* Company Information Section */}
+        <div className="mb-20" ref={el => sectionRefs.current.company = el}>
+          <Card className={`max-w-4xl mx-auto bg-card/80 backdrop-blur-sm border-border/50 hover-lift ${visibleSections.has('company') ? 'animate-scale-in' : ''}`}>
+            <CardHeader className="text-center">
+              <CardTitle className={`text-3xl font-sentient ${visibleSections.has('company') ? 'animate-fade-in-up animate-delay-200' : ''}`}>Company Information</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6 text-center md:text-left">
+                <div className={`${visibleSections.has('company') ? 'animate-fade-in-up animate-delay-400' : ''}`}>
+                  <h4 className="font-sentient text-primary mb-2">Company Capital</h4>
+                  <p className="font-mono text-lg text-foreground/90">¥9.99 million JPY</p>
+                </div>
+                <div className={`${visibleSections.has('company') ? 'animate-fade-in-up animate-delay-500' : ''}`}>
+                  <h4 className="font-sentient text-primary mb-2">Assets Under Management</h4>
+                  <p className="font-mono text-lg text-foreground/90">Over ¥100 million JPY</p>
+                </div>
+              </div>
+              <div className={`text-center ${visibleSections.has('company') ? 'animate-fade-in-up animate-delay-600' : ''}`}>
+                <p className="font-mono text-foreground/70 leading-relaxed">
+                  We manage over ¥100 million JPY across both internal and client portfolios, leveraging our AI system to ensure precise, adaptive financial strategies.
+                </p>
+              </div>
+              <div className={`text-center ${visibleSections.has('company') ? 'animate-fade-in-up animate-delay-700' : ''}`}>
+                <h4 className="font-sentient text-primary mb-3">Office Address</h4>
+                <div className="font-mono text-sm text-foreground/70 space-y-1">
+                  <p>Daiya Gate 5F, Minami-Ikebukuro 1-16-15</p>
+                  <p>Toshima City, Tokyo 171-0022, Japan</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
         {/* CTA Section */}
         <div className="text-center" ref={el => sectionRefs.current.cta = el}>
           <h3 className={`text-3xl font-sentient mb-6 ${visibleSections.has('cta') ? 'animate-fade-in-up' : ''}`}>Ready to Transform Your Financial Operations?</h3>
           <p className={`font-mono text-foreground/70 mb-8 max-w-2xl mx-auto ${visibleSections.has('cta') ? 'animate-fade-in-up animate-delay-200' : ''}`}>
-            Discover how our AI-driven solutions can optimize your trading strategies and risk management processes.
+            Discover how our AI-powered solutions can optimize your trading strategies and risk management processes.
           </p>
           <Button
             className={`mx-auto hover-lift ${visibleSections.has('cta') ? 'animate-fade-in-up animate-delay-400' : ''}`}
@@ -239,6 +256,7 @@ export function About() {
             [Contact Our Team]
           </Button>
         </div>
+        </section>
       </div>
     </div>
   );

@@ -141,15 +141,15 @@ export function Contact() {
     <div className="min-h-screen relative">
       <GL hovering={hovering} />
 
-      <div className="relative z-10">
+      <div className="relative z-10 container mx-auto py-24 px-6">
         <section id="contact" className="py-20 md:py-32">
-          <div className="container">
+          <div>
             {/* Header */}
             <div className="text-center mb-16" ref={el => sectionRefs.current.header = el}>
               <h2 className={`text-4xl md:text-5xl lg:text-6xl font-sentient mb-6 ${isLoaded ? 'animate-fade-in-up' : ''}`}>
                 Get in <i className="font-light">Touch</i>
               </h2>
-              <p className={`font-mono text-foreground/60 text-lg max-w-2xl mx-auto ${isLoaded ? 'animate-fade-in-up animate-delay-200' : ''}`}>
+              <p className={`font-mono text-foreground/60 text-lg max-w-2xl mx-auto ${isLoaded ? 'animate-fade-in-up animate-delay-400' : ''}`}>
                 Ready to revolutionize your trading strategies with AI?
                 Let's discuss how SAIL Lab can drive your financial innovation forward
               </p>

@@ -833,7 +833,7 @@ export default function Dashboard() {
                       <Badge>New</Badge>
                     </div>
                     <p className="text-sm text-muted-foreground">
-                      Comprehensive analysis of tech sector performance with AI-driven predictions for Q4
+                      Comprehensive analysis of tech sector performance with AI-powered predictions for Q4
                     </p>
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-muted-foreground">Generated 1 hour ago</span>

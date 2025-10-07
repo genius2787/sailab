@@ -40,6 +40,9 @@ export class SimulationMaterial extends THREE.ShaderMaterial {
       uniform float uNoiseIntensity;
       uniform float uTimeScale;
       uniform float uLoopPeriod;
+      uniform vec3 uMousePos;
+      uniform float uMouseInfluence;
+      uniform float uMouseRadius;
       varying vec2 vUv;
 
       ${periodicNoiseGLSL}
@@ -47,23 +50,42 @@ export class SimulationMaterial extends THREE.ShaderMaterial {
       void main() {
         // Get the original particle position
         vec3 originalPos = texture2D(positions, vUv).rgb;
-        
+
         // Use continuous time that naturally loops through sine/cosine periodicity
         float continuousTime = uTime * uTimeScale * (6.28318530718 / uLoopPeriod);
         // float continuousTime = 0.0;
-        
+
         // Scale position for noise input
         vec3 noiseInput = originalPos * uNoiseScale;
-        
+
         // Generate periodic displacement for each axis using different phase offsets
         float displacementX = periodicNoise(noiseInput + vec3(0.0, 0.0, 0.0), continuousTime);
         float displacementY = periodicNoise(noiseInput + vec3(50.0, 0.0, 0.0), continuousTime + 2.094); // +120°
         float displacementZ = periodicNoise(noiseInput + vec3(0.0, 50.0, 0.0), continuousTime + 4.188); // +240°
-        
+
         // Apply distortion to original position
         vec3 distortion = vec3(displacementX, displacementY, displacementZ) * uNoiseIntensity;
-        vec3 finalPos = originalPos + distortion;
-        
+        vec3 basePos = originalPos + distortion;
+
+        // Mouse dispersion effect
+        vec3 mouseDispersion = vec3(0.0);
+        float mouseDistance = length(basePos - uMousePos);
+
+        // Only apply dispersion if mouse is close and influence is active
+        if (mouseDistance < uMouseRadius && uMouseInfluence > 0.0 && mouseDistance > 0.01) {
+          // Calculate direction away from mouse
+          vec3 direction = normalize(basePos - uMousePos);
+
+          // Use more aggressive falloff to limit range
+          float falloff = 1.0 - smoothstep(0.0, uMouseRadius, mouseDistance);
+          falloff = falloff * falloff * falloff; // Cubic falloff for tighter control
+
+          // Apply dispersion force with tighter control
+          mouseDispersion = direction * falloff * uMouseInfluence;
+        }
+
+        vec3 finalPos = basePos + mouseDispersion;
+
         gl_FragColor = vec4(finalPos, 1.0);
       }`,
       uniforms: {
@@ -72,7 +94,10 @@ export class SimulationMaterial extends THREE.ShaderMaterial {
         uNoiseScale: { value: 1.0 },
         uNoiseIntensity: { value: 0.5 },
         uTimeScale: { value: 1 },
-        uLoopPeriod: { value: 24.0 }
+        uLoopPeriod: { value: 24.0 },
+        uMousePos: { value: new THREE.Vector3(0, 0, 0) },
+        uMouseInfluence: { value: 0.5 },
+        uMouseRadius: { value: 2.0 }
       }
     })
   }

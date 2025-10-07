@@ -121,15 +121,15 @@ export function Portfolio() {
       <GL hovering={hovering} />
 
       <div className="relative z-10 container mx-auto py-24 px-6">
-        {/* Header Section */}
-        <div className="text-center mb-16" ref={el => sectionRefs.current.header = el}>
-          <Pill className={`mb-6 ${isLoaded ? 'animate-fade-in-up' : ''}`}>AI FINANCIAL SOLUTIONS</Pill>
-          <h1 className={`text-5xl sm:text-6xl md:text-7xl font-sentient mb-8 ${isLoaded ? 'animate-fade-in-up animate-delay-200' : ''}`}>
+        <section className="py-20 md:py-32">
+          {/* Header Section */}
+          <div className="text-center mb-16" ref={el => sectionRefs.current.header = el}>
+          <h2 className={`text-4xl md:text-5xl lg:text-6xl font-sentient mb-6 ${isLoaded ? 'animate-fade-in-up' : ''}`}>
             Our <br />
             <i className="font-light">Portfolio</i>
-          </h1>
-          <p className={`font-mono text-lg text-foreground/80 text-balance max-w-3xl mx-auto leading-relaxed ${isLoaded ? 'animate-fade-in-up animate-delay-400' : ''}`}>
-            Comprehensive AI-driven solutions transforming financial services through innovation, automation, and intelligent decision-making
+          </h2>
+          <p className={`font-mono text-foreground/60 text-lg max-w-2xl mx-auto ${isLoaded ? 'animate-fade-in-up animate-delay-400' : ''}`}>
+            Comprehensive AI-powered solutions transforming financial services through innovation, automation, and intelligent decision-making
           </p>
         </div>
 
@@ -282,6 +282,7 @@ export function Portfolio() {
             </Button>
           </div>
         </div>
+        </section>
       </div>
     </div>
   );

@@ -21,6 +21,9 @@ export function Particles({
   useManualTime = false,
   manualTime = 0,
   introspect = false,
+  mousePos = new THREE.Vector3(0, 0, 0),
+  mouseInfluence = 0.5,
+  mouseRadius = 2.0,
   ...props
 }: {
   speed: number;
@@ -37,6 +40,9 @@ export function Particles({
   useManualTime?: boolean;
   manualTime?: number;
   introspect?: boolean;
+  mousePos?: THREE.Vector3;
+  mouseInfluence?: number;
+  mouseRadius?: number;
 }) {
   // Reveal animation state
   const revealStartTime = useRef<number | null>(null);
@@ -136,6 +142,9 @@ export function Particles({
     simulationMaterial.uniforms.uNoiseScale.value = noiseScale;
     simulationMaterial.uniforms.uNoiseIntensity.value = noiseIntensity;
     simulationMaterial.uniforms.uTimeScale.value = timeScale * speed;
+    simulationMaterial.uniforms.uMousePos.value = mousePos;
+    simulationMaterial.uniforms.uMouseInfluence.value = mouseInfluence;
+    simulationMaterial.uniforms.uMouseRadius.value = mouseRadius;
 
     // Update point material uniforms
     dofPointsMaterial.uniforms.uPointSize.value = pointSize;
