@@ -6,9 +6,12 @@ import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { GL } from "./gl";
 import { Pill } from "./pill";
+import Link from "next/link";
+import { Eye, MessageCircle, Heart } from "lucide-react";
 
 interface BlogPost {
   id: string;
+  slug: string;
   title: string;
   excerpt: string;
   category: string;
@@ -17,63 +20,90 @@ interface BlogPost {
   author: string;
   featured?: boolean;
   image?: string;
+  views?: number;
+  comments?: number;
+  likes?: number;
 }
 
 const blogPosts: BlogPost[] = [
   {
     id: "1",
+    slug: "future-ai-quantitative-finance",
     title: "The Future of AI in Quantitative Finance",
     excerpt: "Exploring how artificial intelligence is revolutionizing quantitative trading strategies and risk management in modern financial markets.",
     category: "AI & Finance",
     readTime: "5 min read",
     date: "2024-10-01",
     author: "Joe Wang",
-    featured: true
+    featured: true,
+    views: 14,
+    comments: 0,
+    likes: 1
   },
   {
     id: "2",
+    slug: "neural-network-trading-algorithms",
     title: "Building Robust Trading Algorithms with Neural Networks",
     excerpt: "A deep dive into implementing neural network architectures for high-frequency trading and market prediction systems.",
     category: "Machine Learning",
     readTime: "8 min read",
     date: "2024-09-28",
-    author: "Evy Yang"
+    author: "Evy Yang",
+    views: 2,
+    comments: 0,
+    likes: 0
   },
   {
     id: "3",
+    slug: "regulatory-compliance-ai-trading",
     title: "Regulatory Compliance in AI Trading Systems",
     excerpt: "Understanding the legal landscape and compliance requirements for deploying AI-powered trading solutions in regulated markets.",
     category: "Compliance",
     readTime: "6 min read",
     date: "2024-09-25",
-    author: "Jayne Yu"
+    author: "Jayne Yu",
+    views: 8,
+    comments: 0,
+    likes: 0
   },
   {
     id: "4",
+    slug: "market-microstructure-algorithmic-trading",
     title: "Market Microstructure and Algorithmic Trading",
     excerpt: "Analyzing market microstructure patterns and their impact on algorithmic trading strategy performance and execution quality.",
     category: "Trading Strategy",
     readTime: "10 min read",
     date: "2024-09-20",
-    author: "Joe Wang"
+    author: "Joe Wang",
+    views: 23,
+    comments: 2,
+    likes: 3
   },
   {
     id: "5",
+    slug: "risk-management-ai-portfolios",
     title: "Risk Management in AI-Driven Portfolios",
     excerpt: "Advanced techniques for measuring and managing risks in portfolios managed by artificial intelligence systems.",
     category: "Risk Management",
     readTime: "7 min read",
     date: "2024-09-15",
-    author: "Evy Yang"
+    author: "Evy Yang",
+    views: 17,
+    comments: 1,
+    likes: 2
   },
   {
     id: "6",
+    slug: "ethics-ai-financial-decision-making",
     title: "The Ethics of AI in Financial Decision Making",
     excerpt: "Examining the ethical implications and considerations when deploying AI systems for financial decision making and trading.",
     category: "Ethics & AI",
     readTime: "9 min read",
     date: "2024-09-10",
-    author: "Jayne Yu"
+    author: "Jayne Yu",
+    views: 31,
+    comments: 4,
+    likes: 7
   }
 ];
 
@@ -168,47 +198,64 @@ export function Blog() {
             {blogPosts
               .filter(post => post.featured)
               .map((post) => (
-                <Card
-                  key={post.id}
-                  className={`border-primary/20 bg-background/50 backdrop-blur-sm hover:border-primary/40 hover-lift transition-all duration-300 cursor-pointer ${visibleSections.has('featured') ? 'animate-scale-in' : ''}`}
-                  onMouseEnter={() => setHoveredCard(post.id)}
-                  onMouseLeave={() => setHoveredCard(null)}
-                >
-                  <CardHeader className="pb-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
-                        Featured
-                      </Badge>
-                      <Badge variant="outline" className="font-mono text-xs">
-                        {post.category}
-                      </Badge>
-                    </div>
-                    <CardTitle className={`text-2xl md:text-3xl font-sentient leading-tight hover:text-primary transition-colors duration-300 ${visibleSections.has('featured') ? 'animate-fade-in-up animate-delay-400' : ''}`}>
-                      {post.title}
-                    </CardTitle>
-                    <CardDescription className="text-base leading-relaxed">
-                      {post.excerpt}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center justify-between text-sm font-mono text-foreground/60">
-                      <div className="flex items-center gap-4">
-                        <span>{post.author}</span>
-                        <span>{formatDate(post.date)}</span>
+                <Link key={post.id} href={`/blog/${post.slug}`}>
+                  <Card
+                    className={`border-primary/20 bg-background/50 backdrop-blur-sm hover:border-primary/40 hover-lift transition-all duration-300 cursor-pointer ${visibleSections.has('featured') ? 'animate-scale-in' : ''}`}
+                    onMouseEnter={() => setHoveredCard(post.id)}
+                    onMouseLeave={() => setHoveredCard(null)}
+                  >
+                    <CardHeader className="pb-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
+                          Featured
+                        </Badge>
+                        <Badge variant="outline" className="font-mono text-xs">
+                          {post.category}
+                        </Badge>
                       </div>
-                      <span>{post.readTime}</span>
-                    </div>
-                    <Button
-                      variant="default"
-                      size="sm"
-                      className={`mt-6 transition-all duration-300 ${
-                        hoveredCard === post.id ? "translate-x-2" : ""
-                      }`}
-                    >
-                      Read Article
-                    </Button>
-                  </CardContent>
-                </Card>
+                      <CardTitle className={`text-2xl md:text-3xl font-sentient leading-tight hover:text-primary transition-colors duration-300 ${visibleSections.has('featured') ? 'animate-fade-in-up animate-delay-400' : ''}`}>
+                        {post.title}
+                      </CardTitle>
+                      <CardDescription className="text-base leading-relaxed">
+                        {post.excerpt}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex items-center justify-between text-sm font-mono text-foreground/60 mb-4">
+                        <div className="flex items-center gap-4">
+                          <span>{post.author}</span>
+                          <span>{formatDate(post.date)}</span>
+                        </div>
+                        <span>{post.readTime}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4 text-sm font-mono text-foreground/60">
+                          <div className="flex items-center gap-1">
+                            <Eye className="w-3 h-3" />
+                            <span>{post.views || 0}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <MessageCircle className="w-3 h-3" />
+                            <span>{post.comments || 0}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Heart className="w-3 h-3" />
+                            <span>{post.likes || 0}</span>
+                          </div>
+                        </div>
+                        <Button
+                          variant="default"
+                          size="sm"
+                          className={`transition-all duration-300 ${
+                            hoveredCard === post.id ? "translate-x-2" : ""
+                          }`}
+                        >
+                          Read Article
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
               ))}
           </div>
         )}
@@ -218,43 +265,60 @@ export function Blog() {
           {filteredPosts
             .filter(post => selectedCategory === "All" ? !post.featured : true)
             .map((post, index) => (
-              <Card
-                key={post.id}
-                className={`border-border/40 bg-background/30 backdrop-blur-sm hover:border-primary/40 hover:bg-background/50 hover-lift transition-all duration-300 cursor-pointer group ${visibleSections.has('posts') ? 'animate-fade-in-up' : ''}`}
-                style={{animationDelay: visibleSections.has('posts') ? `${index * 0.1}s` : '0s'}}
-                onMouseEnter={() => setHoveredCard(post.id)}
-                onMouseLeave={() => setHoveredCard(null)}
-              >
-                <CardHeader className="pb-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <Badge variant="outline" className="font-mono text-xs">
-                      {post.category}
-                    </Badge>
-                    <span className="text-xs font-mono text-foreground/40">
-                      {post.readTime}
-                    </span>
-                  </div>
-                  <CardTitle className="text-xl font-sentient leading-tight group-hover:text-primary transition-colors duration-300">
-                    {post.title}
-                  </CardTitle>
-                  <CardDescription className="leading-relaxed">
-                    {post.excerpt}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center justify-between text-sm font-mono text-foreground/60 mb-4">
-                    <span>{post.author}</span>
-                    <span>{formatDate(post.date)}</span>
-                  </div>
-                  <div className={`transition-all duration-300 ${
-                    hoveredCard === post.id ? "translate-x-2" : ""
-                  }`}>
-                    <span className="text-primary font-mono text-sm uppercase hover:text-primary/80 transition-colors duration-150">
-                      Read Article →
-                    </span>
-                  </div>
-                </CardContent>
-              </Card>
+              <Link key={post.id} href={`/blog/${post.slug}`}>
+                <Card
+                  className={`border-border/40 bg-background/30 backdrop-blur-sm hover:border-primary/40 hover:bg-background/50 hover-lift transition-all duration-300 cursor-pointer group ${visibleSections.has('posts') ? 'animate-fade-in-up' : ''}`}
+                  style={{animationDelay: visibleSections.has('posts') ? `${index * 0.1}s` : '0s'}}
+                  onMouseEnter={() => setHoveredCard(post.id)}
+                  onMouseLeave={() => setHoveredCard(null)}
+                >
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <Badge variant="outline" className="font-mono text-xs">
+                        {post.category}
+                      </Badge>
+                      <span className="text-xs font-mono text-foreground/40">
+                        {post.readTime}
+                      </span>
+                    </div>
+                    <CardTitle className="text-xl font-sentient leading-tight group-hover:text-primary transition-colors duration-300">
+                      {post.title}
+                    </CardTitle>
+                    <CardDescription className="leading-relaxed">
+                      {post.excerpt}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center justify-between text-sm font-mono text-foreground/60 mb-4">
+                      <span>{post.author}</span>
+                      <span>{formatDate(post.date)}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3 text-xs font-mono text-foreground/50">
+                        <div className="flex items-center gap-1">
+                          <Eye className="w-3 h-3" />
+                          <span>{post.views || 0}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <MessageCircle className="w-3 h-3" />
+                          <span>{post.comments || 0}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Heart className="w-3 h-3" />
+                          <span>{post.likes || 0}</span>
+                        </div>
+                      </div>
+                      <div className={`transition-all duration-300 ${
+                        hoveredCard === post.id ? "translate-x-2" : ""
+                      }`}>
+                        <span className="text-primary font-mono text-sm uppercase hover:text-primary/80 transition-colors duration-150">
+                          Read Article →
+                        </span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
         </div>
 
