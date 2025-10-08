@@ -7,6 +7,7 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Badge } from "./ui/badge";
 import { GL } from "./gl";
+import { useLanguage } from "@/contexts/language-context";
 
 interface ContactFormData {
   name: string;
@@ -32,7 +33,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Joe Wang",
-    title: "CTO",
+    title: "Founder & CTO",
     expertise: "Waseda University PhD, 15+ years AI research, 12 years investment experience",
     email: "joe@saillab.ai"
   },
@@ -45,6 +46,7 @@ const teamMembers: TeamMember[] = [
 ];
 
 export function Contact() {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
@@ -57,9 +59,9 @@ export function Contact() {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const [hovering, setHovering] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [visibleSections, setVisibleSections] = useState(new Set());
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
   const [focusedField, setFocusedField] = useState<string | null>(null);
-  const sectionRefs = useRef({});
+  const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   useEffect(() => {
     // Trigger initial animations
@@ -93,14 +95,14 @@ export function Contact() {
   const validateForm = (): boolean => {
     const newErrors: Partial<ContactFormData> = {};
 
-    if (!formData.name.trim()) newErrors.name = "Name is required";
+    if (!formData.name.trim()) newErrors.name = t('contact.nameRequired');
     if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
+      newErrors.email = t('contact.emailRequired');
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
+      newErrors.email = t('contact.emailInvalid');
     }
-    if (!formData.subject.trim()) newErrors.subject = "Subject is required";
-    if (!formData.message.trim()) newErrors.message = "Message is required";
+    if (!formData.subject.trim()) newErrors.subject = t('contact.subjectRequired');
+    if (!formData.message.trim()) newErrors.message = t('contact.messageRequired');
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -127,7 +129,7 @@ export function Contact() {
     setIsSubmitting(false);
 
     // In a real application, you would handle the success/error states
-    alert("Thank you for your message! We'll get back to you soon.");
+    alert(t('contact.successMessage'));
   };
 
   const handleInputChange = (field: keyof ContactFormData, value: string) => {
@@ -141,27 +143,26 @@ export function Contact() {
     <div className="min-h-screen relative">
       <GL hovering={hovering} />
 
-      <div className="relative z-10 container mx-auto py-24 px-6">
+      <div className="relative z-10 container mx-auto pt-40 pb-24 px-6">
         <section id="contact" className="py-20 md:py-32">
           <div>
             {/* Header */}
-            <div className="text-center mb-16" ref={el => sectionRefs.current.header = el}>
-              <h2 className={`text-4xl md:text-5xl lg:text-6xl font-sentient mb-6 ${isLoaded ? 'animate-fade-in-up' : ''}`}>
-                Get in <i className="font-light">Touch</i>
+            <div className="text-center mb-16" ref={(el) => { sectionRefs.current.header = el; }}>
+              <h2 className={`text-4xl md:text-5xl lg:text-6xl font-mono mb-6 ${isLoaded ? 'animate-fade-in-up' : ''}`}>
+                {t('contact.title')}
               </h2>
               <p className={`font-mono text-foreground/60 text-lg max-w-2xl mx-auto ${isLoaded ? 'animate-fade-in-up animate-delay-400' : ''}`}>
-                Ready to revolutionize your trading strategies with AI?
-                Let's discuss how SAIL Lab can drive your financial innovation forward
+                {t('contact.subtitle')}
               </p>
             </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {/* Contact Form */}
-          <Card className={`border-border/40 bg-background/30 backdrop-blur-sm hover-lift ${isLoaded ? 'animate-slide-in-left animate-delay-400' : ''}`} ref={el => sectionRefs.current.form = el}>
+          <Card className={`border-border/40 bg-background/30 backdrop-blur-sm hover-lift ${isLoaded ? 'animate-slide-in-left animate-delay-400' : ''}`} ref={(el) => { sectionRefs.current.form = el; }}>
             <CardHeader>
-              <CardTitle className={`text-2xl font-sentient ${visibleSections.has('form') ? 'animate-fade-in-up animate-delay-200' : ''}`}>Send us a Message</CardTitle>
+              <CardTitle className={`text-2xl font-mono ${visibleSections.has('form') ? 'animate-fade-in-up animate-delay-200' : ''}`}>{t('contact.sendMessage')}</CardTitle>
               <CardDescription className={`${visibleSections.has('form') ? 'animate-fade-in-up animate-delay-300' : ''}`}>
-                We'd love to hear about your project and discuss how our AI solutions can help
+                {t('contact.formDescription')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -169,7 +170,7 @@ export function Contact() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-mono text-foreground/80 mb-2">
-                      Name *
+                      {t('contact.nameField')} *
                     </label>
                     <Input
                       type="text"
@@ -178,7 +179,7 @@ export function Contact() {
                       onFocus={() => setFocusedField("name")}
                       onBlur={() => setFocusedField(null)}
                       className={`${errors.name ? "border-red-500" : ""} transition-all duration-300 ${focusedField === "name" ? "ring-2 ring-primary/20 border-primary/50 scale-105" : ""}`}
-                      placeholder="Your full name"
+                      placeholder={t('contact.namePlaceholder')}
                     />
                     {errors.name && (
                       <p className="text-red-500 text-xs font-mono mt-1">{errors.name}</p>
@@ -186,7 +187,7 @@ export function Contact() {
                   </div>
                   <div>
                     <label className="block text-sm font-mono text-foreground/80 mb-2">
-                      Email *
+                      {t('contact.emailField')} *
                     </label>
                     <Input
                       type="email"
@@ -195,7 +196,7 @@ export function Contact() {
                       onFocus={() => setFocusedField("email")}
                       onBlur={() => setFocusedField(null)}
                       className={`${errors.email ? "border-red-500" : ""} transition-all duration-300 ${focusedField === "email" ? "ring-2 ring-primary/20 border-primary/50 scale-105" : ""}`}
-                      placeholder="your.email@company.com"
+                      placeholder={t('contact.emailPlaceholder')}
                     />
                     {errors.email && (
                       <p className="text-red-500 text-xs font-mono mt-1">{errors.email}</p>
@@ -205,7 +206,7 @@ export function Contact() {
 
                 <div>
                   <label className="block text-sm font-mono text-foreground/80 mb-2">
-                    Company
+                    {t('contact.companyField')}
                   </label>
                   <Input
                     type="text"
@@ -214,13 +215,13 @@ export function Contact() {
                     onFocus={() => setFocusedField("company")}
                     onBlur={() => setFocusedField(null)}
                     className={`transition-all duration-300 ${focusedField === "company" ? "ring-2 ring-primary/20 border-primary/50 scale-105" : ""}`}
-                    placeholder="Your company name"
+                    placeholder={t('contact.companyPlaceholder')}
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-mono text-foreground/80 mb-2">
-                    Subject *
+                    {t('contact.subjectField')} *
                   </label>
                   <Input
                     type="text"
@@ -229,7 +230,7 @@ export function Contact() {
                     onFocus={() => setFocusedField("subject")}
                     onBlur={() => setFocusedField(null)}
                     className={`${errors.subject ? "border-red-500" : ""} transition-all duration-300 ${focusedField === "subject" ? "ring-2 ring-primary/20 border-primary/50 scale-105" : ""}`}
-                    placeholder="What can we help you with?"
+                    placeholder={t('contact.subjectPlaceholder')}
                   />
                   {errors.subject && (
                     <p className="text-red-500 text-xs font-mono mt-1">{errors.subject}</p>
@@ -238,7 +239,7 @@ export function Contact() {
 
                 <div>
                   <label className="block text-sm font-mono text-foreground/80 mb-2">
-                    Message *
+                    {t('contact.messageField')} *
                   </label>
                   <Textarea
                     value={formData.message}
@@ -246,7 +247,7 @@ export function Contact() {
                     onFocus={() => setFocusedField("message")}
                     onBlur={() => setFocusedField(null)}
                     className={`min-h-32 ${errors.message ? "border-red-500" : ""} transition-all duration-300 ${focusedField === "message" ? "ring-2 ring-primary/20 border-primary/50 scale-105" : ""}`}
-                    placeholder="Tell us more about your project, goals, and how we can help..."
+                    placeholder={t('contact.messagePlaceholder')}
                   />
                   {errors.message && (
                     <p className="text-red-500 text-xs font-mono mt-1">{errors.message}</p>
@@ -260,25 +261,25 @@ export function Contact() {
                   onMouseEnter={() => setHovering(true)}
                   onMouseLeave={() => setHovering(false)}
                 >
-                  {isSubmitting ? "Sending..." : "Send Message"}
+                  {isSubmitting ? t('contact.sending') : t('contact.sendMessage')}
                 </Button>
               </form>
             </CardContent>
           </Card>
 
           {/* Contact Information */}
-          <div className="space-y-6" ref={el => sectionRefs.current.info = el}>
+          <div className="space-y-6" ref={(el) => { sectionRefs.current.info = el; }}>
             {/* Office Information */}
             <Card className={`border-border/40 bg-background/30 backdrop-blur-sm hover-lift ${isLoaded ? 'animate-slide-in-right animate-delay-500' : ''}`}>
               <CardHeader>
-                <CardTitle className={`text-xl font-sentient ${visibleSections.has('info') ? 'animate-fade-in-up animate-delay-200' : ''}`}>Tokyo Office</CardTitle>
-                <CardDescription className={`${visibleSections.has('info') ? 'animate-fade-in-up animate-delay-300' : ''}`}>Visit us at our headquarters</CardDescription>
+                <CardTitle className={`text-xl font-mono ${visibleSections.has('info') ? 'animate-fade-in-up animate-delay-200' : ''}`}>{t('contact.tokyoOffice')}</CardTitle>
+                <CardDescription className={`${visibleSections.has('info') ? 'animate-fade-in-up animate-delay-300' : ''}`}>{t('contact.officeDescription')}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-start gap-3">
                   <div className="text-primary mt-1">📍</div>
                   <div>
-                    <p className="font-mono text-sm text-foreground/80">Location</p>
+                    <p className="font-mono text-sm text-foreground/80">{t('contact.location')}</p>
                     <p className="text-foreground">Daiya Gate 5F, Minami-Ikebukuro 1-16-15</p>
                     <p className="text-foreground">Tokyo, Japan</p>
                   </div>
@@ -287,7 +288,7 @@ export function Contact() {
                 <div className="flex items-start gap-3">
                   <div className="text-primary mt-1">✉️</div>
                   <div>
-                    <p className="font-mono text-sm text-foreground/80">Email</p>
+                    <p className="font-mono text-sm text-foreground/80">{t('contact.email')}</p>
                     <a
                       href="mailto:wasedajoe@gmail.com"
                       className="text-primary hover:text-primary/80 transition-colors duration-150"
@@ -300,7 +301,7 @@ export function Contact() {
                 <div className="flex items-start gap-3">
                   <div className="text-primary mt-1">📞</div>
                   <div>
-                    <p className="font-mono text-sm text-foreground/80">Phone</p>
+                    <p className="font-mono text-sm text-foreground/80">{t('contact.phone')}</p>
                     <a
                       href="tel:+81359856245"
                       className="text-primary hover:text-primary/80 transition-colors duration-150"
@@ -313,17 +314,17 @@ export function Contact() {
                 <div className="flex items-start gap-3">
                   <div className="text-primary mt-1">🕒</div>
                   <div>
-                    <p className="font-mono text-sm text-foreground/80">Business Hours</p>
-                    <p className="text-foreground">Monday - Friday</p>
-                    <p className="text-foreground/60">9:00 AM - 6:00 PM JST</p>
+                    <p className="font-mono text-sm text-foreground/80">{t('contact.businessHours')}</p>
+                    <p className="text-foreground">{t('contact.businessDays')}</p>
+                    <p className="text-foreground/60">{t('contact.businessTime')}</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             {/* Team Members */}
-            <div ref={el => sectionRefs.current.team = el}>
-              <h3 className={`text-xl font-sentient mb-6 ${visibleSections.has('team') ? 'animate-fade-in-up' : ''}`}>Meet Our Leadership Team</h3>
+            <div ref={(el) => { sectionRefs.current.team = el; }}>
+              <h3 className={`text-xl font-mono mb-6 ${visibleSections.has('team') ? 'animate-fade-in-up' : ''}`}>{t('contact.meetTeam')}</h3>
               <div className="space-y-4">
                 {teamMembers.map((member, index) => (
                   <Card
@@ -343,7 +344,7 @@ export function Contact() {
                           />
                         </div>
                         <div className="flex-1">
-                          <h4 className="font-sentient text-lg group-hover:text-primary transition-colors">{member.name}</h4>
+                          <h4 className="font-mono text-lg group-hover:text-primary transition-colors">{member.name}</h4>
                           <div className="flex items-center gap-2 mt-1">
                             <Badge variant="outline" className="font-mono text-xs group-hover:border-primary/50 group-hover:text-primary transition-colors">
                               {member.title}
@@ -355,10 +356,12 @@ export function Contact() {
                           hoveredCard === member.name ? "translate-x-2" : ""
                         }`}>
                           <a
-                            href={`mailto:${member.email}`}
+                            href={member.name === "Joe Wang" ? "https://www.linkedin.com/in/wang1946may7" : `mailto:${member.email}`}
                             className="text-primary hover:text-primary/80 transition-colors duration-150 font-mono text-sm"
+                            target={member.name === "Joe Wang" ? "_blank" : undefined}
+                            rel={member.name === "Joe Wang" ? "noopener noreferrer" : undefined}
                           >
-                            Contact →
+                            {t('contact.contactAction')} →
                           </a>
                         </div>
                       </div>
@@ -373,11 +376,10 @@ export function Contact() {
               <CardContent className="py-6">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="text-primary animate-bounce-subtle">⚡</div>
-                  <h4 className="font-sentient text-lg">Quick Response</h4>
+                  <h4 className="font-mono text-lg">{t('contact.quickResponse')}</h4>
                 </div>
                 <p className="text-sm text-foreground/80 leading-relaxed">
-                  We typically respond to inquiries within 24 hours during business days.
-                  For urgent matters, please call our office directly.
+                  {t('contact.responseInfo')}
                 </p>
               </CardContent>
             </Card>
@@ -385,9 +387,9 @@ export function Contact() {
         </div>
 
             {/* Additional Contact Options */}
-            <div className="mt-20 text-center" ref={el => sectionRefs.current.social = el}>
-              <h3 className={`text-2xl md:text-3xl font-sentient mb-8 ${visibleSections.has('social') ? 'animate-fade-in-up' : ''}`}>
-                Other Ways to <i className="font-light">Connect</i>
+            <div className="mt-20 text-center" ref={(el) => { sectionRefs.current.social = el; }}>
+              <h3 className={`text-2xl md:text-3xl font-mono mb-8 ${visibleSections.has('social') ? 'animate-fade-in-up' : ''}`}>
+                {t('contact.otherWays')}
               </h3>
               <div className="flex flex-wrap justify-center gap-6">
                 <a
@@ -397,7 +399,7 @@ export function Contact() {
                   onMouseLeave={() => setHovering(false)}
                 >
                   <span>💼</span>
-                  <span className="font-mono text-sm">LinkedIn</span>
+                  <span className="font-mono text-sm">{t('contact.linkedin')}</span>
                 </a>
                 <a
                   href="https://github.com/sail-lab"
@@ -406,7 +408,7 @@ export function Contact() {
                   onMouseLeave={() => setHovering(false)}
                 >
                   <span>🐙</span>
-                  <span className="font-mono text-sm">GitHub</span>
+                  <span className="font-mono text-sm">{t('contact.github')}</span>
                 </a>
                 <a
                   href="https://twitter.com/sail_lab"
@@ -415,7 +417,7 @@ export function Contact() {
                   onMouseLeave={() => setHovering(false)}
                 >
                   <span>🐦</span>
-                  <span className="font-mono text-sm">Twitter</span>
+                  <span className="font-mono text-sm">{t('contact.twitter')}</span>
                 </a>
               </div>
             </div>

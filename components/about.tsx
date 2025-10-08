@@ -6,12 +6,14 @@ import { Pill } from "./pill";
 import { Button } from "./ui/button";
 import { GL } from "./gl";
 import { useState, useEffect, useRef } from "react";
+import { useLanguage } from "@/contexts/language-context";
 
 export function About() {
+  const { t } = useLanguage();
   const [hovering, setHovering] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [visibleSections, setVisibleSections] = useState(new Set());
-  const sectionRefs = useRef({});
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
+  const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   useEffect(() => {
     // Trigger initial animations
@@ -44,34 +46,34 @@ export function About() {
 
   const teamHighlights = [
     {
-      area: "AI Governance",
-      description: "Regulatory compliance and ethical AI implementation",
-      expertise: "Risk Assessment, Compliance Automation"
+      area: t('about.aiGovernance'),
+      description: t('about.aiGovernanceDesc'),
+      expertise: t('about.aiGovernanceExpertise')
     },
     {
-      area: "AI Research",
-      description: "Advanced machine learning and quantitative modeling",
-      expertise: "Neural Networks, Deep Learning, Pattern Recognition"
+      area: t('about.aiResearch'),
+      description: t('about.aiResearchDesc'),
+      expertise: t('about.aiResearchExpertise')
     },
     {
-      area: "Trading Systems",
-      description: "High-frequency and algorithmic trading infrastructure",
-      expertise: "Market Making, Portfolio Optimization, Risk Management"
+      area: t('about.tradingSystems'),
+      description: t('about.tradingSystemsDesc'),
+      expertise: t('about.tradingSystemsExpertise')
     }
   ];
 
   const values = [
     {
-      title: "Innovation",
-      description: "Pioneering next-generation AI solutions for financial markets"
+      title: t('about.innovation'),
+      description: t('about.innovationDesc')
     },
     {
-      title: "Precision",
-      description: "Mathematical rigor and data-driven decision making"
+      title: t('about.precision'),
+      description: t('about.precisionDesc')
     },
     {
-      title: "Reliability",
-      description: "Enterprise-grade systems built for 24/7 market operations"
+      title: t('about.reliability'),
+      description: t('about.reliabilityDesc')
     }
   ];
 
@@ -79,42 +81,41 @@ export function About() {
     <div className="min-h-screen relative">
       <GL hovering={hovering} />
 
-      <div className="relative z-10 container mx-auto py-24 px-6">
+      <div className="relative z-10 container mx-auto pt-40 pb-24 px-6">
         <section className="py-20 md:py-32">
           {/* Header Section */}
-          <div className="text-center mb-16" ref={el => sectionRefs.current.header = el}>
-          <h2 className={`text-4xl md:text-5xl lg:text-6xl font-sentient mb-6 ${isLoaded ? 'animate-fade-in-up animate-delay-200' : ''}`}>
-            About <br />
-            <i className="font-light">SAIL Lab Co., Ltd.</i>
+          <div className="text-center mb-16" ref={(el) => { sectionRefs.current.header = el; }}>
+          <h2 className={`text-4xl md:text-5xl lg:text-6xl font-mono mb-6 ${isLoaded ? 'animate-fade-in-up animate-delay-200' : ''}`}>
+            {t('about.title')}
           </h2>
           <p className={`font-mono text-sm text-foreground/60 mb-4 ${isLoaded ? 'animate-fade-in-up animate-delay-300' : ''}`}>
             株式会社セール・ラボ
           </p>
           <p className={`font-mono text-foreground/60 text-lg max-w-2xl mx-auto ${isLoaded ? 'animate-fade-in-up animate-delay-400' : ''}`}>
-            At SAIL Laboratory, we pioneer the intersection of LLM Agent and financial investment, empowering individuals and organizations with cutting-edge tools for stock portfolio management.
+            {t('about.subtitle')}
           </p>
         </div>
 
         {/* Mission Section */}
-        <div className="mb-20" ref={el => sectionRefs.current.mission = el}>
+        <div className="mb-20" ref={(el) => { sectionRefs.current.mission = el; }}>
           <Card className={`max-w-4xl mx-auto bg-card/80 backdrop-blur-sm border-border/50 hover-lift ${visibleSections.has('mission') ? 'animate-scale-in' : ''}`}>
             <CardHeader className="text-center">
-              <CardTitle className={`text-3xl font-sentient ${visibleSections.has('mission') ? 'animate-fade-in-up animate-delay-200' : ''}`}>Our Mission</CardTitle>
+              <CardTitle className={`text-3xl font-mono ${visibleSections.has('mission') ? 'animate-fade-in-up animate-delay-200' : ''}`}>{t('about.mission')}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className={`text-xl font-mono text-foreground/90 text-center leading-relaxed mb-6 ${visibleSections.has('mission') ? 'animate-fade-in-up animate-delay-400' : ''}`}>
-                Our core mission is to empower individuals and organizations with cutting-edge tools for portfolio management, driven by our proprietary LLM-based multi-agent analysis engine.
+                {t('about.missionText1')}
               </p>
               <p className={`text-lg font-mono text-foreground/80 text-center leading-relaxed ${visibleSections.has('mission') ? 'animate-fade-in-up animate-delay-600' : ''}`}>
-                Developed by a team of AI researchers and financial experts, our technology continuously monitors and analyzes global markets, financial news, and institutional insights—offering dynamic, data-driven recommendations with human-level understanding.
+                {t('about.missionText2')}
               </p>
             </CardContent>
           </Card>
         </div>
 
         {/* Team Section */}
-        <div className="mb-20" ref={el => sectionRefs.current.team = el}>
-          <h2 className={`text-4xl font-sentient text-center mb-12 ${visibleSections.has('team') ? 'animate-fade-in-up' : ''}`}>Meet Our Team</h2>
+        <div className="mb-20" ref={(el) => { sectionRefs.current.team = el; }}>
+          <h2 className={`text-4xl font-mono text-center mb-12 ${visibleSections.has('team') ? 'animate-fade-in-up' : ''}`}>{t('about.team')}</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
             <Card className={`bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 hover-lift transition-all duration-300 group text-center ${visibleSections.has('team') ? 'animate-scale-in animate-delay-200' : ''}`}>
               <CardHeader className="pb-4">
@@ -132,8 +133,18 @@ export function About() {
                   CEO
                 </Badge>
                 <CardDescription className="font-mono text-foreground/70">
-                  Keio University Law School JD. AI Governance & Legal Affairs specialist leading regulatory compliance and ethical AI implementation
+                  {t('about.jayneDesc')}
                 </CardDescription>
+                <div className="mt-4">
+                  <a
+                    href="https://www.linkedin.com/in/jayne-yu-synovaw/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:text-primary/80 transition-colors duration-150 font-mono text-sm group-hover:translate-x-1 transition-transform duration-300 inline-block"
+                  >
+                    Connect on LinkedIn →
+                  </a>
+                </div>
               </CardHeader>
             </Card>
 
@@ -150,11 +161,21 @@ export function About() {
                   Joe Wang
                 </CardTitle>
                 <Badge variant="outline" className="w-fit mx-auto mb-2 border-primary/50 text-primary group-hover:bg-primary/10 transition-colors">
-                  CTO
+                  Founder & CTO
                 </Badge>
                 <CardDescription className="font-mono text-foreground/70">
-                  Waseda University PhD, 15+ years AI research, 12 years investment experience. AI Research specialist driving advanced machine learning and quantitative modeling
+                  {t('about.joeDesc')}
                 </CardDescription>
+                <div className="mt-4">
+                  <a
+                    href="https://www.linkedin.com/in/wang1946may7"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:text-primary/80 transition-colors duration-150 font-mono text-sm group-hover:translate-x-1 transition-transform duration-300 inline-block"
+                  >
+                    Connect on LinkedIn →
+                  </a>
+                </div>
               </CardHeader>
             </Card>
 
@@ -174,16 +195,26 @@ export function About() {
                   COO
                 </Badge>
                 <CardDescription className="font-mono text-foreground/70">
-                  University of Tokyo graduate, 5+ years trading experience. Trading systems expert specializing in high-frequency trading infrastructure
+                  {t('about.evyDesc')}
                 </CardDescription>
+                <div className="mt-4">
+                  <a
+                    href="https://www.linkedin.com/in/evy-yang-086b24375/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:text-primary/80 transition-colors duration-150 font-mono text-sm group-hover:translate-x-1 transition-transform duration-300 inline-block"
+                  >
+                    Connect on LinkedIn →
+                  </a>
+                </div>
               </CardHeader>
             </Card>
           </div>
         </div>
 
         {/* Team Highlights Section */}
-        <div className="mb-20" ref={el => sectionRefs.current.expertise = el}>
-          <h2 className={`text-4xl font-sentient text-center mb-12 ${visibleSections.has('expertise') ? 'animate-fade-in-up' : ''}`}>Team Expertise</h2>
+        <div className="mb-20" ref={(el) => { sectionRefs.current.expertise = el; }}>
+          <h2 className={`text-4xl font-mono text-center mb-12 ${visibleSections.has('expertise') ? 'animate-fade-in-up' : ''}`}>{t('about.teamExpertise')}</h2>
           <div className="grid lg:grid-cols-3 gap-8">
             {teamHighlights.map((team, index) => (
               <Card key={index} className={`bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 hover-lift transition-all duration-300 group ${visibleSections.has('expertise') ? 'animate-slide-in-left' : ''}`} style={{animationDelay: visibleSections.has('expertise') ? `${index * 0.1 + 0.2}s` : '0s'}}>
@@ -200,7 +231,7 @@ export function About() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
-                    <p className="text-sm font-mono text-foreground/60">Key Expertise:</p>
+                    <p className="text-sm font-mono text-foreground/60">{t('about.keyExpertise')}:</p>
                     <p className="font-mono text-sm text-foreground/80">{team.expertise}</p>
                   </div>
                 </CardContent>
@@ -210,29 +241,29 @@ export function About() {
         </div>
 
         {/* Company Information Section */}
-        <div className="mb-20" ref={el => sectionRefs.current.company = el}>
+        <div className="mb-20" ref={(el) => { sectionRefs.current.company = el; }}>
           <Card className={`max-w-4xl mx-auto bg-card/80 backdrop-blur-sm border-border/50 hover-lift ${visibleSections.has('company') ? 'animate-scale-in' : ''}`}>
             <CardHeader className="text-center">
-              <CardTitle className={`text-3xl font-sentient ${visibleSections.has('company') ? 'animate-fade-in-up animate-delay-200' : ''}`}>Company Information</CardTitle>
+              <CardTitle className={`text-3xl font-mono ${visibleSections.has('company') ? 'animate-fade-in-up animate-delay-200' : ''}`}>{t('about.companyInfo')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6 text-center md:text-left">
                 <div className={`${visibleSections.has('company') ? 'animate-fade-in-up animate-delay-400' : ''}`}>
-                  <h4 className="font-sentient text-primary mb-2">Company Capital</h4>
+                  <h4 className="font-sentient text-primary mb-2">{t('about.companyCapital')}</h4>
                   <p className="font-mono text-lg text-foreground/90">¥9.99 million JPY</p>
                 </div>
                 <div className={`${visibleSections.has('company') ? 'animate-fade-in-up animate-delay-500' : ''}`}>
-                  <h4 className="font-sentient text-primary mb-2">Assets Under Management</h4>
-                  <p className="font-mono text-lg text-foreground/90">Over ¥100 million JPY</p>
+                  <h4 className="font-sentient text-primary mb-2">{t('about.assetsUnderManagement')}</h4>
+                  <p className="font-mono text-lg text-foreground/90">{t('about.assetsAmount')}</p>
                 </div>
               </div>
               <div className={`text-center ${visibleSections.has('company') ? 'animate-fade-in-up animate-delay-600' : ''}`}>
                 <p className="font-mono text-foreground/70 leading-relaxed">
-                  We manage over ¥100 million JPY across both internal and client portfolios, leveraging our AI system to ensure precise, adaptive financial strategies.
+                  {t('about.assetsDescription')}
                 </p>
               </div>
               <div className={`text-center ${visibleSections.has('company') ? 'animate-fade-in-up animate-delay-700' : ''}`}>
-                <h4 className="font-sentient text-primary mb-3">Office Address</h4>
+                <h4 className="font-sentient text-primary mb-3">{t('about.officeAddress')}</h4>
                 <div className="font-mono text-sm text-foreground/70 space-y-1">
                   <p>Daiya Gate 5F, Minami-Ikebukuro 1-16-15</p>
                   <p>Toshima City, Tokyo 171-0022, Japan</p>
@@ -243,17 +274,17 @@ export function About() {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center" ref={el => sectionRefs.current.cta = el}>
-          <h3 className={`text-3xl font-sentient mb-6 ${visibleSections.has('cta') ? 'animate-fade-in-up' : ''}`}>Ready to Transform Your Financial Operations?</h3>
+        <div className="text-center" ref={(el) => { sectionRefs.current.cta = el; }}>
+          <h3 className={`text-3xl font-mono mb-6 ${visibleSections.has('cta') ? 'animate-fade-in-up' : ''}`}>{t('about.ctaTitle')}</h3>
           <p className={`font-mono text-foreground/70 mb-8 max-w-2xl mx-auto ${visibleSections.has('cta') ? 'animate-fade-in-up animate-delay-200' : ''}`}>
-            Discover how our AI-powered solutions can optimize your trading strategies and risk management processes.
+            {t('about.ctaDescription')}
           </p>
           <Button
             className={`mx-auto hover-lift ${visibleSections.has('cta') ? 'animate-fade-in-up animate-delay-400' : ''}`}
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}
           >
-            [Contact Our Team]
+            [{t('about.contactTeam')}]
           </Button>
         </div>
         </section>

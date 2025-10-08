@@ -1,7 +1,7 @@
 "use client";
 
 import { notFound } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { GL } from "@/components/gl";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -44,14 +44,16 @@ interface ExtendedBlogPost {
 const extendedBlogPosts: ExtendedBlogPost[] = [
   {
     id: "1",
-    slug: "future-ai-quantitative-finance",
-    title: "The Future of AI in Quantitative Finance",
-    excerpt: "Exploring how artificial intelligence is revolutionizing quantitative trading strategies and risk management in modern financial markets.",
+    slug: "sail-laboratory-official-launch-announcement",
+    title: "Sail Laboratory — Official Launch Announcement\n株式会社Sail Laboratory — 開業のお知らせ",
+    excerpt: "We are thrilled to announce that Sail Laboratory Co., Ltd. has officially opened its doors! From our headquarters in Tokyo, we embark on a mission to revolutionize AI-powered asset management with cutting-edge LLM Agents and advanced reinforcement learning.",
     content: `
-      <h2>Revolutionary AI Solutions for Quantitative Finance</h2>
+      <h2>Official Launch Announcement</h2>
       <p><em>Date: August 15, 2025<br/>Location: Tokyo, Japan</em></p>
 
-      <p>We are thrilled to announce that Sail Laboratory Co., Ltd. has officially opened its doors! From our headquarters in the heart of Tokyo (5F, Dia Gate Ikebukuro, 1-16-15 Minamiikebukuro, Toshima-ku, Tokyo 171-0022, Japan), we embark on a mission to revolutionize AI-powered asset management — combining cutting-edge Large Language Model (LLM) Agents, advanced reinforcement learning, and data-driven investment strategies to deliver smarter, faster, and more reliable financial decisions.</p>
+      <p>We are thrilled to announce that Sail Laboratory Co., Ltd. has officially opened its doors!</p>
+
+      <p>From our headquarters in the heart of Tokyo (5F, Dia Gate Ikebukuro, 1-16-15 Minamiikebukuro, Toshima-ku, Tokyo 171-0022, Japan), we embark on a mission to revolutionize AI-powered asset management — combining cutting-edge Large Language Model (LLM) Agents, advanced reinforcement learning, and data-driven investment strategies to deliver smarter, faster, and more reliable financial decisions.</p>
 
       <p>Our team blends world-class AI research with real-world market expertise, offering:</p>
 
@@ -62,35 +64,61 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
       </ul>
 
       <p>With an initial ¥50 million in assets under management, we are committed to creating sustainable value for our clients and partners while pushing the boundaries of what AI can achieve in finance.</p>
+
+      <p>We're just getting started — and the future looks exciting.</p>
+
+      <p>Stay tuned for insights, product updates, and opportunities to work with us.</p>
+
+      <hr style="margin: 3rem 0;"/>
+
+      <div style="margin-top: 2rem;">
+        <h2>株式会社Sail Laboratory — 開業のお知らせ</h2>
+      </div>
+
+      <p>このたび、株式会社Sail Laboratoryは東京本社(〒171-0022 東京都豊島区南池袋１丁目１６−１５ ダイヤゲート池袋 5F)にて正式に開業いたしました。</p>
+
+      <p>私たちは、最先端の大規模言語モデル（LLM）エージェント、高度な強化学習、そしてデータ駆動型の投資戦略を融合させ、よりスマートで迅速、信頼性の高い資産運用を実現します。</p>
+
+      <p>当社は、世界水準のAI研究力と実マーケットでの経験を兼ね備え、以下のサービスを提供します：</p>
+
+      <ul>
+        <li>長期的な価値投資戦略</li>
+        <li>次世代AIによるダイナミックなスイングトレード</li>
+        <li>カスタムAI分析ソリューション</li>
+      </ul>
+
+      <p>初期運用資産5,000万円からスタートし、クライアントやパートナーの皆様に持続的な価値を創造するとともに、金融分野におけるAIの可能性を切り拓いてまいります。</p>
+
+      <p>これは始まりに過ぎません。未来は、もっと面白くなります。</p>
+
+      <p>今後も、最新情報、プロダクトアップデート、協業の機会などを随時お知らせいたします。</p>
+
+      <p><strong>株式会社Sail Laboratory</strong><br/>
+      <em>Smarter Investing. Powered by AI.</em></p>
     `,
+    image: '/companny.png',
     media: [
       {
         type: 'image',
-        url: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=600&fit=crop',
-        alt: 'AI Trading Dashboard',
-        caption: 'Our AI-powered trading dashboard showing real-time market analysis'
-      },
-      {
-        type: 'youtube',
-        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-        alt: 'SAIL Lab Introduction Video',
-        caption: 'Introduction to SAIL Laboratory\'s AI trading technology'
+        url: '/companny.png',
+        alt: 'SAIL Laboratory Company',
+        caption: 'SAIL Laboratory - Official Launch Announcement'
       },
       {
         type: 'image',
-        url: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=800&h=600&fit=crop',
-        alt: 'Tokyo Office',
-        caption: 'SAIL Lab headquarters in Tokyo\'s Ikebukuro district'
+        url: '/building.jpg',
+        alt: 'SAIL Lab Tokyo Office Building',
+        caption: 'SAIL Lab headquarters located in this building in Tokyo\'s Ikebukuro district'
       }
     ],
-    category: "AI & Finance",
-    readTime: "5 min read",
-    date: "2024-10-01",
+    category: "Company News",
+    readTime: "2 min read",
+    date: "2025-08-15",
     author: "Joe Wang",
     featured: true,
-    views: 14,
-    comments: 0,
-    likes: 1
+    views: 324,
+    comments: 23,
+    likes: 47
   },
   {
     id: "2",
@@ -162,7 +190,6 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
 
 export default function BlogPostPage({ params }: { params: { slug: string } }) {
   const [hovering, setHovering] = useState(false);
-  const [likes, setLikes] = useState(0);
 
   // Find the blog post by slug
   const post = extendedBlogPosts.find(p => p.slug === params.slug);
@@ -171,10 +198,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     notFound();
   }
 
-  // Set initial likes from post data
-  useState(() => {
-    setLikes(post.likes);
-  });
+  const [likes, setLikes] = useState(post.likes);
 
   // Get recent posts (other posts)
   const recentPosts = extendedBlogPosts.filter(p => p.slug !== params.slug).slice(0, 3);
@@ -207,7 +231,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     <div className="min-h-screen relative">
       <GL hovering={hovering} />
 
-      <div className="relative z-10 container mx-auto py-24 px-6">
+      <div className="relative z-10 container mx-auto pt-32 pb-24 px-6">
         <div className="max-w-4xl mx-auto">
           {/* Article Header */}
           <div className="text-center mb-12">
@@ -224,8 +248,13 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               <span className="font-mono text-foreground/50">{post.readTime}</span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl font-sentient mb-6 leading-tight">
-              {post.title}
+            <h1 className="text-4xl md:text-5xl font-mono mb-6 leading-tight">
+              {post.title.split('\n').map((line, index) => (
+                <span key={index}>
+                  {line}
+                  {index < post.title.split('\n').length - 1 && <br />}
+                </span>
+              ))}
             </h1>
 
             <div className="flex items-center justify-center gap-2 mb-8">

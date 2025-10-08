@@ -8,7 +8,7 @@ import { useState, useEffect, useMemo } from "react";
 import * as THREE from "three";
 
 // Mouse tracking component that runs inside Canvas
-function MouseTracker({ onMouseUpdate }: { onMouseUpdate: (pos: THREE.Vector3) => void }) {
+function MouseTracker({ onMouseUpdate, planeScale }: { onMouseUpdate: (pos: THREE.Vector3) => void, planeScale: number }) {
   const { camera, size, viewport } = useThree();
 
   useEffect(() => {
@@ -19,19 +19,25 @@ function MouseTracker({ onMouseUpdate }: { onMouseUpdate: (pos: THREE.Vector3) =
 
       const rect = canvas.getBoundingClientRect();
 
-      // Convert screen coordinates to normalized device coordinates relative to canvas
-      const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-      const y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+      // Convert to normalized device coordinates relative to canvas
+      const ndcX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      const ndcY = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
-      // Convert to world coordinates that match particle space
-      // Particles are distributed in planeScale range (-10 to +10)
-      // Particles are on the XZ plane (Y=0), so mouse Y should control Z-axis
-      const planeScale = 10.0;
-      const worldX = x * planeScale;
-      const worldY = 0; // Particles are on XZ plane at Y=0
-      const worldZ = y * planeScale; // Mouse Y controls Z-axis (depth)
+      // Raycast from camera to intersect Y=0 plane (XZ plane)
+      const raycaster = new THREE.Raycaster();
+      raycaster.setFromCamera(new THREE.Vector2(ndcX, ndcY), camera);
+      const plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0); // y=0 plane
+      const intersection = new THREE.Vector3();
+      if (!raycaster.ray.intersectPlane(plane, intersection)) {
+        return;
+      }
 
-      const worldPos = new THREE.Vector3(worldX, worldY, worldZ);
+      // Clamp to particle plane bounds
+      intersection.x = Math.max(-planeScale, Math.min(planeScale, intersection.x));
+      intersection.z = Math.max(-planeScale, Math.min(planeScale, intersection.z));
+      intersection.y = 0;
+
+      const worldPos = intersection;
 
 
       onMouseUpdate(worldPos);
@@ -119,7 +125,7 @@ export const GL = ({ hovering }: { hovering: boolean }) => {
       >
         {/* <Perf position="top-left" /> */}
         <color attach="background" args={["#000"]} />
-        <MouseTracker onMouseUpdate={handleMouseUpdate} />
+        <MouseTracker onMouseUpdate={handleMouseUpdate} planeScale={planeScale} />
         <Particles
           speed={speed}
           aperture={aperture}
@@ -135,8 +141,8 @@ export const GL = ({ hovering }: { hovering: boolean }) => {
           manualTime={manualTime}
           introspect={hovering}
           mousePos={mousePos}
-          mouseInfluence={0.4}
-          mouseRadius={0.6}
+          mouseInfluence={1.2}
+          mouseRadius={1.0}
         />
         <Effects multisamping={0} disableGamma>
           <shaderPass

@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { GL } from "./gl";
+import { useLanguage } from "@/contexts/language-context";
 
 interface InsightArticle {
   id: string;
@@ -75,15 +76,29 @@ const insightArticles: InsightArticle[] = [
   }
 ];
 
+const getCategoryTranslationKey = (category: string) => {
+  const map: Record<string, string> = {
+    "All": "insights.categoryAll",
+    "AI Trading": "insights.categoryAI",
+    "Deep Learning": "insights.categoryDeep",
+    "AI Governance": "insights.categoryGovernance",
+    "NLP": "insights.categoryNLP",
+    "Risk Management": "insights.categoryRisk",
+    "Explainable AI": "insights.categoryExplainable"
+  };
+  return map[category] || category;
+};
+
 const categories = ["All", "AI Trading", "Deep Learning", "AI Governance", "NLP", "Risk Management", "Explainable AI"];
 
 export function Insights() {
+  const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const [hovering, setHovering] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [visibleSections, setVisibleSections] = useState(new Set());
-  const sectionRefs = useRef({});
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
+  const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   useEffect(() => {
     // Trigger initial animations
@@ -130,22 +145,21 @@ export function Insights() {
     <div className="min-h-screen relative">
       <GL hovering={hovering} />
 
-      <div className="relative z-10 container mx-auto py-24 px-6">
+      <div className="relative z-10 container mx-auto pt-40 pb-24 px-6">
         <section id="insights" className="py-20 md:py-32">
           <div>
             {/* Header */}
-            <div className="text-center mb-16" ref={el => sectionRefs.current.header = el}>
-              <h2 className={`text-4xl md:text-5xl lg:text-6xl font-sentient mb-6 ${isLoaded ? 'animate-fade-in-up' : ''}`}>
-                AI Trading <i className="font-light">Insights</i>
+            <div className="text-center mb-16" ref={(el) => { sectionRefs.current.header = el; }}>
+              <h2 className={`text-4xl md:text-5xl lg:text-6xl font-mono mb-6 ${isLoaded ? 'animate-fade-in-up' : ''}`}>
+                {t('insights.title')}
               </h2>
               <p className={`font-mono text-foreground/60 text-lg max-w-2xl mx-auto ${isLoaded ? 'animate-fade-in-up animate-delay-200' : ''}`}>
-                Thought leadership and cutting-edge research in artificial intelligence
-                applications for financial markets and quantitative trading
+                {t('insights.subtitle')}
               </p>
             </div>
 
         {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12" ref={el => sectionRefs.current.filters = el}>
+        <div className="flex flex-wrap justify-center gap-3 mb-12" ref={(el) => { sectionRefs.current.filters = el; }}>
           {categories.map((category, index) => (
             <button
               key={category}
@@ -156,14 +170,14 @@ export function Insights() {
               } ${isLoaded ? 'animate-fade-in-up' : ''}`}
               style={{animationDelay: isLoaded ? `${index * 0.05 + 0.4}s` : '0s'}}
             >
-              {category}
+              {t(getCategoryTranslationKey(category))}
             </button>
           ))}
         </div>
 
         {/* Featured Article */}
         {selectedCategory === "All" && (
-          <div className="mb-16" ref={el => sectionRefs.current.featured = el}>
+          <div className="mb-16" ref={(el) => { sectionRefs.current.featured = el; }}>
             {insightArticles
               .filter(article => article.featured)
               .map((article) => (
@@ -176,13 +190,13 @@ export function Insights() {
                   <CardHeader className="pb-4">
                     <div className="flex items-center gap-2 mb-2">
                       <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
-                        Featured
+                        {t('insights.featured')}
                       </Badge>
                       <Badge variant="outline" className="font-mono text-xs">
                         {article.category}
                       </Badge>
                     </div>
-                    <CardTitle className={`text-2xl md:text-3xl font-sentient leading-tight hover:text-primary transition-colors duration-300 ${visibleSections.has('featured') ? 'animate-fade-in-up animate-delay-400' : ''}`}>
+                    <CardTitle className={`text-2xl md:text-3xl font-mono leading-tight hover:text-primary transition-colors duration-300 ${visibleSections.has('featured') ? 'animate-fade-in-up animate-delay-400' : ''}`}>
                       {article.title}
                     </CardTitle>
                     <CardDescription className="text-base leading-relaxed">
@@ -204,7 +218,7 @@ export function Insights() {
                         hoveredCard === article.id ? "translate-x-2" : ""
                       }`}
                     >
-                      Read More
+                      {t('insights.readMore')}
                     </Button>
                   </CardContent>
                 </Card>
@@ -213,7 +227,7 @@ export function Insights() {
         )}
 
         {/* Articles Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" ref={el => sectionRefs.current.articles = el}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" ref={(el) => { sectionRefs.current.articles = el; }}>
           {filteredArticles
             .filter(article => selectedCategory === "All" ? !article.featured : true)
             .map((article, index) => (
@@ -233,7 +247,7 @@ export function Insights() {
                       {article.readTime}
                     </span>
                   </div>
-                  <CardTitle className="text-xl font-sentient leading-tight group-hover:text-primary transition-colors duration-300">
+                  <CardTitle className="text-xl font-mono leading-tight group-hover:text-primary transition-colors duration-300">
                     {article.title}
                   </CardTitle>
                   <CardDescription className="leading-relaxed">
@@ -249,7 +263,7 @@ export function Insights() {
                     hoveredCard === article.id ? "translate-x-2" : ""
                   }`}>
                     <span className="text-primary font-mono text-sm uppercase hover:text-primary/80 transition-colors duration-150">
-                      Read Article →
+                      {t('insights.readArticle')} →
                     </span>
                   </div>
                 </CardContent>
@@ -258,14 +272,13 @@ export function Insights() {
         </div>
 
             {/* CTA Section */}
-            <div className="text-center mt-20" ref={el => sectionRefs.current.cta = el}>
+            <div className="text-center mt-20" ref={(el) => { sectionRefs.current.cta = el; }}>
               <div className="max-w-2xl mx-auto">
-                <h3 className={`text-2xl md:text-3xl font-sentient mb-4 ${visibleSections.has('cta') ? 'animate-fade-in-up' : ''}`}>
-                  Stay Updated with Our <i className="font-light">Research</i>
+                <h3 className={`text-2xl md:text-3xl font-mono mb-4 ${visibleSections.has('cta') ? 'animate-fade-in-up' : ''}`}>
+                  {t('insights.stayUpdated')}
                 </h3>
                 <p className={`font-mono text-foreground/60 mb-8 ${visibleSections.has('cta') ? 'animate-fade-in-up animate-delay-200' : ''}`}>
-                  Subscribe to receive the latest insights in AI-powered trading strategies
-                  and financial technology innovations
+                  {t('insights.subscribeDesc')}
                 </p>
                 <Button
                   size="default"
@@ -273,7 +286,7 @@ export function Insights() {
                   onMouseEnter={() => setHovering(true)}
                   onMouseLeave={() => setHovering(false)}
                 >
-                  Subscribe to Newsletter
+                  {t('insights.subscribe')}
                 </Button>
               </div>
             </div>

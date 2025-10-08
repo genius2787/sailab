@@ -67,20 +67,17 @@ export class SimulationMaterial extends THREE.ShaderMaterial {
         vec3 distortion = vec3(displacementX, displacementY, displacementZ) * uNoiseIntensity;
         vec3 basePos = originalPos + distortion;
 
-        // Mouse dispersion effect
+        // Mouse dispersion effect (use XZ plane distance based on original position)
         vec3 mouseDispersion = vec3(0.0);
-        float mouseDistance = length(basePos - uMousePos);
+        vec2 posXZ = vec2(originalPos.x, originalPos.z);
+        vec2 mouseXZ = vec2(uMousePos.x, uMousePos.z);
+        float mouseDistance = length(posXZ - mouseXZ);
 
-        // Only apply dispersion if mouse is close and influence is active
         if (mouseDistance < uMouseRadius && uMouseInfluence > 0.0 && mouseDistance > 0.01) {
-          // Calculate direction away from mouse
-          vec3 direction = normalize(basePos - uMousePos);
-
-          // Use more aggressive falloff to limit range
+          vec2 dirXZ = normalize(posXZ - mouseXZ);
           float falloff = 1.0 - smoothstep(0.0, uMouseRadius, mouseDistance);
-          falloff = falloff * falloff * falloff; // Cubic falloff for tighter control
-
-          // Apply dispersion force with tighter control
+          falloff = falloff * falloff * falloff;
+          vec3 direction = vec3(dirXZ.x, 0.0, dirXZ.y);
           mouseDispersion = direction * falloff * uMouseInfluence;
         }
 

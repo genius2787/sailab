@@ -17,6 +17,7 @@ export const MobileMenu = ({ className }: MobileMenuProps) => {
     { name: "About", href: "/about" },
     { name: "Portfolio", href: "/portfolio" },
     { name: "Insights", href: "/insights" },
+    { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/contact" },
     { name: "Dashboard", href: "/dashboard" },
   ];
@@ -35,8 +36,8 @@ export const MobileMenu = ({ className }: MobileMenuProps) => {
           )}
           aria-label="Open menu"
         >
-          <Menu className="group-[[data-state=open]]:hidden" size={24} />
-          <X className="hidden group-[[data-state=open]]:block" size={24} />
+          <Menu className="group-[[data-state=open]]:hidden" size={28} />
+          <X className="hidden group-[[data-state=open]]:block" size={28} />
         </button>
       </Dialog.Trigger>
 

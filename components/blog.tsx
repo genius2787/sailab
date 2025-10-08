@@ -8,6 +8,7 @@ import { GL } from "./gl";
 import { Pill } from "./pill";
 import Link from "next/link";
 import { Eye, MessageCircle, Heart } from "lucide-react";
+import { useLanguage } from "@/contexts/language-context";
 
 interface BlogPost {
   id: string;
@@ -28,94 +29,108 @@ interface BlogPost {
 const blogPosts: BlogPost[] = [
   {
     id: "1",
-    slug: "future-ai-quantitative-finance",
-    title: "The Future of AI in Quantitative Finance",
-    excerpt: "Exploring how artificial intelligence is revolutionizing quantitative trading strategies and risk management in modern financial markets.",
-    category: "AI & Finance",
-    readTime: "5 min read",
-    date: "2024-10-01",
-    author: "Joe Wang",
+    slug: "sail-laboratory-official-launch-announcement",
+    title: "Sail Laboratory — Official Launch Announcement\n株式会社Sail Laboratory — 開業のお知らせ",
+    excerpt: "We are thrilled to announce that Sail Laboratory Co., Ltd. has officially opened its doors! From our headquarters in Tokyo, we embark on a mission to revolutionize AI-powered asset management with cutting-edge LLM Agents and advanced reinforcement learning.",
+    category: "Company News",
+    readTime: "2 min read",
+    date: "2025-08-15",
+    author: "Zhao WANG",
     featured: true,
-    views: 14,
-    comments: 0,
-    likes: 1
+    views: 324,
+    comments: 23,
+    likes: 47
   },
   {
     id: "2",
-    slug: "neural-network-trading-algorithms",
-    title: "Building Robust Trading Algorithms with Neural Networks",
-    excerpt: "A deep dive into implementing neural network architectures for high-frequency trading and market prediction systems.",
-    category: "Machine Learning",
-    readTime: "8 min read",
-    date: "2024-09-28",
-    author: "Evy Yang",
-    views: 2,
-    comments: 0,
-    likes: 0
+    slug: "regulatory-compliance-ai-trading",
+    title: "New AI Regulations Impact Financial Markets",
+    excerpt: "Recent regulatory updates from financial authorities worldwide are reshaping how AI systems can be deployed in trading and investment management.",
+    category: "Market News",
+    readTime: "4 min read",
+    date: "2024-10-05",
+    author: "Jayne Yu",
+    views: 89,
+    comments: 7,
+    likes: 15
   },
   {
     id: "3",
-    slug: "regulatory-compliance-ai-trading",
-    title: "Regulatory Compliance in AI Trading Systems",
-    excerpt: "Understanding the legal landscape and compliance requirements for deploying AI-powered trading solutions in regulated markets.",
-    category: "Compliance",
+    slug: "neural-network-trading-algorithms",
+    title: "Quantitative Trading Market Trends for 2024",
+    excerpt: "Analysis of current market trends in quantitative trading, including the rise of machine learning algorithms and their impact on market liquidity.",
+    category: "Market Analysis",
     readTime: "6 min read",
-    date: "2024-09-25",
-    author: "Jayne Yu",
-    views: 8,
-    comments: 0,
-    likes: 0
+    date: "2024-10-03",
+    author: "Evy Yang",
+    views: 124,
+    comments: 9,
+    likes: 22
   },
   {
     id: "4",
-    slug: "market-microstructure-algorithmic-trading",
-    title: "Market Microstructure and Algorithmic Trading",
-    excerpt: "Analyzing market microstructure patterns and their impact on algorithmic trading strategy performance and execution quality.",
-    category: "Trading Strategy",
-    readTime: "10 min read",
-    date: "2024-09-20",
+    slug: "future-ai-quantitative-finance",
+    title: "Breakthrough in AI-Powered Risk Management",
+    excerpt: "New research demonstrates how advanced AI systems can predict and mitigate financial risks with unprecedented accuracy in real-time trading environments.",
+    category: "Technology News",
+    readTime: "5 min read",
+    date: "2024-10-01",
     author: "Joe Wang",
-    views: 23,
-    comments: 2,
-    likes: 3
+    views: 203,
+    comments: 18,
+    likes: 35
   },
   {
     id: "5",
-    slug: "risk-management-ai-portfolios",
-    title: "Risk Management in AI-Driven Portfolios",
-    excerpt: "Advanced techniques for measuring and managing risks in portfolios managed by artificial intelligence systems.",
-    category: "Risk Management",
-    readTime: "7 min read",
-    date: "2024-09-15",
-    author: "Evy Yang",
-    views: 17,
-    comments: 1,
-    likes: 2
+    slug: "regulatory-compliance-ai-trading",
+    title: "New Guidelines for Ethical AI in Finance",
+    excerpt: "Financial institutions are adopting new ethical guidelines for AI deployment, focusing on transparency, fairness, and accountability in automated decision-making.",
+    category: "Industry News",
+    readTime: "4 min read",
+    date: "2024-09-29",
+    author: "Jayne Yu",
+    views: 97,
+    comments: 11,
+    likes: 19
   },
   {
     id: "6",
-    slug: "ethics-ai-financial-decision-making",
-    title: "The Ethics of AI in Financial Decision Making",
-    excerpt: "Examining the ethical implications and considerations when deploying AI systems for financial decision making and trading.",
-    category: "Ethics & AI",
-    readTime: "9 min read",
-    date: "2024-09-10",
-    author: "Jayne Yu",
-    views: 31,
-    comments: 4,
-    likes: 7
+    slug: "neural-network-trading-algorithms",
+    title: "Neural Networks Show Superior Trading Performance",
+    excerpt: "Latest research shows that neural network-based trading systems outperform traditional quantitative strategies by 15-20% in volatile market conditions.",
+    category: "Research News",
+    readTime: "7 min read",
+    date: "2024-09-27",
+    author: "Evy Yang",
+    views: 178,
+    comments: 14,
+    likes: 31
   }
 ];
 
-const categories = ["All", "AI & Finance", "Machine Learning", "Compliance", "Trading Strategy", "Risk Management", "Ethics & AI"];
+const getCategoryTranslationKey = (category: string) => {
+  const map: Record<string, string> = {
+    "All": "blog.categoryAll",
+    "Company News": "blog.categoryCompany",
+    "Market News": "blog.categoryMarket",
+    "Market Analysis": "blog.categoryAnalysis",
+    "Technology News": "blog.categoryTechnology",
+    "Industry News": "blog.categoryIndustry",
+    "Research News": "blog.categoryResearch"
+  };
+  return map[category] || category;
+};
+
+const categories = ["All", "Company News", "Market News", "Market Analysis", "Technology News", "Industry News", "Research News"];
 
 export function Blog() {
+  const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const [hovering, setHovering] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [visibleSections, setVisibleSections] = useState(new Set());
-  const sectionRefs = useRef({});
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
+  const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   useEffect(() => {
     // Trigger initial animations
@@ -162,21 +177,20 @@ export function Blog() {
     <div className="min-h-screen relative">
       <GL hovering={hovering} />
 
-      <div className="relative z-10 container mx-auto py-24 px-6">
+      <div className="relative z-10 container mx-auto pt-40 pb-24 px-6">
         <section className="py-20 md:py-32">
           {/* Header Section */}
-          <div className="text-center mb-16" ref={el => sectionRefs.current.header = el}>
-          <h2 className={`text-4xl md:text-5xl lg:text-6xl font-sentient mb-6 ${isLoaded ? 'animate-fade-in-up' : ''}`}>
-            Our <br />
-            <i className="font-light">Blog</i>
+          <div className="text-center mb-16" ref={(el) => { sectionRefs.current.header = el; }}>
+          <h2 className={`text-4xl md:text-5xl lg:text-6xl font-mono mb-6 ${isLoaded ? 'animate-fade-in-up' : ''}`}>
+            {t('blog.title')}
           </h2>
           <p className={`font-mono text-foreground/60 text-lg max-w-2xl mx-auto ${isLoaded ? 'animate-fade-in-up animate-delay-400' : ''}`}>
-            Stay updated with the latest insights, research, and developments in AI-powered financial technology and quantitative trading
+            {t('blog.subtitle')}
           </p>
         </div>
 
         {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12" ref={el => sectionRefs.current.filters = el}>
+        <div className="flex flex-wrap justify-center gap-3 mb-12" ref={(el) => { sectionRefs.current.filters = el; }}>
           {categories.map((category, index) => (
             <button
               key={category}
@@ -187,14 +201,14 @@ export function Blog() {
               } ${isLoaded ? 'animate-fade-in-up' : ''}`}
               style={{animationDelay: isLoaded ? `${index * 0.05 + 0.6}s` : '0s'}}
             >
-              {category}
+              {t(getCategoryTranslationKey(category))}
             </button>
           ))}
         </div>
 
         {/* Featured Post */}
         {selectedCategory === "All" && (
-          <div className="mb-16" ref={el => sectionRefs.current.featured = el}>
+          <div className="mb-16" ref={(el) => { sectionRefs.current.featured = el; }}>
             {blogPosts
               .filter(post => post.featured)
               .map((post) => (
@@ -207,14 +221,19 @@ export function Blog() {
                     <CardHeader className="pb-4">
                       <div className="flex items-center gap-2 mb-2">
                         <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
-                          Featured
+                          {t('blog.featured')}
                         </Badge>
                         <Badge variant="outline" className="font-mono text-xs">
                           {post.category}
                         </Badge>
                       </div>
-                      <CardTitle className={`text-2xl md:text-3xl font-sentient leading-tight hover:text-primary transition-colors duration-300 ${visibleSections.has('featured') ? 'animate-fade-in-up animate-delay-400' : ''}`}>
-                        {post.title}
+                      <CardTitle className={`text-2xl md:text-3xl font-mono leading-tight hover:text-primary transition-colors duration-300 ${visibleSections.has('featured') ? 'animate-fade-in-up animate-delay-400' : ''}`}>
+                        {post.title.split('\n').map((line, index) => (
+                          <span key={index}>
+                            {line}
+                            {index < post.title.split('\n').length - 1 && <br />}
+                          </span>
+                        ))}
                       </CardTitle>
                       <CardDescription className="text-base leading-relaxed">
                         {post.excerpt}
@@ -250,7 +269,7 @@ export function Blog() {
                             hoveredCard === post.id ? "translate-x-2" : ""
                           }`}
                         >
-                          Read Article
+                          {t('blog.readArticle')}
                         </Button>
                       </div>
                     </CardContent>
@@ -261,7 +280,7 @@ export function Blog() {
         )}
 
         {/* Blog Posts Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" ref={el => sectionRefs.current.posts = el}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" ref={(el) => { sectionRefs.current.posts = el; }}>
           {filteredPosts
             .filter(post => selectedCategory === "All" ? !post.featured : true)
             .map((post, index) => (
@@ -281,8 +300,13 @@ export function Blog() {
                         {post.readTime}
                       </span>
                     </div>
-                    <CardTitle className="text-xl font-sentient leading-tight group-hover:text-primary transition-colors duration-300">
-                      {post.title}
+                    <CardTitle className="text-xl font-mono leading-tight group-hover:text-primary transition-colors duration-300">
+                      {post.title.split('\n').map((line, index) => (
+                        <span key={index}>
+                          {line}
+                          {index < post.title.split('\n').length - 1 && <br />}
+                        </span>
+                      ))}
                     </CardTitle>
                     <CardDescription className="leading-relaxed">
                       {post.excerpt}
@@ -312,7 +336,7 @@ export function Blog() {
                         hoveredCard === post.id ? "translate-x-2" : ""
                       }`}>
                         <span className="text-primary font-mono text-sm uppercase hover:text-primary/80 transition-colors duration-150">
-                          Read Article →
+                          {t('blog.readArticle')} →
                         </span>
                       </div>
                     </div>
@@ -323,13 +347,13 @@ export function Blog() {
         </div>
 
         {/* Newsletter CTA Section */}
-        <div className="text-center mt-20" ref={el => sectionRefs.current.cta = el}>
+        <div className="text-center mt-20" ref={(el) => { sectionRefs.current.cta = el; }}>
           <div className="max-w-2xl mx-auto">
-            <h3 className={`text-2xl md:text-3xl font-sentient mb-4 ${visibleSections.has('cta') ? 'animate-fade-in-up' : ''}`}>
-              Never Miss an <i className="font-light">Update</i>
+            <h3 className={`text-2xl md:text-3xl font-mono mb-4 ${visibleSections.has('cta') ? 'animate-fade-in-up' : ''}`}>
+              {t('blog.neverMiss')}
             </h3>
             <p className={`font-mono text-foreground/60 mb-8 ${visibleSections.has('cta') ? 'animate-fade-in-up animate-delay-200' : ''}`}>
-              Subscribe to our newsletter for the latest insights in AI trading, market analysis, and financial technology innovations
+              {t('blog.newsletterDesc')}
             </p>
             <Button
               size="default"
@@ -337,7 +361,7 @@ export function Blog() {
               onMouseEnter={() => setHovering(true)}
               onMouseLeave={() => setHovering(false)}
             >
-              Subscribe to Newsletter
+              {t('blog.subscribe')}
             </Button>
           </div>
         </div>
