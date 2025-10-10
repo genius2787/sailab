@@ -304,7 +304,7 @@ export function Contact() {
                     <p className="font-mono text-sm text-foreground/80">{t('contact.phone')}</p>
                     <a
                       href="tel:+81359856245"
-                      className="text-primary hover:text-primary/80 transition-colors duration-150"
+                      className="font-mono text-primary hover:text-primary/80 transition-colors duration-150"
                     >
                       +81 3-5985-6245
                     </a>
@@ -315,8 +315,8 @@ export function Contact() {
                   <div className="text-primary mt-1">🕒</div>
                   <div>
                     <p className="font-mono text-sm text-foreground/80">{t('contact.businessHours')}</p>
-                    <p className="text-foreground">{t('contact.businessDays')}</p>
-                    <p className="text-foreground/60">{t('contact.businessTime')}</p>
+                    <p className="font-mono text-foreground">{t('contact.businessDays')}</p>
+                    <p className="font-mono text-foreground/60">{t('contact.businessTime')}</p>
                   </div>
                 </div>
               </CardContent>
