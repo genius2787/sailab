@@ -14,7 +14,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "SAIL Lab",
   description: "AI-powered financial technology solutions",
-    generator: 'v0.app'
+  generator: 'v0.app',
+  icons: {
+    icon: '/logo.PNG',
+    apple: '/logo.PNG',
+  }
 };
 
 export default function RootLayout({
