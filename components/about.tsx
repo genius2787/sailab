@@ -219,10 +219,10 @@ export function About() {
             {teamHighlights.map((team, index) => (
               <Card key={index} className={`bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 hover-lift transition-all duration-300 group ${visibleSections.has('expertise') ? 'animate-slide-in-left' : ''}`} style={{animationDelay: visibleSections.has('expertise') ? `${index * 0.1 + 0.2}s` : '0s'}}>
                 <CardHeader>
-                  <Badge variant="outline" className="w-fit mb-2 border-primary/50 text-primary group-hover:bg-primary/10 transition-colors">
+                  <Badge variant="outline" className="w-fit mb-2 border-primary/50 text-primary group-hover:bg-primary/10 transition-colors font-mono">
                     {team.area}
                   </Badge>
-                  <CardTitle className="text-xl font-sentient group-hover:text-primary transition-colors">
+                  <CardTitle className="text-xl font-mono group-hover:text-primary transition-colors">
                     {team.area}
                   </CardTitle>
                   <CardDescription className="font-mono text-foreground/70">
@@ -247,13 +247,13 @@ export function About() {
               <CardTitle className={`text-3xl font-mono ${visibleSections.has('company') ? 'animate-fade-in-up animate-delay-200' : ''}`}>{t('about.companyInfo')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6 text-center md:text-left">
+              <div className="grid md:grid-cols-2 gap-6 text-center">
                 <div className={`${visibleSections.has('company') ? 'animate-fade-in-up animate-delay-400' : ''}`}>
-                  <h4 className="font-sentient text-primary mb-2">{t('about.companyCapital')}</h4>
+                  <h4 className="font-mono text-primary mb-2">{t('about.companyCapital')}</h4>
                   <p className="font-mono text-lg text-foreground/90">¥9.99 million JPY</p>
                 </div>
                 <div className={`${visibleSections.has('company') ? 'animate-fade-in-up animate-delay-500' : ''}`}>
-                  <h4 className="font-sentient text-primary mb-2">{t('about.assetsUnderManagement')}</h4>
+                  <h4 className="font-mono text-primary mb-2">{t('about.assetsUnderManagement')}</h4>
                   <p className="font-mono text-lg text-foreground/90">{t('about.assetsAmount')}</p>
                 </div>
               </div>
@@ -263,7 +263,7 @@ export function About() {
                 </p>
               </div>
               <div className={`text-center ${visibleSections.has('company') ? 'animate-fade-in-up animate-delay-700' : ''}`}>
-                <h4 className="font-sentient text-primary mb-3">{t('about.officeAddress')}</h4>
+                <h4 className="font-mono text-primary mb-3">{t('about.officeAddress')}</h4>
                 <div className="font-mono text-sm text-foreground/70 space-y-1">
                   <p>Daiya Gate 5F, Minami-Ikebukuro 1-16-15</p>
                   <p>Toshima City, Tokyo 171-0022, Japan</p>

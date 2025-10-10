@@ -42,6 +42,62 @@ const blogPosts: BlogPost[] = [
     likes: 47
   },
   {
+    id: "10",
+    slug: "cto-wang-featured-in-waseda-university-interview",
+    title: "SAIL Lab CTO Featured in Waseda University Interview\nSAIL Lab CTO、早稲田大学インタビューに掲載",
+    excerpt: "Our CTO Joe Wang was featured in an exclusive interview by Waseda University's Computer Science and Engineering Department, sharing insights on his journey from academic research to founding SAIL Laboratory and pioneering AI-powered financial technology.",
+    category: "Company News",
+    readTime: "3 min read",
+    date: "2025-10-08",
+    author: "Joe Wang",
+    featured: true,
+    views: 95,
+    comments: 8,
+    likes: 18
+  },
+  {
+    id: "9",
+    slug: "cto-presents-okg-at-coling-2025-as-sony-researcher",
+    title: "SAIL Lab CTO Presents First LLM Agent Work at COLING 2025\nSAIL Lab CTO、COLING 2025で初のLLM Agent研究を発表",
+    excerpt: "Our CTO Joe Wang, as a Sony researcher, presented the first LLM agent work in keyword generation at COLING 2025—'On-the-Fly Keyword Generation' introduces autonomous AI agents that dynamically adapt to market trends, revolutionizing digital advertising.",
+    category: "Research News",
+    readTime: "4 min read",
+    date: "2025-01-20",
+    author: "Joe Wang",
+    featured: false,
+    views: 128,
+    comments: 14,
+    likes: 25
+  },
+  {
+    id: "8",
+    slug: "cto-presents-research-at-kdd-2025-as-sony-researcher",
+    title: "SAIL Lab CTO Presents Research at KDD 2025 as Sony Researcher\nSAIL Lab CTO、Sony研究員としてKDD 2025で研究を発表",
+    excerpt: "Our CTO Joe Wang, as a Sony researcher, presented 'Auto-bidding in Real-Time Auctions via Oracle Imitation Learning' at KDD 2025, introducing a novel framework that significantly improves auction efficiency and ROI through oracle-guided policy learning.",
+    category: "Research News",
+    readTime: "5 min read",
+    date: "2025-08-20",
+    author: "Joe Wang",
+    featured: false,
+    views: 142,
+    comments: 18,
+    likes: 29
+  },
+  {
+    id: "7",
+    slug: "cto-attends-sts-forum-2025",
+    title: "SAIL Lab CTO Participates in STS Forum 2025\nSAIL Lab CTO、STS フォーラム 2025 に参加",
+    excerpt: "Our CTO Joe Wang was selected for the prestigious STS Forum Young Leaders Program in Kyoto, engaging with His Majesty the Emperor of Japan, Prime Minister Ishiba, 13 Nobel Prize laureates, and global leaders on AI governance and ethical technology deployment.",
+    category: "Company News",
+    readTime: "6 min read",
+    date: "2025-10-10",
+    author: "Joe Wang",
+    featured: true,
+    views: 186,
+    comments: 15,
+    likes: 34
+  },
+  {
     id: "2",
     slug: "regulatory-compliance-ai-trading",
     title: "New AI Regulations Impact Financial Markets",
@@ -220,7 +276,7 @@ export function Blog() {
                   >
                     <CardHeader className="pb-4">
                       <div className="flex items-center gap-2 mb-2">
-                        <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
+                        <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 font-mono">
                           {t('blog.featured')}
                         </Badge>
                         <Badge variant="outline" className="font-mono text-xs">
@@ -235,7 +291,7 @@ export function Blog() {
                           </span>
                         ))}
                       </CardTitle>
-                      <CardDescription className="text-base leading-relaxed">
+                      <CardDescription className="text-base leading-relaxed font-mono">
                         {post.excerpt}
                       </CardDescription>
                     </CardHeader>
@@ -308,7 +364,7 @@ export function Blog() {
                         </span>
                       ))}
                     </CardTitle>
-                    <CardDescription className="leading-relaxed">
+                    <CardDescription className="leading-relaxed font-mono">
                       {post.excerpt}
                     </CardDescription>
                   </CardHeader>
