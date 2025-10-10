@@ -273,15 +273,15 @@ export function Contact() {
             <Card className={`border-border/40 bg-background/30 backdrop-blur-sm hover-lift ${isLoaded ? 'animate-slide-in-right animate-delay-500' : ''}`}>
               <CardHeader>
                 <CardTitle className={`text-xl font-mono ${visibleSections.has('info') ? 'animate-fade-in-up animate-delay-200' : ''}`}>{t('contact.tokyoOffice')}</CardTitle>
-                <CardDescription className={`${visibleSections.has('info') ? 'animate-fade-in-up animate-delay-300' : ''}`}>{t('contact.officeDescription')}</CardDescription>
+                <CardDescription className={`font-mono ${visibleSections.has('info') ? 'animate-fade-in-up animate-delay-300' : ''}`}>{t('contact.officeDescription')}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-start gap-3">
                   <div className="text-primary mt-1">📍</div>
                   <div>
                     <p className="font-mono text-sm text-foreground/80">{t('contact.location')}</p>
-                    <p className="text-foreground">Daiya Gate 5F, Minami-Ikebukuro 1-16-15</p>
-                    <p className="text-foreground">Tokyo, Japan</p>
+                    <p className="font-mono text-foreground">Daiya Gate 5F, Minami-Ikebukuro 1-16-15</p>
+                    <p className="font-mono text-foreground">Tokyo, Japan</p>
                   </div>
                 </div>
 
@@ -291,7 +291,7 @@ export function Contact() {
                     <p className="font-mono text-sm text-foreground/80">{t('contact.email')}</p>
                     <a
                       href="mailto:wasedajoe@gmail.com"
-                      className="text-primary hover:text-primary/80 transition-colors duration-150"
+                      className="font-mono text-primary hover:text-primary/80 transition-colors duration-150"
                     >
                       wasedajoe@gmail.com
                     </a>
