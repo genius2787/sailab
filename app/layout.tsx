@@ -16,8 +16,8 @@ export const metadata: Metadata = {
   description: "AI-powered financial technology solutions",
   generator: 'v0.app',
   icons: {
-    icon: '/logo.PNG',
-    apple: '/logo.PNG',
+    icon: '/logo_BLACK.PNG',
+    apple: '/logo_BLACK.PNG',
   }
 };
 
