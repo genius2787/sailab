@@ -42,14 +42,49 @@ interface SummaryZoneProps {
     newsAgent?: string;
     institutionalAgent?: string;
   }
+  finalOutput?: any  // Add finalOutput from Trading Agent
 }
 
-export function SummaryZone({ isLoading = false, error, className, selectedStocks = [], analysisResults, agentResults }: SummaryZoneProps) {
+export function SummaryZone({ isLoading = false, error, className, selectedStocks = [], analysisResults, agentResults, finalOutput }: SummaryZoneProps) {
   console.log('[SummaryZone] selectedStocks:', selectedStocks);
   console.log('[SummaryZone] analysisResults:', analysisResults);
+  console.log('[SummaryZone] finalOutput:', finalOutput);
   
   // Generate market sentiment based on agent results
   const generateMarketSentiment = (): MarketSentiment => {
+    // First, try to use Final Output if available
+    if (finalOutput && selectedStocks.length > 0) {
+      const stockKey = selectedStocks[0];  // Since we only select one stock now
+      const stockData = finalOutput[stockKey];
+      
+      if (stockData) {
+        console.log('[SummaryZone] Using Final Output for sentiment:', stockData);
+        
+        const action = stockData.Action?.toLowerCase() || 'hold';
+        const percentageStr = stockData.Percentage || '0%';
+        const percentage = parseInt(percentageStr.replace('%', '')) || 0;
+        
+        const overallSentiment = action === 'buy' ? 'positive' : (action === 'sell' ? 'negative' : 'neutral');
+        
+        return {
+          overallSentiment,
+          confidenceScore: percentage,
+          suggestedAction: action,
+          biasNote: stockData.Evaluation ? 
+            `Trading Agent consensus: ${percentage}% confidence for ${action} action` : 
+            "Trading Agent analysis completed",
+          consensusStrength: percentage,
+          volatilityIndex: 18.4,
+          timestamp: new Date(),
+          lastUpdated: new Date(),
+          dataSource: "Multi-agent AI consensus",
+          confidence: percentage,
+          conflictDetected: false
+        };
+      }
+    }
+    
+    // Fallback: use agentResults if finalOutput not available
     if (!agentResults || (!agentResults.rlAgent && !agentResults.financialAgent && !agentResults.newsAgent && !agentResults.institutionalAgent)) {
       return {
         overallSentiment: "neutral",

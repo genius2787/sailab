@@ -55,6 +55,7 @@ export default function Dashboard() {
     newsAgent?: string;
     institutionalAgent?: string;
   }>({});
+  const [finalOutput, setFinalOutput] = useState<any>(null);
 
   // Debug logging for agentResults
   console.log('[Dashboard] agentResults state:', agentResults);
@@ -115,6 +116,8 @@ export default function Dashboard() {
     setIsAnalyzing(true);
     setStreamOutput([]);
     setCurrentStock('');
+    setAgentResults({});
+    setFinalOutput(null);
     console.log('[Dashboard] Analyzing stock:', selectedStock);
     
     try {
@@ -221,11 +224,15 @@ export default function Dashboard() {
                     
                     // Try to parse the JSON
                     try {
-                      const finalOutput = JSON.parse(finalOutputStr);
-                      console.log('[Dashboard] Successfully parsed Final Output:', finalOutput);
+                      const parsedFinalOutput = JSON.parse(finalOutputStr);
+                      console.log('[Dashboard] Successfully parsed Final Output:', parsedFinalOutput);
+                      
+                      // Save the complete Final Output
+                      setFinalOutput(parsedFinalOutput);
+                      console.log('[Dashboard] Saved finalOutput state:', parsedFinalOutput);
                     
                     // Extract results for each stock
-                    Object.entries(finalOutput).forEach(([stock, result]: [string, any]) => {
+                    Object.entries(parsedFinalOutput).forEach(([stock, result]: [string, any]) => {
                       if (result.Evaluation) {
                         setAgentResults(prev => ({
                           ...prev,
@@ -834,6 +841,7 @@ export default function Dashboard() {
                   isLoading={isAnalyzing}
                   analysisResults={analysisResults}
                   agentResults={agentResults}
+                  finalOutput={finalOutput}
                 />
               </div>
             </div>
