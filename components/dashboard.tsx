@@ -208,9 +208,21 @@ export default function Dashboard() {
                     // Clean up the JSON string
                     finalOutputStr = finalOutputStr.trim();
                     
+                    // Try to clean up common JSON issues
+                    finalOutputStr = finalOutputStr
+                      .replace(/\\"/g, '"')  // Replace escaped quotes
+                      .replace(/\\n/g, ' ')  // Replace newlines with spaces
+                      .replace(/\\t/g, ' ')  // Replace tabs with spaces
+                      .replace(/\\r/g, ' ')  // Replace carriage returns with spaces
+                      .replace(/\s+/g, ' ')  // Replace multiple spaces with single space
+                      .trim();
+                    
+                    console.log('[Dashboard] Cleaned JSON string:', finalOutputStr);
+                    
                     // Try to parse the JSON
-                    const finalOutput = JSON.parse(finalOutputStr);
-                    console.log('[Dashboard] Successfully parsed Final Output:', finalOutput);
+                    try {
+                      const finalOutput = JSON.parse(finalOutputStr);
+                      console.log('[Dashboard] Successfully parsed Final Output:', finalOutput);
                     
                     // Extract results for each stock
                     Object.entries(finalOutput).forEach(([stock, result]: [string, any]) => {
@@ -225,6 +237,11 @@ export default function Dashboard() {
                         console.log('[Dashboard] Updated all agents from Final Output for', stock);
                       }
                     });
+                    } catch (jsonError) {
+                      console.error('[Dashboard] JSON parse error:', jsonError);
+                      console.error('[Dashboard] Failed JSON string:', finalOutputStr);
+                      throw jsonError; // Re-throw to trigger fallback parsing
+                    }
                   } else {
                     console.log('[Dashboard] No JSON pattern matched in Final Output');
                   }
@@ -236,20 +253,36 @@ export default function Dashboard() {
                   // Fallback: try to extract agent results using string matching
                   try {
                     const message = data.message;
-                    const rlMatch = message.match(/RL_agent_result["\s]*:["\s]*"([^"]+)"/);
-                    const financialMatch = message.match(/Financial_agent_result["\s]*:["\s]*"([^"]+)"/);
-                    const newsMatch = message.match(/News_agent_result["\s]*:["\s]*"([^"]+)"/);
-                    const institutionalMatch = message.match(/Professional_insitutions_prediction_search_agent_result["\s]*:["\s]*"([^"]+)"/);
+                    console.log('[Dashboard] Attempting fallback parsing with message:', message);
                     
-                    if (rlMatch || financialMatch || newsMatch || institutionalMatch) {
+                    // More flexible regex patterns for fallback parsing
+                    const patterns = [
+                      { key: 'rlAgent', regex: /RL_agent_result["\s]*:["\s]*"([^"]+)"/ },
+                      { key: 'financialAgent', regex: /Financial_agent_result["\s]*:["\s]*"([^"]+)"/ },
+                      { key: 'newsAgent', regex: /News_agent_result["\s]*:["\s]*"([^"]+)"/ },
+                      { key: 'institutionalAgent', regex: /Professional_insitutions_prediction_search_agent_result["\s]*:["\s]*"([^"]+)"/ }
+                    ];
+                    
+                    const extractedResults: any = {};
+                    let foundAny = false;
+                    
+                    patterns.forEach(({ key, regex }) => {
+                      const match = message.match(regex);
+                      if (match) {
+                        extractedResults[key] = match[1];
+                        foundAny = true;
+                        console.log(`[Dashboard] Extracted ${key}:`, match[1]);
+                      }
+                    });
+                    
+                    if (foundAny) {
                       setAgentResults(prev => ({
                         ...prev,
-                        rlAgent: rlMatch ? rlMatch[1] : prev.rlAgent,
-                        financialAgent: financialMatch ? financialMatch[1] : prev.financialAgent,
-                        newsAgent: newsMatch ? newsMatch[1] : prev.newsAgent,
-                        institutionalAgent: institutionalMatch ? institutionalMatch[1] : prev.institutionalAgent
+                        ...extractedResults
                       }));
                       console.log('[Dashboard] Fallback parsing successful');
+                    } else {
+                      console.log('[Dashboard] No patterns matched in fallback parsing');
                     }
                   } catch (fallbackError) {
                     console.error('[Dashboard] Fallback parsing also failed:', fallbackError);
