@@ -276,29 +276,6 @@ export function SummaryZone({ isLoading = false, error, className }: SummaryZone
             </div>
           </div>
         </div>
-
-        {/* Risk Disclosure */}
-        <div className="mt-6 p-4 bg-amber-500/10 backdrop-blur-sm rounded-xl border border-amber-500/30">
-          <div className="flex items-start gap-3">
-            <AlertTriangle className="h-5 w-5 text-amber-400 mt-0.5 flex-shrink-0" />
-            <div>
-              <h5 className="text-sm font-semibold text-amber-200 mb-1 font-mono">
-                Risk Disclosure
-              </h5>
-              <p className="text-xs text-amber-300 leading-relaxed font-mono">
-                This analysis is for informational purposes only. Market data analysis involves substantial risk.
-                Past performance does not guarantee future results. SAIL Lab AI provides research, not investment advice.
-              </p>
-              <div className="flex items-center gap-2 mt-2 text-xs text-amber-400 font-mono">
-                <span>
-                  Last Updated: {dataSource.lastUpdated.toLocaleTimeString()}
-                </span>
-                <span>•</span>
-                <span>© 2025 SAIL Lab</span>
-              </div>
-            </div>
-          </div>
-        </div>
       </CardContent>
     </Card>
   )

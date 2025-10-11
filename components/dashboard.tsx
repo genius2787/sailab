@@ -5,6 +5,7 @@ import { useSession, signOut } from "next-auth/react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 import { GL } from "./gl";
 import { useLanguage } from "@/contexts/language-context";
 import { SummaryZone } from "./financial/summary-zone";
@@ -34,16 +35,28 @@ import {
 
 export default function Dashboard() {
   const { t } = useLanguage();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [hovering, setHovering] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [visibleSections, setVisibleSections] = useState(new Set());
   const sectionRefs = useRef({});
+  const [selectedStocks, setSelectedStocks] = useState<string[]>([]);
+  const [customStock, setCustomStock] = useState("");
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 100);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    console.log('[Dashboard] Session status:', status);
+    console.log('[Dashboard] Session data:', session);
+    if (session?.user) {
+      console.log('[Dashboard] User name:', session.user.name);
+      console.log('[Dashboard] User email:', session.user.email);
+      console.log('[Dashboard] User tier:', (session.user as any).tier);
+    }
+  }, [session, status]);
 
   useEffect(() => {
     const observers = new Map();
@@ -107,31 +120,35 @@ export default function Dashboard() {
     }
   ];
 
+  console.log('[Dashboard] Current status:', status);
+  console.log('[Dashboard] Session:', session);
+
   return (
     <div className="min-h-screen relative bg-background">
       <GL hovering={hovering} />
 
-      <div className="relative z-10 container mx-auto pt-32 pb-12 px-6">
+      <div className="relative z-10 container mx-auto pt-52 pb-12 px-6">
         {/* Header */}
         <div className="mb-8" ref={el => sectionRefs.current.header = el}>
           <h1 className={`text-4xl md:text-5xl font-mono font-bold text-foreground mb-4 ${isLoaded ? 'animate-fade-in-up' : ''}`}>
-            {t('dashboard.title')}
+            Hello, {session?.user?.name || session?.user?.email?.split('@')[0] || 'Member'}! Welcome Back
           </h1>
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div className="flex-1">
               <p className={`text-lg text-foreground/70 font-mono mb-2 ${isLoaded ? 'animate-fade-in-up animate-delay-200' : ''}`}>
-                {t('dashboard.subtitle')}
+                LLM Multiagent Powered analysis for your selected stocks
               </p>
-              {session?.user && (
-                <div className="flex items-center gap-3">
-                  <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 font-mono">
-                    👤 {session.user.name || session.user.email}
-                  </Badge>
-                  <Badge variant="outline" className="bg-green-500/10 text-green-500 border-green-500/30 font-mono">
-                    💎 Paid Member
-                  </Badge>
-                </div>
-              )}
+              <div className="flex items-center gap-3">
+                <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 font-mono">
+                  👤 {session?.user?.name || session?.user?.email || 'Member'}
+                </Badge>
+                <Badge variant="outline" className="bg-green-500/10 text-green-500 border-green-500/30 font-mono">
+                  💎 Paid Member
+                </Badge>
+                <Badge variant="outline" className="bg-yellow-500/10 text-yellow-500 border-yellow-500/30 font-mono">
+                  ⭐ {(session?.user as any)?.tier || 'Enterprise'}
+                </Badge>
+              </div>
             </div>
             <div className="flex items-center gap-3">
               <Badge variant="outline" className="bg-green-500/10 text-green-500 border-green-500/30 font-mono">
@@ -154,12 +171,200 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* News Ticker */}
-        <div className="mb-8" ref={el => sectionRefs.current.news = el}>
-          <div className={`${visibleSections.has('news') ? 'animate-fade-in-up' : ''}`}>
-            <NewsTicker />
+        {/* User Quota Card */}
+        <>
+        <div className="mb-8 mt-16">
+          <Card className="bg-gradient-to-r from-primary/10 via-background/50 to-primary/10 backdrop-blur-sm border-primary/30">
+            <CardContent className="p-6">
+              <div className="grid md:grid-cols-4 gap-6">
+                {/* Tier Info */}
+                <div className="text-center">
+                  <div className="text-sm font-mono text-foreground/60 mb-2">Your Plan</div>
+                  <div className="text-2xl font-mono font-bold text-primary mb-1">
+                    {(session?.user as any)?.tier || 'Enterprise'}
+                    </div>
+                    <div className="text-xs font-mono text-foreground/50">
+                      {(session?.user as any)?.tier === 'Starter' ? '9 stocks / 3 days' : 
+                       (session?.user as any)?.tier === 'Professional' ? '30 stocks / 3 days' : 
+                       '90 stocks / 3 days'}
+                    </div>
+                  </div>
+
+                  {/* Daily Limit */}
+                  <div className="text-center">
+                    <div className="text-sm font-mono text-foreground/60 mb-2">Daily Limit</div>
+                    <div className="text-2xl font-mono font-bold text-foreground">
+                      {(session?.user as any)?.tier === 'Starter' ? '3' : 
+                       (session?.user as any)?.tier === 'Professional' ? '10' : '30'}
+                      <span className="text-sm text-foreground/60 ml-1">stocks</span>
+                    </div>
+                  </div>
+
+                  {/* Used Today */}
+                  <div className="text-center">
+                    <div className="text-sm font-mono text-foreground/60 mb-2">Used Today</div>
+                    <div className="text-2xl font-mono font-bold text-orange-500">
+                      {(session?.user as any)?.usedToday || 0}
+                      <span className="text-sm text-foreground/60 ml-1">analyses</span>
+                    </div>
+                  </div>
+
+                  {/* Remaining */}
+                  <div className="text-center">
+                    <div className="text-sm font-mono text-foreground/60 mb-2">Remaining Today</div>
+                    <div className="text-2xl font-mono font-bold text-green-500">
+                      {((session?.user as any)?.tier === 'Starter' ? 3 : 
+                        (session?.user as any)?.tier === 'Professional' ? 10 : 30) - ((session?.user as any)?.usedToday || 0)}
+                      <span className="text-sm text-foreground/60 ml-1">left</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Progress Bar */}
+                <div className="mt-6 pt-6 border-t border-border/20">
+                  <div className="flex justify-between items-center text-xs font-mono text-foreground/60 mb-2">
+                    <span>Daily Usage Progress</span>
+                    <span className="text-foreground/50">{((session?.user as any)?.usedToday || 0)} / {(session?.user as any)?.tier === 'Starter' ? 3 : (session?.user as any)?.tier === 'Professional' ? 10 : 30}</span>
+                  </div>
+                  <div className="w-full bg-border/40 rounded-full h-4 overflow-hidden border border-border/60">
+                    <div 
+                      className="bg-gradient-to-r from-yellow-500 via-orange-500 to-green-500 h-full rounded-full transition-all duration-500 shadow-lg shadow-yellow-500/20" 
+                      style={{ 
+                        width: `${Math.max(3, ((session?.user as any)?.usedToday || 0) / ((session?.user as any)?.tier === 'Starter' ? 3 : (session?.user as any)?.tier === 'Professional' ? 10 : 30) * 100)}%` 
+                      }}
+                    ></div>
+                  </div>
+                  <div className="text-xs font-mono text-foreground/50 text-right mt-2">
+                    Resets at midnight JST
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
-        </div>
+
+          {/* Stock Selection */}
+          <div className="mb-8">
+            <Card className="bg-gradient-to-br from-yellow-500/10 via-background/50 to-orange-500/10 backdrop-blur-sm border-yellow-500/30">
+              <CardHeader>
+                <CardTitle className="text-2xl font-mono">Select Stocks to Analyze</CardTitle>
+                <CardDescription className="font-mono">
+                  Choose up to {(session?.user as any)?.tier === 'Starter' ? '3' : (session?.user as any)?.tier === 'Professional' ? '10' : '30'} stocks from NASDAQ top 20
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {/* Custom Stock Search */}
+                <div className="flex gap-3">
+                  <Input
+                    placeholder="Search other stocks (e.g., TSMC, 7203.T, etc.)"
+                    value={customStock}
+                    onChange={(e) => setCustomStock(e.target.value.toUpperCase())}
+                    className="font-mono flex-1"
+                  />
+                  <Button
+                    onClick={() => {
+                      if (customStock && !selectedStocks.includes(customStock)) {
+                        const maxSelections = (session?.user as any)?.tier === 'Starter' ? 3 : (session?.user as any)?.tier === 'Professional' ? 10 : 30;
+                        if (selectedStocks.length < maxSelections) {
+                          setSelectedStocks([...selectedStocks, customStock]);
+                          setCustomStock("");
+                        }
+                      }
+                    }}
+                    disabled={!customStock || selectedStocks.includes(customStock)}
+                    className="font-mono"
+                  >
+                    Add Stock
+                  </Button>
+                </div>
+
+                {/* Selected Custom Stocks */}
+                {selectedStocks.filter(s => !['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA', 'BRK.B', 'AVGO', 'JPM', 'LLY', 'V', 'UNH', 'XOM', 'MA', 'COST', 'HD', 'PG', 'NFLX', 'BAC'].map(st => st.symbol).includes(s)).length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    <span className="text-xs font-mono text-foreground/60">Custom selections:</span>
+                    {selectedStocks.filter(s => !['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA', 'BRK.B', 'AVGO', 'JPM', 'LLY', 'V', 'UNH', 'XOM', 'MA', 'COST', 'HD', 'PG', 'NFLX', 'BAC'].includes(s)).map(stock => (
+                      <Badge 
+                        key={stock}
+                        variant="outline"
+                        className="bg-yellow-500/20 border-yellow-500 text-yellow-500 font-mono cursor-pointer hover:bg-yellow-500/30"
+                        onClick={() => setSelectedStocks(prev => prev.filter(s => s !== stock))}
+                      >
+                        {stock} ✕
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+
+                <div className="border-t border-border/20 pt-4">
+                  <p className="text-xs font-mono text-foreground/60 mb-3">NASDAQ Top 20 (Quick Select)</p>
+                  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                  {[
+                    { symbol: 'AAPL', name: 'Apple Inc.' },
+                    { symbol: 'MSFT', name: 'Microsoft Corp.' },
+                    { symbol: 'GOOGL', name: 'Alphabet Inc.' },
+                    { symbol: 'AMZN', name: 'Amazon.com Inc.' },
+                    { symbol: 'NVDA', name: 'NVIDIA Corp.' },
+                    { symbol: 'META', name: 'Meta Platforms' },
+                    { symbol: 'TSLA', name: 'Tesla Inc.' },
+                    { symbol: 'BRK.B', name: 'Berkshire Hathaway' },
+                    { symbol: 'AVGO', name: 'Broadcom Inc.' },
+                    { symbol: 'JPM', name: 'JPMorgan Chase' },
+                    { symbol: 'LLY', name: 'Eli Lilly' },
+                    { symbol: 'V', name: 'Visa Inc.' },
+                    { symbol: 'UNH', name: 'UnitedHealth' },
+                    { symbol: 'XOM', name: 'Exxon Mobil' },
+                    { symbol: 'MA', name: 'Mastercard' },
+                    { symbol: 'COST', name: 'Costco' },
+                    { symbol: 'HD', name: 'Home Depot' },
+                    { symbol: 'PG', name: 'Procter & Gamble' },
+                    { symbol: 'NFLX', name: 'Netflix Inc.' },
+                    { symbol: 'BAC', name: 'Bank of America' }
+                  ].map((stock) => {
+                    const isSelected = selectedStocks.includes(stock.symbol);
+                    const maxSelections = (session?.user as any)?.tier === 'Starter' ? 3 : (session?.user as any)?.tier === 'Professional' ? 10 : 30;
+                    const canSelect = selectedStocks.length < maxSelections || isSelected;
+                    
+                    return (
+                      <Button
+                        key={stock.symbol}
+                        variant="outline"
+                        className={`font-mono text-sm h-auto py-3 px-4 flex flex-col items-start transition-all ${
+                          isSelected 
+                            ? 'bg-yellow-500/20 border-yellow-500 shadow-lg shadow-yellow-500/20' 
+                            : 'hover:bg-primary/10 hover:border-primary/40'
+                        } ${!canSelect ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        onClick={() => {
+                          if (!canSelect && !isSelected) return;
+                          
+                          setSelectedStocks(prev => 
+                            isSelected 
+                              ? prev.filter(s => s !== stock.symbol)
+                              : [...prev, stock.symbol]
+                          );
+                        }}
+                      >
+                        <span className={`font-bold ${isSelected ? 'text-yellow-500' : 'text-primary'}`}>{stock.symbol}</span>
+                        <span className={`text-xs truncate w-full text-left ${isSelected ? 'text-yellow-600' : 'text-foreground/60'}`}>{stock.name}</span>
+                      </Button>
+                    );
+                  })}
+                </div>
+                </div>
+
+                <div className="flex items-center justify-between pt-4 border-t border-border/20">
+                  <div className="text-sm font-mono text-foreground/60">
+                    <span className="text-yellow-500 font-bold text-lg">{selectedStocks.length}</span> / {(session?.user as any)?.tier === 'Starter' ? '3' : (session?.user as any)?.tier === 'Professional' ? '10' : '30'} stocks selected
+                  </div>
+                  <Button 
+                    className="font-mono px-8"
+                    disabled={selectedStocks.length === 0}
+                  >
+                    Analyze Selected Stocks
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </>
 
         {/* Main Dashboard Grid */}
         <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
@@ -398,6 +603,31 @@ export default function Dashboard() {
               </CardContent>
             </Card>
           </div>
+        </div>
+
+        {/* News Ticker */}
+        <div className="mt-12 mb-8" ref={el => sectionRefs.current.news = el}>
+          <div className={`${visibleSections.has('news') ? 'animate-fade-in-up' : ''}`}>
+            <NewsTicker />
+          </div>
+        </div>
+
+        {/* Risk Disclosure */}
+        <div className="mt-8 border-t border-border/20 pt-8">
+          <Card className="bg-card/40 backdrop-blur-sm border-border/30">
+            <CardContent className="p-6">
+              <h3 className="text-lg font-mono font-bold text-foreground mb-4">Risk Disclosure</h3>
+              <p className="text-sm font-mono text-foreground/70 leading-relaxed mb-4">
+                This analysis is for informational purposes only. Market data analysis involves substantial risk. 
+                Past performance does not guarantee future results. SAIL Lab AI provides research, not investment advice.
+              </p>
+              <div className="flex items-center justify-between text-xs font-mono text-foreground/50 border-t border-border/20 pt-4">
+                <span>Last Updated: {new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</span>
+                <span>•</span>
+                <span>© 2025 SAIL Lab</span>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

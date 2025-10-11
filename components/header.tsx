@@ -17,7 +17,7 @@ export const Header = () => {
     { key: "insights", label: "Insights", href: "/insights" },
     { key: "blog", label: "Blog", href: "/blog" },
     { key: "contact", label: "Contact", href: "/contact" },
-    { key: "dashboard", label: "Dashboard", href: "/dashboard" }
+    { key: "dashboard", label: "Your Dashboard (Members Only)", href: "/dashboard" }
   ];
 
   return (
