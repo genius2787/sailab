@@ -23,7 +23,7 @@ export const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-sentient text-foreground mb-4">Navigation</h3>
+            <h3 className="font-mono text-blue-400 font-bold mb-4">Navigation</h3>
             <ul className="space-y-2">
               {["About", "Portfolio", "Insights", "Blog", "Contact"].map((item) => (
                 <li key={item}>
@@ -40,7 +40,7 @@ export const Footer = () => {
 
           {/* Services */}
           <div>
-            <h3 className="font-sentient text-foreground mb-4">Services</h3>
+            <h3 className="font-mono text-blue-400 font-bold mb-4">Services</h3>
             <ul className="space-y-2 font-mono text-sm text-foreground/60">
               <li>Multi-Agent LLM Analysis</li>
               <li>Neural Network Trading</li>
