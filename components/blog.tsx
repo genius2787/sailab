@@ -37,6 +37,7 @@ const blogPosts: BlogPost[] = [
     date: "2025-08-15",
     author: "Zhao WANG",
     featured: true,
+    image: "/companny.png",
     views: 324,
     comments: 23,
     likes: 47
@@ -51,6 +52,7 @@ const blogPosts: BlogPost[] = [
     date: "2025-10-08",
     author: "Joe Wang",
     featured: true,
+    image: "/waseda-joe-portrait.jpg",
     views: 95,
     comments: 8,
     likes: 18
@@ -93,6 +95,7 @@ const blogPosts: BlogPost[] = [
     date: "2025-10-10",
     author: "Joe Wang",
     featured: true,
+    image: "/sts-young-leaders.jpg",
     views: 186,
     comments: 15,
     likes: 34
@@ -274,37 +277,51 @@ export function Blog() {
                     onMouseEnter={() => setHoveredCard(post.id)}
                     onMouseLeave={() => setHoveredCard(null)}
                   >
-                    <CardHeader className="pb-4">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 font-mono">
-                          {t('blog.featured')}
-                        </Badge>
-                        <Badge variant="outline" className="font-mono text-xs">
-                          {post.category}
-                        </Badge>
-                      </div>
-                      <CardTitle className={`text-2xl md:text-3xl font-mono leading-tight hover:text-primary transition-colors duration-300 ${visibleSections.has('featured') ? 'animate-fade-in-up animate-delay-400' : ''}`}>
-                        {post.title.split('\n').map((line, index) => (
-                          <span key={index}>
-                            {line}
-                            {index < post.title.split('\n').length - 1 && <br />}
-                          </span>
-                        ))}
-                      </CardTitle>
-                      <CardDescription className="text-base leading-relaxed font-mono">
-                        {post.excerpt}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex items-center justify-between text-sm font-mono text-foreground/60 mb-4">
-                        <div className="flex items-center gap-4">
-                          <span>{post.author}</span>
-                          <span>{formatDate(post.date)}</span>
+                    <div className="flex flex-col md:flex-row gap-6 p-6">
+                      {/* Left: Image */}
+                      {post.image && (
+                        <div className="w-full md:w-80 h-48 bg-muted overflow-hidden rounded-lg flex-shrink-0">
+                          <img 
+                            src={post.image} 
+                            alt={post.title} 
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                          />
                         </div>
-                        <span>{post.readTime}</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4 text-sm font-mono text-foreground/60">
+                      )}
+                      
+                      {/* Center: Text Content */}
+                      <div className="flex-1 space-y-3">
+                        <div className="flex items-center gap-2">
+                          <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 font-mono">
+                            {t('blog.featured')}
+                          </Badge>
+                          <Badge variant="outline" className="font-mono text-xs">
+                            {post.category}
+                          </Badge>
+                        </div>
+                        
+                        <h3 className={`text-xl md:text-2xl font-mono leading-tight hover:text-primary transition-colors duration-300 ${visibleSections.has('featured') ? 'animate-fade-in-up animate-delay-400' : ''}`}>
+                          {post.title.split('\n').map((line, index) => (
+                            <span key={index}>
+                              {line}
+                              {index < post.title.split('\n').length - 1 && <br />}
+                            </span>
+                          ))}
+                        </h3>
+                        
+                        <p className="text-sm leading-relaxed font-mono text-foreground/80 line-clamp-3">
+                          {post.excerpt}
+                        </p>
+                        
+                        <div className="flex items-center gap-3 text-xs font-mono text-foreground/60">
+                          <span>{post.author}</span>
+                          <span>•</span>
+                          <span>{formatDate(post.date)}</span>
+                          <span>•</span>
+                          <span>{post.readTime}</span>
+                        </div>
+                        
+                        <div className="flex items-center gap-4 text-xs font-mono text-foreground/60">
                           <div className="flex items-center gap-1">
                             <Eye className="w-3 h-3" />
                             <span>{post.views || 0}</span>
@@ -318,17 +335,21 @@ export function Blog() {
                             <span>{post.likes || 0}</span>
                           </div>
                         </div>
+                      </div>
+                      
+                      {/* Right: Read Button */}
+                      <div className="flex items-center justify-end md:w-44">
                         <Button
                           variant="default"
-                          size="sm"
-                          className={`transition-all duration-300 ${
+                          size="lg"
+                          className={`px-8 py-6 text-base font-mono transition-all duration-300 ${
                             hoveredCard === post.id ? "translate-x-2" : ""
                           }`}
                         >
                           {t('blog.readArticle')}
                         </Button>
                       </div>
-                    </CardContent>
+                    </div>
                   </Card>
                 </Link>
               ))}

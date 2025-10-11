@@ -189,7 +189,7 @@ export function Insights() {
                 >
                   <CardHeader className="pb-4">
                     <div className="flex items-center gap-2 mb-2">
-                      <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
+                      <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 font-mono">
                         {t('insights.featured')}
                       </Badge>
                       <Badge variant="outline" className="font-mono text-xs">
@@ -199,7 +199,7 @@ export function Insights() {
                     <CardTitle className={`text-2xl md:text-3xl font-mono leading-tight hover:text-primary transition-colors duration-300 ${visibleSections.has('featured') ? 'animate-fade-in-up animate-delay-400' : ''}`}>
                       {article.title}
                     </CardTitle>
-                    <CardDescription className="text-base leading-relaxed">
+                    <CardDescription className="text-base leading-relaxed font-mono">
                       {article.description}
                     </CardDescription>
                   </CardHeader>
@@ -250,7 +250,7 @@ export function Insights() {
                   <CardTitle className="text-xl font-mono leading-tight group-hover:text-primary transition-colors duration-300">
                     {article.title}
                   </CardTitle>
-                  <CardDescription className="leading-relaxed">
+                  <CardDescription className="leading-relaxed font-mono">
                     {article.description}
                   </CardDescription>
                 </CardHeader>
