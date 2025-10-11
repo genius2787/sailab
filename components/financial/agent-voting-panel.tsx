@@ -164,7 +164,10 @@ export function AgentVotingPanel({ agentResults, isLoading = false }: AgentVotin
             </div>
             Agent Voting Panel
             <Badge variant="outline" className="bg-primary/10 text-primary border-primary/30 px-4 py-2 font-mono font-semibold">
-              4 Agents Active
+              {agentResults && (agentResults.rlAgent || agentResults.financialAgent || agentResults.newsAgent || agentResults.institutionalAgent) 
+                ? `${agentVotes.filter(agent => agent.reasoning !== "No analysis available").length} Agents Active`
+                : "4 Agents Ready"
+              }
             </Badge>
           </CardTitle>
           <div className="flex items-center gap-2">
@@ -245,21 +248,55 @@ export function AgentVotingPanel({ agentResults, isLoading = false }: AgentVotin
             </div>
             <div className="space-y-3 flex-1">
               <h4 className="text-xl font-bold text-foreground font-mono">Consensus Summary</h4>
-              <p className="text-base text-foreground/80 leading-relaxed font-mono">
-                Agents are split in opinion. Fundamental analysts are bullish, technical analysts bearish.
-                News analysis remains neutral, requiring careful judgment in this situation.
-              </p>
-              <div className="flex items-center gap-3 pt-2 flex-wrap">
-                <div className="px-4 py-2 bg-green-500/10 rounded-full text-sm font-medium text-green-400 border border-green-500/20 font-mono">
-                  50% Positive
-                </div>
-                <div className="px-4 py-2 bg-red-500/10 rounded-full text-sm font-medium text-red-400 border border-red-500/20 font-mono">
-                  25% Negative
-                </div>
-                <div className="px-4 py-2 bg-blue-500/10 rounded-full text-sm font-medium text-blue-400 border border-blue-500/20 font-mono">
-                  25% Neutral
-                </div>
-              </div>
+              {(() => {
+                // Calculate consensus based on agent votes
+                const positiveCount = agentVotes.filter(agent => agent.sentiment === "Positive").length;
+                const negativeCount = agentVotes.filter(agent => agent.sentiment === "Negative").length;
+                const neutralCount = agentVotes.filter(agent => agent.sentiment === "Neutral").length;
+                const totalAgents = agentVotes.length;
+                
+                const positivePercent = Math.round((positiveCount / totalAgents) * 100);
+                const negativePercent = Math.round((negativeCount / totalAgents) * 100);
+                const neutralPercent = Math.round((neutralCount / totalAgents) * 100);
+                
+                let consensusText = "";
+                if (positivePercent > 60) {
+                  consensusText = "Agents show strong positive consensus. Most indicators suggest bullish sentiment.";
+                } else if (negativePercent > 60) {
+                  consensusText = "Agents show strong negative consensus. Most indicators suggest bearish sentiment.";
+                } else if (positivePercent > negativePercent) {
+                  consensusText = "Agents lean positive overall. Mixed signals but slightly bullish bias.";
+                } else if (negativePercent > positivePercent) {
+                  consensusText = "Agents lean negative overall. Mixed signals but slightly bearish bias.";
+                } else {
+                  consensusText = "Agents show mixed opinions. Careful evaluation and risk management required.";
+                }
+                
+                return (
+                  <>
+                    <p className="text-base text-foreground/80 leading-relaxed font-mono">
+                      {consensusText}
+                    </p>
+                    <div className="flex items-center gap-3 pt-2 flex-wrap">
+                      {positivePercent > 0 && (
+                        <div className="px-4 py-2 bg-green-500/10 rounded-full text-sm font-medium text-green-400 border border-green-500/20 font-mono">
+                          {positivePercent}% Positive
+                        </div>
+                      )}
+                      {negativePercent > 0 && (
+                        <div className="px-4 py-2 bg-red-500/10 rounded-full text-sm font-medium text-red-400 border border-red-500/20 font-mono">
+                          {negativePercent}% Negative
+                        </div>
+                      )}
+                      {neutralPercent > 0 && (
+                        <div className="px-4 py-2 bg-blue-500/10 rounded-full text-sm font-medium text-blue-400 border border-blue-500/20 font-mono">
+                          {neutralPercent}% Neutral
+                        </div>
+                      )}
+                    </div>
+                  </>
+                );
+              })()}
             </div>
           </div>
         </div>

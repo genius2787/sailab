@@ -48,20 +48,87 @@ export function SummaryZone({ isLoading = false, error, className, selectedStock
   console.log('[SummaryZone] selectedStocks:', selectedStocks);
   console.log('[SummaryZone] analysisResults:', analysisResults);
   
-  // Mock data - in real app, this would come from props or API
-  const marketSentiment: MarketSentiment = {
-    overallSentiment: "neutral",
-    confidenceScore: 73,
-    suggestedAction: "hold",
-    biasNote: "エージェント間で意見が分岐、慎重な評価が必要",
-    consensusStrength: 65,
-    volatilityIndex: 18.4,
-    timestamp: new Date(),
-    lastUpdated: new Date(Date.now() - 3 * 60 * 1000), // 3 minutes ago
-    dataSource: "Multi-agent AI consensus",
-    confidence: 87,
-    conflictDetected: true
-  }
+  // Generate market sentiment based on agent results
+  const generateMarketSentiment = (): MarketSentiment => {
+    if (!agentResults || (!agentResults.rlAgent && !agentResults.financialAgent && !agentResults.newsAgent && !agentResults.institutionalAgent)) {
+      return {
+        overallSentiment: "neutral",
+        confidenceScore: 50,
+        suggestedAction: "hold",
+        biasNote: "No analysis available yet",
+        consensusStrength: 0,
+        volatilityIndex: 0,
+        timestamp: new Date(),
+        lastUpdated: new Date(),
+        dataSource: "Multi-agent AI consensus",
+        confidence: 0,
+        conflictDetected: false
+      };
+    }
+
+    // Analyze agent results to determine sentiment
+    let positiveCount = 0;
+    let negativeCount = 0;
+    let totalAgents = 0;
+
+    if (agentResults.rlAgent) {
+      totalAgents++;
+      if (agentResults.rlAgent.toLowerCase().includes('buy')) positiveCount++;
+      else if (agentResults.rlAgent.toLowerCase().includes('sell')) negativeCount++;
+    }
+    if (agentResults.financialAgent) {
+      totalAgents++;
+      if (agentResults.financialAgent.toLowerCase().includes('increase') || agentResults.financialAgent.toLowerCase().includes('growth')) positiveCount++;
+      else if (agentResults.financialAgent.toLowerCase().includes('decrease') || agentResults.financialAgent.toLowerCase().includes('decline')) negativeCount++;
+    }
+    if (agentResults.newsAgent) {
+      totalAgents++;
+      if (agentResults.newsAgent.toLowerCase().includes('positive')) positiveCount++;
+      else if (agentResults.newsAgent.toLowerCase().includes('negative')) negativeCount++;
+    }
+    if (agentResults.institutionalAgent) {
+      totalAgents++;
+      if (agentResults.institutionalAgent.toLowerCase().includes('optimistic') || agentResults.institutionalAgent.toLowerCase().includes('target')) positiveCount++;
+      else if (agentResults.institutionalAgent.toLowerCase().includes('pessimistic')) negativeCount++;
+    }
+
+    const positiveRatio = totalAgents > 0 ? positiveCount / totalAgents : 0;
+    const negativeRatio = totalAgents > 0 ? negativeCount / totalAgents : 0;
+    
+    let overallSentiment: "positive" | "negative" | "neutral";
+    let suggestedAction: string;
+    let biasNote: string;
+
+    if (positiveRatio > 0.6) {
+      overallSentiment = "positive";
+      suggestedAction = "buy";
+      biasNote = "Agents show strong positive consensus";
+    } else if (negativeRatio > 0.6) {
+      overallSentiment = "negative";
+      suggestedAction = "sell";
+      biasNote = "Agents show strong negative consensus";
+    } else {
+      overallSentiment = "neutral";
+      suggestedAction = "hold";
+      biasNote = "Agents show mixed opinions, careful evaluation needed";
+    }
+
+    return {
+      overallSentiment,
+      confidenceScore: Math.round((positiveCount + negativeCount) / totalAgents * 100),
+      suggestedAction,
+      biasNote,
+      consensusStrength: Math.round(Math.max(positiveRatio, negativeRatio) * 100),
+      volatilityIndex: 18.4,
+      timestamp: new Date(),
+      lastUpdated: new Date(),
+      dataSource: "Multi-agent AI consensus",
+      confidence: 87,
+      conflictDetected: positiveRatio > 0.3 && negativeRatio > 0.3
+    };
+  };
+
+  const marketSentiment = generateMarketSentiment();
 
   const dataSource: DataSourceInfo = {
     source: "SAIL Lab Trading API",
@@ -273,15 +340,16 @@ export function SummaryZone({ isLoading = false, error, className, selectedStock
           </div>
         </div>
 
-        {/* Market Analysis Summary */}
-        <div className="p-6 bg-background/20 backdrop-blur-sm rounded-xl border border-border/30 mb-6">
-          <div className="flex items-start gap-4">
-            <div className="w-3 h-3 rounded-full bg-primary mt-3 flex-shrink-0 animate-pulse" />
-            <div className="flex-1">
-              <h4 className="text-lg font-bold text-foreground mb-2 font-mono">Market Analysis Summary</h4>
-              <p className="text-base text-foreground/80 leading-relaxed mb-4 font-mono">
-                {marketSentiment.biasNote}
-              </p>
+        {/* Market Analysis Summary - Only show when we have agent results */}
+        {agentResults && (agentResults.rlAgent || agentResults.financialAgent || agentResults.newsAgent || agentResults.institutionalAgent) && (
+          <div className="p-6 bg-background/20 backdrop-blur-sm rounded-xl border border-border/30 mb-6">
+            <div className="flex items-start gap-4">
+              <div className="w-3 h-3 rounded-full bg-primary mt-3 flex-shrink-0 animate-pulse" />
+              <div className="flex-1">
+                <h4 className="text-lg font-bold text-foreground mb-2 font-mono">Market Analysis Summary</h4>
+                <p className="text-base text-foreground/80 leading-relaxed mb-4 font-mono">
+                  {marketSentiment.biasNote}
+                </p>
 
               <div className="flex items-center justify-between flex-wrap gap-4 mt-4 pt-4 border-t border-border/20">
                 <div className="flex items-center gap-3">
@@ -306,6 +374,7 @@ export function SummaryZone({ isLoading = false, error, className, selectedStock
             </div>
           </div>
         </div>
+        )}
 
         {/* Agent Results Summary */}
         {agentResults && (agentResults.rlAgent || agentResults.financialAgent || agentResults.newsAgent || agentResults.institutionalAgent) && (
