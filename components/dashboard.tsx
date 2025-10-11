@@ -230,10 +230,13 @@ export default function Dashboard() {
                     
                     // Try to clean up common JSON issues
                     finalOutputStr = finalOutputStr
-                      .replace(/\\"/g, '"')  // Replace escaped quotes
+                      .replace(/\\'/g, "'")  // Replace escaped single quotes
+                      .replace(/\\"/g, '"')  // Replace escaped double quotes
                       .replace(/\\n/g, ' ')  // Replace newlines with spaces
                       .replace(/\\t/g, ' ')  // Replace tabs with spaces
                       .replace(/\\r/g, ' ')  // Replace carriage returns with spaces
+                      .replace(/�/g, "'")    // Replace problematic Unicode characters
+                      .replace(/[^\x20-\x7E\s]/g, ' ')  // Replace non-ASCII characters with spaces
                       .replace(/\s+/g, ' ')  // Replace multiple spaces with single space
                       .trim();
                     
