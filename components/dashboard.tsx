@@ -885,6 +885,19 @@ export default function Dashboard() {
             {(() => {
               console.log('[Dashboard] newsData state:', newsData);
               console.log('[Dashboard] newsData length:', newsData?.length);
+              
+              // Function to parse markdown bold syntax and add orange color
+              const parseNewsMarkdown = (text: string) => {
+                const parts = text.split(/(\*\*.*?\*\*)/g);
+                return parts.map((part, index) => {
+                  if (part.startsWith('**') && part.endsWith('**')) {
+                    const boldText = part.slice(2, -2);
+                    return <span key={index} className="font-bold text-orange-400">{boldText}</span>;
+                  }
+                  return <span key={index}>{part}</span>;
+                });
+              };
+              
               return newsData && (
               <Card className="bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 transition-all duration-300 mt-8">
                 <CardHeader>
@@ -898,9 +911,11 @@ export default function Dashboard() {
                 </CardHeader>
                 <CardContent>
                   <div className="bg-background/20 backdrop-blur-sm rounded-xl border border-border/30 p-6">
-                    <pre className="text-sm font-mono text-foreground/90 whitespace-pre-wrap leading-relaxed">
-                      {newsData}
-                    </pre>
+                    <div className="text-sm font-mono text-foreground/90 whitespace-pre-wrap leading-relaxed">
+                      {newsData.split('\n').map((line, index) => (
+                        <div key={index}>{parseNewsMarkdown(line)}</div>
+                      ))}
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -911,6 +926,19 @@ export default function Dashboard() {
             {(() => {
               console.log('[Dashboard] financialData state:', financialData);
               console.log('[Dashboard] financialData length:', financialData?.length);
+              
+              // Function to parse markdown bold syntax and add green color
+              const parseFinancialMarkdown = (text: string) => {
+                const parts = text.split(/(\*\*.*?\*\*)/g);
+                return parts.map((part, index) => {
+                  if (part.startsWith('**') && part.endsWith('**')) {
+                    const boldText = part.slice(2, -2);
+                    return <span key={index} className="font-bold text-emerald-400">{boldText}</span>;
+                  }
+                  return <span key={index}>{part}</span>;
+                });
+              };
+              
               return financialData && (
               <Card className="bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 transition-all duration-300 mt-8">
                 <CardHeader>
@@ -924,9 +952,11 @@ export default function Dashboard() {
                 </CardHeader>
                 <CardContent>
                   <div className="bg-background/20 backdrop-blur-sm rounded-xl border border-border/30 p-6">
-                    <pre className="text-sm font-mono text-foreground/90 whitespace-pre-wrap leading-relaxed">
-                      {financialData}
-                    </pre>
+                    <div className="text-sm font-mono text-foreground/90 whitespace-pre-wrap leading-relaxed">
+                      {financialData.split('\n').map((line, index) => (
+                        <div key={index}>{parseFinancialMarkdown(line)}</div>
+                      ))}
+                    </div>
                   </div>
                 </CardContent>
               </Card>
