@@ -40,7 +40,7 @@ export default function Dashboard() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [visibleSections, setVisibleSections] = useState(new Set());
   const sectionRefs = useRef({});
-  const [selectedStocks, setSelectedStocks] = useState<string[]>([]);
+  const [selectedStock, setSelectedStock] = useState<string>('');
   const [analyzedStocks, setAnalyzedStocks] = useState<string[]>([]);
   const [analysisResults, setAnalysisResults] = useState<any>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -110,19 +110,19 @@ export default function Dashboard() {
 
   // Handle stock analysis with streaming
   const handleAnalyzeStocks = async () => {
-    if (selectedStocks.length === 0) return;
+    if (!selectedStock) return;
     
     setIsAnalyzing(true);
     setStreamOutput([]);
     setCurrentStock('');
-    console.log('[Dashboard] Analyzing stocks:', selectedStocks);
+    console.log('[Dashboard] Analyzing stock:', selectedStock);
     
     try {
       // Call Trading Agent Stream API
       const response = await fetch('/api/analyze-stocks-stream', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ stocks: selectedStocks })
+        body: JSON.stringify({ stocks: [selectedStock] })
       });
       
       if (!response.ok) {
@@ -299,7 +299,7 @@ export default function Dashboard() {
               
               // Handle completion
               if (data.type === 'complete') {
-                setAnalyzedStocks(selectedStocks);
+                setAnalyzedStocks([selectedStock]);
                 // You can still set analysis results here if needed
               }
               
@@ -514,7 +514,7 @@ export default function Dashboard() {
               <CardHeader>
                 <CardTitle className="text-2xl font-mono">Select Stocks to Analyze</CardTitle>
                 <CardDescription className="font-mono">
-                  Choose up to <span className="text-yellow-500 font-bold text-lg">3</span> stocks from US market or search custom symbols
+                  Choose <span className="text-yellow-500 font-bold text-lg">1</span> stock from US market or search custom symbols
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -555,13 +555,13 @@ export default function Dashboard() {
                               key={stock.symbol}
                               className="w-full text-left px-4 py-2 hover:bg-yellow-500/10 font-mono text-sm transition-colors"
                               onClick={() => {
-                                if (!selectedStocks.includes(stock.symbol) && selectedStocks.length < 3) {
-                                  setSelectedStocks([...selectedStocks, stock.symbol]);
+                                if (selectedStock !== stock.symbol) {
+                                  setSelectedStock(stock.symbol);
                                   setCustomStock("");
                                   setSuggestions([]);
                                 }
                               }}
-                              disabled={selectedStocks.includes(stock.symbol)}
+                              disabled={selectedStock === stock.symbol}
                             >
                               <span className="text-yellow-500 font-bold">
                                 {stock.symbol}
@@ -576,16 +576,13 @@ export default function Dashboard() {
                     </div>
                     <Button
                       onClick={() => {
-                        if (customStock && !selectedStocks.includes(customStock)) {
-                          const maxSelections = 3;
-                          if (selectedStocks.length < maxSelections) {
-                            setSelectedStocks([...selectedStocks, customStock]);
-                            setCustomStock("");
-                            setSuggestions([]);
-                          }
+                        if (customStock && selectedStock !== customStock) {
+                          setSelectedStock(customStock);
+                          setCustomStock("");
+                          setSuggestions([]);
                         }
                       }}
-                      disabled={!customStock || selectedStocks.includes(customStock)}
+                      disabled={!customStock || selectedStock === customStock}
                       className="font-mono"
                     >
                       Add Stock
@@ -596,29 +593,24 @@ export default function Dashboard() {
                 {/* Selected Custom Stocks */}
                 {(() => {
                   const quickSelectSymbols = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA', 'BRK.B', 'JPM', 'V', 'MA', 'BAC', 'WFC', 'GS', 'MS', 'AVGO', 'ORCL', 'AMD', 'INTC', 'QCOM', 'CRM', 'ADBE', 'CSCO', 'LLY', 'UNH', 'JNJ', 'ABBV', 'MRK', 'PFE', 'COST', 'HD', 'WMT', 'PG', 'KO', 'PEP', 'MCD', 'NKE', 'SBUX', 'XOM', 'CVX', 'NFLX', 'DIS', 'CMCSA', 'F', 'GM', 'BA', 'CAT', 'GE'];
-                  const customStocks = selectedStocks.filter(s => !quickSelectSymbols.includes(s));
+                  const customStock = selectedStock && !quickSelectSymbols.includes(selectedStock) ? selectedStock : null;
                   
-                  if (customStocks.length === 0) return null;
+                  if (!customStock) return null;
+                  
+                  const stockInfo = stockDatabase.find(s => s.symbol === customStock);
+                  const displayText = stockInfo ? `${customStock} (${stockInfo.name})` : customStock;
                   
                   return (
                     <div className="flex flex-wrap gap-2">
-                      <span className="text-xs font-mono text-foreground/60">Custom selections:</span>
-                      {customStocks.map(symbol => {
-                        const stockInfo = stockDatabase.find(s => s.symbol === symbol);
-                        const displayText = stockInfo ? `${symbol} (${stockInfo.name})` : symbol;
-                        
-                        return (
-                          <Badge 
-                            key={symbol}
-                            variant="outline"
-                            className="bg-yellow-500/20 border-yellow-500 text-yellow-500 font-mono cursor-pointer hover:bg-yellow-500/30"
-                            onClick={() => setSelectedStocks(prev => prev.filter(s => s !== symbol))}
-                          >
-                            {displayText} ✕
-                          </Badge>
-                        );
-                      })}
-                  </div>
+                      <span className="text-xs font-mono text-foreground/60">Custom selection:</span>
+                      <Badge 
+                        variant="outline"
+                        className="bg-yellow-500/20 border-yellow-500 text-yellow-500 font-mono cursor-pointer hover:bg-yellow-500/30"
+                        onClick={() => setSelectedStock('')}
+                      >
+                        {displayText} ✕
+                      </Badge>
+                    </div>
                   );
                 })()}
 
@@ -720,9 +712,7 @@ export default function Dashboard() {
                       <h3 className="text-sm font-mono font-bold text-yellow-500 mb-2">{category.category}</h3>
                       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
                         {category.stocks.map((stock) => {
-                    const isSelected = selectedStocks.includes(stock.symbol);
-                    const maxSelections = 3;
-                    const canSelect = selectedStocks.length < maxSelections || isSelected;
+                    const isSelected = selectedStock === stock.symbol;
                     
                     return (
                       <Button
@@ -732,15 +722,9 @@ export default function Dashboard() {
                           isSelected 
                             ? 'bg-yellow-500/20 border-yellow-500 shadow-lg shadow-yellow-500/20' 
                             : 'hover:bg-primary/10 hover:border-primary/40'
-                        } ${!canSelect ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        }`}
                         onClick={() => {
-                          if (!canSelect && !isSelected) return;
-                          
-                          setSelectedStocks(prev => 
-                            isSelected 
-                              ? prev.filter(s => s !== stock.symbol)
-                              : [...prev, stock.symbol]
-                          );
+                          setSelectedStock(isSelected ? '' : stock.symbol);
                         }}
                       >
                         <span className={`font-bold ${isSelected ? 'text-yellow-500' : 'text-primary'}`}>{stock.symbol}</span>
@@ -755,11 +739,11 @@ export default function Dashboard() {
 
                 <div className="flex items-center justify-between pt-4 border-t border-border/20">
                   <div className="text-sm font-mono text-foreground/60">
-                    <span className="text-yellow-500 font-bold text-lg">{selectedStocks.length}</span> / 3 stocks selected
+                    <span className="text-yellow-500 font-bold text-lg">{selectedStock ? '1' : '0'}</span> / 1 stock selected
                   </div>
                   <Button 
                     className="font-mono px-8"
-                    disabled={selectedStocks.length === 0 || isAnalyzing}
+                    disabled={!selectedStock || isAnalyzing}
                     onClick={handleAnalyzeStocks}
                   >
                     {isAnalyzing ? (
@@ -846,7 +830,7 @@ export default function Dashboard() {
             <div ref={el => sectionRefs.current.summary = el}>
               <div className={`${visibleSections.has('summary') ? 'animate-fade-in-up' : ''}`}>
                 <SummaryZone 
-                  selectedStocks={analyzedStocks} 
+                  selectedStocks={analyzedStocks.length > 0 ? analyzedStocks : (selectedStock ? [selectedStock] : [])} 
                   isLoading={isAnalyzing}
                   analysisResults={analysisResults}
                   agentResults={agentResults}
