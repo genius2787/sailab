@@ -176,7 +176,11 @@ export default function Dashboard() {
                   financialAgent: prev.financialAgent ? prev.financialAgent + '\n' + data.message : data.message
                 }));
                 // Also save to financialData for the dedicated block
-                setFinancialData(prev => prev ? prev + '\n' + data.message : data.message);
+                setFinancialData(prev => {
+                  const newData = prev ? prev + '\n' + data.message : data.message;
+                  console.log('[Dashboard] Updated financialData:', newData);
+                  return newData;
+                });
                 console.log('[Dashboard] Updated financialAgent:', data.message);
               } else if (data.type === 'news_agent' && data.stock) {
                 setAgentResults(prev => ({
@@ -184,7 +188,11 @@ export default function Dashboard() {
                   newsAgent: prev.newsAgent ? prev.newsAgent + '\n' + data.message : data.message
                 }));
                 // Also save to newsData for the dedicated block
-                setNewsData(prev => prev ? prev + '\n' + data.message : data.message);
+                setNewsData(prev => {
+                  const newData = prev ? prev + '\n' + data.message : data.message;
+                  console.log('[Dashboard] Updated newsData:', newData);
+                  return newData;
+                });
                 console.log('[Dashboard] Updated newsAgent:', data.message);
               } else if (data.type === 'stdout' && data.message.includes('Sharpe:') && data.stock) {
                 // Extract RL Agent results from training output
@@ -874,7 +882,10 @@ export default function Dashboard() {
             </div>
 
             {/* Important News Block */}
-            {newsData && (
+            {(() => {
+              console.log('[Dashboard] newsData state:', newsData);
+              console.log('[Dashboard] newsData length:', newsData?.length);
+              return newsData && (
               <Card className="bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 transition-all duration-300 mt-8">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-3 text-2xl font-mono">
@@ -893,10 +904,14 @@ export default function Dashboard() {
                   </div>
                 </CardContent>
               </Card>
-            )}
+              );
+            })()}
 
             {/* Specific Financial Analysis Block */}
-            {financialData && (
+            {(() => {
+              console.log('[Dashboard] financialData state:', financialData);
+              console.log('[Dashboard] financialData length:', financialData?.length);
+              return financialData && (
               <Card className="bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 transition-all duration-300 mt-8">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-3 text-2xl font-mono">
@@ -915,7 +930,8 @@ export default function Dashboard() {
                   </div>
                 </CardContent>
               </Card>
-            )}
+              );
+            })()}
 
             {/* KPI Snapshot */}
             <div ref={el => sectionRefs.current.kpis = el}>
