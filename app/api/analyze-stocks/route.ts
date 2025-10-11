@@ -67,13 +67,15 @@ DATE = ${analysisDate}
       console.log(`[API] Updated config.ini for ${stock}`);
 
       // Run TradeAgent
+      console.log(`[API] Running TradeAgent for ${stock}...`);
+      console.log(`[API] Python command: python main.py`);
+      console.log(`[API] Working directory: ${srcPath}`);
+      
       const output = await new Promise<string>((resolve, reject) => {
-        const pythonProcess = spawn('python', [
-          path.join(srcPath, 'main.py'),
-          '--config', configPath,
-          '--common_config', commonConfigPath
-        ], {
-          cwd: srcPath
+        const pythonProcess = spawn('python', ['main.py'], {
+          cwd: srcPath,
+          stdio: ['pipe', 'pipe', 'pipe'],
+          shell: true  // Use shell on Windows
         });
 
         let stdout = '';
