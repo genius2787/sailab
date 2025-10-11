@@ -1,0 +1,11 @@
+{
+  "name": "sailab",
+  "version": 2,
+  "domains": [],
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ]
+}
