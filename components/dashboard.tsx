@@ -849,7 +849,12 @@ export default function Dashboard() {
             {/* Agent Voting Panel */}
             <div ref={el => sectionRefs.current.agents = el}>
               <div className={`${visibleSections.has('agents') ? 'animate-fade-in-up animate-delay-200' : ''}`}>
-                <AgentVotingPanel agentResults={agentResults} isLoading={isAnalyzing} />
+                <AgentVotingPanel 
+                  agentResults={agentResults} 
+                  isLoading={isAnalyzing} 
+                  finalOutput={finalOutput}
+                  selectedStocks={analyzedStocks.length > 0 ? analyzedStocks : (selectedStock ? [selectedStock] : [])}
+                />
               </div>
             </div>
 

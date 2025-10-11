@@ -24,9 +24,11 @@ interface AgentVotingPanelProps {
     institutionalAgent?: string
   }
   isLoading?: boolean
+  finalOutput?: any  // Add finalOutput to use real data
+  selectedStocks?: string[]  // Need to know which stock to look up
 }
 
-export function AgentVotingPanel({ agentResults, isLoading = false }: AgentVotingPanelProps) {
+export function AgentVotingPanel({ agentResults, isLoading = false, finalOutput, selectedStocks = [] }: AgentVotingPanelProps) {
   const [selectedAgent, setSelectedAgent] = useState<string | null>(null)
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [expandedView, setExpandedView] = useState(false)
@@ -34,6 +36,8 @@ export function AgentVotingPanel({ agentResults, isLoading = false }: AgentVotin
   // Debug logging
   console.log('[AgentVotingPanel] agentResults:', agentResults);
   console.log('[AgentVotingPanel] isLoading:', isLoading);
+  console.log('[AgentVotingPanel] finalOutput:', finalOutput);
+  console.log('[AgentVotingPanel] selectedStocks:', selectedStocks);
 
   const handleRefreshVotes = async () => {
     setIsRefreshing(true)
@@ -62,12 +66,27 @@ export function AgentVotingPanel({ agentResults, isLoading = false }: AgentVotin
       color: "neutral"
     };
 
+    // Get real data from Final Output if available
+    let actionFromFinal: string | null = null;
+    let percentageFromFinal: number | null = null;
+    
+    if (finalOutput && selectedStocks.length > 0) {
+      const stockKey = selectedStocks[0];
+      const stockData = finalOutput[stockKey];
+      if (stockData) {
+        actionFromFinal = stockData.Action?.toLowerCase() || null;
+        const percentStr = stockData.Percentage || '';
+        percentageFromFinal = parseInt(percentStr.replace('%', '')) || null;
+        console.log('[AgentVotingPanel] Using Final Output - Action:', actionFromFinal, 'Percentage:', percentageFromFinal);
+      }
+    }
+
     // Parse RL Agent results
     const rlAgent = agentResults?.rlAgent ? {
       sentiment: agentResults.rlAgent.toLowerCase().includes('sell') ? "Negative" as const : 
                  agentResults.rlAgent.toLowerCase().includes('buy') ? "Positive" as const : "Neutral" as const,
-      percentage: agentResults.rlAgent.includes('60%') ? 60 : 
-                  agentResults.rlAgent.includes('80%') ? 80 : 70,
+      percentage: percentageFromFinal || (agentResults.rlAgent.includes('60%') ? 60 : 
+                  agentResults.rlAgent.includes('80%') ? 80 : 70),
       reasoning: agentResults.rlAgent.substring(0, 120) + "...",
       color: agentResults.rlAgent.toLowerCase().includes('sell') ? "negative" : 
              agentResults.rlAgent.toLowerCase().includes('buy') ? "positive" : "neutral"
