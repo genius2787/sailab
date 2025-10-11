@@ -184,11 +184,33 @@ export default function Dashboard() {
               } else if (data.type === 'stdout' && data.message.includes('Final Output:')) {
                 // Parse Final Output JSON
                 try {
-                  const finalOutputMatch = data.message.match(/Final Output:\s*(\{.*\})/);
-                  if (finalOutputMatch) {
-                    const finalOutputStr = finalOutputMatch[1];
+                  console.log('[Dashboard] Raw Final Output message:', data.message);
+                  
+                  // Try different regex patterns to extract JSON
+                  let finalOutputStr = '';
+                  const patterns = [
+                    /Final Output:\s*(\{.*\})/s,
+                    /Final Output:\s*(\{[\s\S]*\})/,
+                    /"Final Output":\s*(\{.*\})/s
+                  ];
+                  
+                  for (const pattern of patterns) {
+                    const match = data.message.match(pattern);
+                    if (match) {
+                      finalOutputStr = match[1];
+                      break;
+                    }
+                  }
+                  
+                  if (finalOutputStr) {
+                    console.log('[Dashboard] Extracted JSON string:', finalOutputStr);
+                    
+                    // Clean up the JSON string
+                    finalOutputStr = finalOutputStr.trim();
+                    
+                    // Try to parse the JSON
                     const finalOutput = JSON.parse(finalOutputStr);
-                    console.log('[Dashboard] Parsed Final Output:', finalOutput);
+                    console.log('[Dashboard] Successfully parsed Final Output:', finalOutput);
                     
                     // Extract results for each stock
                     Object.entries(finalOutput).forEach(([stock, result]: [string, any]) => {
@@ -203,9 +225,35 @@ export default function Dashboard() {
                         console.log('[Dashboard] Updated all agents from Final Output for', stock);
                       }
                     });
+                  } else {
+                    console.log('[Dashboard] No JSON pattern matched in Final Output');
                   }
                 } catch (e) {
                   console.error('[Dashboard] Failed to parse Final Output:', e);
+                  console.error('[Dashboard] Error details:', e.message);
+                  console.error('[Dashboard] Raw message that failed:', data.message);
+                  
+                  // Fallback: try to extract agent results using string matching
+                  try {
+                    const message = data.message;
+                    const rlMatch = message.match(/RL_agent_result["\s]*:["\s]*"([^"]+)"/);
+                    const financialMatch = message.match(/Financial_agent_result["\s]*:["\s]*"([^"]+)"/);
+                    const newsMatch = message.match(/News_agent_result["\s]*:["\s]*"([^"]+)"/);
+                    const institutionalMatch = message.match(/Professional_insitutions_prediction_search_agent_result["\s]*:["\s]*"([^"]+)"/);
+                    
+                    if (rlMatch || financialMatch || newsMatch || institutionalMatch) {
+                      setAgentResults(prev => ({
+                        ...prev,
+                        rlAgent: rlMatch ? rlMatch[1] : prev.rlAgent,
+                        financialAgent: financialMatch ? financialMatch[1] : prev.financialAgent,
+                        newsAgent: newsMatch ? newsMatch[1] : prev.newsAgent,
+                        institutionalAgent: institutionalMatch ? institutionalMatch[1] : prev.institutionalAgent
+                      }));
+                      console.log('[Dashboard] Fallback parsing successful');
+                    }
+                  } catch (fallbackError) {
+                    console.error('[Dashboard] Fallback parsing also failed:', fallbackError);
+                  }
                 }
               }
               
