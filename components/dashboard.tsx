@@ -233,11 +233,10 @@ export default function Dashboard() {
                     
                     // Check if it's an empty object or invalid
                     if (finalOutputStr === '{}' || finalOutputStr === '{{}}' || finalOutputStr === '') {
-                      console.log('[Dashboard] Skipping parse: Empty or invalid JSON object');
-                      return;
-                    }
-                    
-                    // Try to parse the JSON
+                      console.log('[Dashboard] Skipping parse: Empty or invalid JSON object, continuing to listen...');
+                      // Don't return, just skip this parse and continue listening for more data
+                    } else {
+                    // Try to parse the JSON if not empty
                     try {
                       const parsedFinalOutput = JSON.parse(finalOutputStr);
                       console.log('[Dashboard] Successfully parsed Final Output:', parsedFinalOutput);
@@ -264,6 +263,7 @@ export default function Dashboard() {
                       console.error('[Dashboard] Failed JSON string:', finalOutputStr);
                       throw jsonError; // Re-throw to trigger fallback parsing
                     }
+                    } // Close the else block for non-empty JSON
                   } else {
                     console.log('[Dashboard] No JSON pattern matched in Final Output');
                   }
