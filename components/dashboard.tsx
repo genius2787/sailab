@@ -1170,19 +1170,35 @@ export default function Dashboard() {
         </div>
         )}
 
-        {/* Risk Disclosure */}
-        <div className="mt-8 border-t border-border/20 pt-8">
-          <Card className="bg-card/40 backdrop-blur-sm border-border/30">
-            <CardContent className="p-6">
-              <h3 className="text-lg font-mono font-bold text-foreground mb-4">Risk Disclosure</h3>
-              <p className="text-sm font-mono text-foreground/70 leading-relaxed mb-4">
-                This analysis is for informational purposes only. Market data analysis involves substantial risk. 
-                Past performance does not guarantee future results. SAIL Lab AI provides research, not investment advice.
-              </p>
-              <div className="flex items-center justify-between text-xs font-mono text-foreground/50 border-t border-border/20 pt-4">
+        {/* Risk Disclosure - Highlighted */}
+        <div className="mt-12 border-t-2 border-amber-500/30 pt-8">
+          <Card className="bg-gradient-to-br from-amber-500/10 via-background/50 to-red-500/10 backdrop-blur-sm border-2 border-amber-500/40 shadow-lg shadow-amber-500/20">
+            <CardContent className="p-8">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="p-3 rounded-full bg-amber-500/20 border border-amber-500/40">
+                  <AlertCircle className="h-6 w-6 text-amber-400" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-mono font-bold text-amber-400 mb-4 flex items-center gap-2">
+                    ⚠️ Risk Disclosure
+                  </h3>
+                  <div className="space-y-3">
+                    <p className="text-base font-mono text-foreground/90 leading-relaxed font-semibold">
+                      This analysis is for informational purposes only. Market data analysis involves substantial risk.
+                    </p>
+                    <p className="text-base font-mono text-foreground/80 leading-relaxed">
+                      Past performance does not guarantee future results. SAIL Lab AI provides research and analysis tools, not investment advice.
+                    </p>
+                    <p className="text-base font-mono text-foreground/80 leading-relaxed">
+                      Please conduct your own due diligence and consult with qualified financial advisors before making any investment decisions.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center justify-between text-sm font-mono text-foreground/60 border-t border-amber-500/20 pt-4 mt-4">
                 <span>Last Updated: {new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</span>
                 <span>•</span>
-                <span>© 2025 SAIL Lab</span>
+                <span className="font-bold">© 2025 SAIL Lab</span>
               </div>
             </CardContent>
           </Card>
