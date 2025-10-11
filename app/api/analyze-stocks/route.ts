@@ -41,9 +41,9 @@ export async function POST(request: NextRequest) {
       throw new Error(`src directory not found at: ${srcPath}`);
     }
 
-    // Use date 2 days ago for analysis (to ensure data availability)
+    // Use date 5 days ago for analysis (to ensure data availability)
     const date = new Date();
-    date.setDate(date.getDate() - 2);
+    date.setDate(date.getDate() - 5);
     const analysisDate = date.toISOString().split('T')[0]; // YYYY-MM-DD
     
     console.log('[API] Analysis date:', analysisDate);
@@ -68,12 +68,16 @@ DATE = ${analysisDate}
 
       // Run TradeAgent
       console.log(`[API] Running TradeAgent for ${stock}...`);
-      console.log(`[API] Python command: D:\\anaconda\\envs\\FinRL\\python.exe main.py`);
+      console.log(`[API] Python command: D:\\anaconda\\envs\\FinRL\\python.exe main.py --config ${configPath} --common_config ${commonConfigPath}`);
       console.log(`[API] Working directory: ${srcPath}`);
       
       const output = await new Promise<string>((resolve, reject) => {
-        // Use FinRL environment Python directly
-        const pythonProcess = spawn('D:\\anaconda\\envs\\FinRL\\python.exe', ['main.py'], {
+        // Use FinRL environment Python directly with config arguments
+        const pythonProcess = spawn('D:\\anaconda\\envs\\FinRL\\python.exe', [
+          'main.py',
+          '--config', configPath,
+          '--common_config', commonConfigPath
+        ], {
           cwd: srcPath,
           stdio: ['pipe', 'pipe', 'pipe'],
           shell: true  // Use shell on Windows
