@@ -55,6 +55,9 @@ export default function Dashboard() {
     newsAgent?: string;
     institutionalAgent?: string;
   }>({});
+
+  // Debug logging for agentResults
+  console.log('[Dashboard] agentResults state:', agentResults);
   
   // Extended stock database for autocomplete
   const stockDatabase = [
@@ -164,17 +167,46 @@ export default function Dashboard() {
                   ...prev,
                   financialAgent: prev.financialAgent ? prev.financialAgent + '\n' + data.message : data.message
                 }));
+                console.log('[Dashboard] Updated financialAgent:', data.message);
               } else if (data.type === 'news_agent' && data.stock) {
                 setAgentResults(prev => ({
                   ...prev,
                   newsAgent: prev.newsAgent ? prev.newsAgent + '\n' + data.message : data.message
                 }));
+                console.log('[Dashboard] Updated newsAgent:', data.message);
               } else if (data.type === 'stdout' && data.message.includes('Sharpe:') && data.stock) {
                 // Extract RL Agent results from training output
                 setAgentResults(prev => ({
                   ...prev,
                   rlAgent: prev.rlAgent ? prev.rlAgent + '\n' + data.message : data.message
                 }));
+                console.log('[Dashboard] Updated rlAgent:', data.message);
+              } else if (data.type === 'stdout' && data.message.includes('Final Output:')) {
+                // Parse Final Output JSON
+                try {
+                  const finalOutputMatch = data.message.match(/Final Output:\s*(\{.*\})/);
+                  if (finalOutputMatch) {
+                    const finalOutputStr = finalOutputMatch[1];
+                    const finalOutput = JSON.parse(finalOutputStr);
+                    console.log('[Dashboard] Parsed Final Output:', finalOutput);
+                    
+                    // Extract results for each stock
+                    Object.entries(finalOutput).forEach(([stock, result]: [string, any]) => {
+                      if (result.Evaluation) {
+                        setAgentResults(prev => ({
+                          ...prev,
+                          rlAgent: result.Evaluation.RL_agent_result || prev.rlAgent,
+                          financialAgent: result.Evaluation.Financial_agent_result || prev.financialAgent,
+                          newsAgent: result.Evaluation.News_agent_result || prev.newsAgent,
+                          institutionalAgent: result.Evaluation.Professional_insitutions_prediction_search_agent_result || prev.institutionalAgent
+                        }));
+                        console.log('[Dashboard] Updated all agents from Final Output for', stock);
+                      }
+                    });
+                  }
+                } catch (e) {
+                  console.error('[Dashboard] Failed to parse Final Output:', e);
+                }
               }
               
               // Auto-scroll to bottom

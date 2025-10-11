@@ -31,6 +31,10 @@ export function AgentVotingPanel({ agentResults, isLoading = false }: AgentVotin
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [expandedView, setExpandedView] = useState(false)
 
+  // Debug logging
+  console.log('[AgentVotingPanel] agentResults:', agentResults);
+  console.log('[AgentVotingPanel] isLoading:', isLoading);
+
   const handleRefreshVotes = async () => {
     setIsRefreshing(true)
     // Simulate refresh
@@ -58,31 +62,42 @@ export function AgentVotingPanel({ agentResults, isLoading = false }: AgentVotin
       color: "neutral"
     };
 
+    // Parse RL Agent results
     const rlAgent = agentResults?.rlAgent ? {
-      sentiment: "Positive" as const, // This would need to be parsed from the actual RL output
-      percentage: 75, // This would need to be extracted from RL results
-      reasoning: agentResults.rlAgent.substring(0, 100) + "...",
-      color: "positive"
+      sentiment: agentResults.rlAgent.toLowerCase().includes('sell') ? "Negative" as const : 
+                 agentResults.rlAgent.toLowerCase().includes('buy') ? "Positive" as const : "Neutral" as const,
+      percentage: agentResults.rlAgent.includes('60%') ? 60 : 
+                  agentResults.rlAgent.includes('80%') ? 80 : 70,
+      reasoning: agentResults.rlAgent.substring(0, 120) + "...",
+      color: agentResults.rlAgent.toLowerCase().includes('sell') ? "negative" : 
+             agentResults.rlAgent.toLowerCase().includes('buy') ? "positive" : "neutral"
     } : defaultVote;
 
+    // Parse Financial Agent results
     const financialAgent = agentResults?.financialAgent ? {
-      sentiment: "Positive" as const,
+      sentiment: agentResults.financialAgent.toLowerCase().includes('increase') || 
+                 agentResults.financialAgent.toLowerCase().includes('growth') ? "Positive" as const : "Neutral" as const,
       percentage: 80,
-      reasoning: agentResults.financialAgent.substring(0, 100) + "...",
+      reasoning: agentResults.financialAgent.substring(0, 120) + "...",
       color: "positive"
     } : defaultVote;
 
+    // Parse News Agent results
     const newsAgent = agentResults?.newsAgent ? {
-      sentiment: "Neutral" as const,
+      sentiment: agentResults.newsAgent.toLowerCase().includes('positive') ? "Positive" as const :
+                 agentResults.newsAgent.toLowerCase().includes('negative') ? "Negative" as const : "Neutral" as const,
       percentage: 65,
-      reasoning: agentResults.newsAgent.substring(0, 100) + "...",
-      color: "neutral"
+      reasoning: agentResults.newsAgent.substring(0, 120) + "...",
+      color: agentResults.newsAgent.toLowerCase().includes('positive') ? "positive" :
+             agentResults.newsAgent.toLowerCase().includes('negative') ? "negative" : "neutral"
     } : defaultVote;
 
+    // Parse Institutional Agent results
     const institutionalAgent = agentResults?.institutionalAgent ? {
-      sentiment: "Positive" as const,
+      sentiment: agentResults.institutionalAgent.toLowerCase().includes('optimistic') || 
+                 agentResults.institutionalAgent.toLowerCase().includes('target') ? "Positive" as const : "Neutral" as const,
       percentage: 70,
-      reasoning: agentResults.institutionalAgent.substring(0, 100) + "...",
+      reasoning: agentResults.institutionalAgent.substring(0, 120) + "...",
       color: "positive"
     } : defaultVote;
 
@@ -113,6 +128,31 @@ export function AgentVotingPanel({ agentResults, isLoading = false }: AgentVotin
       ...institutionalAgent,
     },
   ]
+
+  // Show loading state or default state
+  if (isLoading) {
+    return (
+      <Card className="w-full bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 transition-all duration-300 rounded-xl">
+        <CardHeader className="pb-6">
+          <CardTitle className="flex items-center gap-3 text-2xl font-mono">
+            <div className="p-2 rounded-full bg-primary/10">
+              <Brain className="h-5 w-5 text-primary" />
+            </div>
+            Agent Voting Panel
+            <Badge variant="outline" className="bg-primary/10 text-primary border-primary/30 px-4 py-2 font-mono font-semibold">
+              Analyzing...
+            </Badge>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-center py-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+            <p className="text-foreground/70 font-mono">Agents are analyzing your selected stocks...</p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card className="w-full bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 transition-all duration-300 rounded-xl">
