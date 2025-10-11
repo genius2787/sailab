@@ -933,14 +933,17 @@ export default function Dashboard() {
               );
             })()}
 
-            {/* KPI Snapshot */}
+            {/* KPI Snapshot - Hidden until real account data is available */}
+            {false && (
             <div ref={el => sectionRefs.current.kpis = el}>
               <div className={`${visibleSections.has('kpis') ? 'animate-fade-in-up animate-delay-400' : ''}`}>
                 <KPISnapshot />
               </div>
             </div>
+            )}
 
-            {/* Recent Trades */}
+            {/* Recent Trades - Hidden */}
+            {false && (
             <Card className="bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 transition-all duration-300" ref={el => sectionRefs.current.trades = el}>
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 text-2xl font-mono">
@@ -984,9 +987,11 @@ export default function Dashboard() {
                 </div>
               </CardContent>
             </Card>
+            )}
           </div>
 
-          {/* Sidebar */}
+          {/* Sidebar - All blocks hidden */}
+          {false && (
           <div className="xl:col-span-1 space-y-6">
             {/* Market Summary */}
             <Card className="bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 transition-all duration-300" ref={el => sectionRefs.current.market = el}>
@@ -1153,14 +1158,17 @@ export default function Dashboard() {
               </CardContent>
             </Card>
           </div>
+          )}
         </div>
 
-        {/* News Ticker */}
+        {/* News Ticker - Hidden */}
+        {false && (
         <div className="mt-12 mb-8" ref={el => sectionRefs.current.news = el}>
           <div className={`${visibleSections.has('news') ? 'animate-fade-in-up' : ''}`}>
             <NewsTicker />
           </div>
         </div>
+        )}
 
         {/* Risk Disclosure */}
         <div className="mt-8 border-t border-border/20 pt-8">
