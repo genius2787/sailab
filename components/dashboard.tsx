@@ -142,8 +142,9 @@ export default function Dashboard() {
               const data = JSON.parse(line.slice(6));
               console.log('[Dashboard] Stream data:', data);
               
-              // Update stream output
-              setStreamOutput(prev => [...prev, `[${data.type}] ${data.message}`]);
+              // Update stream output - split by lines for better readability
+              const lines = data.message.split('\n').filter(line => line.trim() !== '');
+              setStreamOutput(prev => [...prev, ...lines.map(line => `[${data.type}] ${line}`)]);
               
               // Update current stock
               if (data.stock) {
@@ -654,15 +655,27 @@ export default function Dashboard() {
                     </span>
                   </div>
                 </div>
-                <div ref={terminalRef} className="bg-black rounded-lg p-4 h-64 overflow-y-auto font-mono text-sm">
+                <div ref={terminalRef} className="bg-black rounded-lg p-4 h-80 overflow-y-auto font-mono text-xs">
                   {streamOutput.length === 0 ? (
                     <div className="text-gray-500">Starting analysis...</div>
                   ) : (
-                    streamOutput.map((line, index) => (
-                      <div key={index} className="text-green-400 mb-1">
-                        {line}
-                      </div>
-                    ))
+                    streamOutput.map((line, index) => {
+                      // Color code different types of output
+                      let textColor = 'text-green-400';
+                      if (line.includes('[ERROR]')) textColor = 'text-red-400';
+                      else if (line.includes('[WARNING]')) textColor = 'text-yellow-400';
+                      else if (line.includes('[TRAIN]')) textColor = 'text-blue-400';
+                      else if (line.includes('[PREDICT]')) textColor = 'text-purple-400';
+                      else if (line.includes('ep_len_mean') || line.includes('ep_rew_mean') || line.includes('fps')) textColor = 'text-cyan-400';
+                      else if (line.includes('Sharpe:') || line.includes('total_reward:')) textColor = 'text-yellow-300';
+                      else if (line.includes('|') && line.includes('rollout')) textColor = 'text-gray-300';
+                      
+                      return (
+                        <div key={index} className={`${textColor} mb-0.5 leading-tight`}>
+                          {line}
+                        </div>
+                      );
+                    })
                   )}
                 </div>
               </div>

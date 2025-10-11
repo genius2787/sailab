@@ -72,13 +72,25 @@ export async function POST(request: NextRequest) {
             // Handle stdout
             pythonProcess.stdout.on('data', (data) => {
               const output = data.toString();
-              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'stdout', message: output, stock })}\n\n`));
+              // Split by lines and send each line separately for better formatting
+              const lines = output.split('\n');
+              lines.forEach(line => {
+                if (line.trim()) {
+                  controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'stdout', message: line, stock })}\n\n`));
+                }
+              });
             });
 
             // Handle stderr
             pythonProcess.stderr.on('data', (data) => {
               const output = data.toString();
-              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'stderr', message: output, stock })}\n\n`));
+              // Split by lines and send each line separately for better formatting
+              const lines = output.split('\n');
+              lines.forEach(line => {
+                if (line.trim()) {
+                  controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'stderr', message: line, stock })}\n\n`));
+                }
+              });
             });
 
             // Handle process completion
