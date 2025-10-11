@@ -42,6 +42,41 @@ export default function Dashboard() {
   const sectionRefs = useRef({});
   const [selectedStocks, setSelectedStocks] = useState<string[]>([]);
   const [customStock, setCustomStock] = useState("");
+  const [suggestions, setSuggestions] = useState<Array<{ symbol: string; name: string }>>([]);
+  
+  // Extended stock database for autocomplete
+  const stockDatabase = [
+    { symbol: 'MU', name: 'Micron Technology' },
+    { symbol: 'MSFT', name: 'Microsoft Corporation' },
+    { symbol: 'AAPL', name: 'Apple Inc.' },
+    { symbol: 'GOOGL', name: 'Alphabet Inc.' },
+    { symbol: 'AMZN', name: 'Amazon.com Inc.' },
+    { symbol: 'TSLA', name: 'Tesla Inc.' },
+    { symbol: 'NVDA', name: 'NVIDIA Corporation' },
+    { symbol: 'META', name: 'Meta Platforms Inc.' },
+    { symbol: 'TSM', name: 'Taiwan Semiconductor' },
+    { symbol: 'ASML', name: 'ASML Holding' },
+    { symbol: 'SONY', name: 'Sony Group Corporation' },
+    { symbol: 'TM', name: 'Toyota Motor Corporation' },
+    { symbol: 'BABA', name: 'Alibaba Group' },
+    { symbol: 'BIDU', name: 'Baidu Inc.' },
+    { symbol: 'NIO', name: 'NIO Inc.' },
+    { symbol: 'XPEV', name: 'XPeng Inc.' },
+    { symbol: 'LI', name: 'Li Auto Inc.' },
+    { symbol: 'PYPL', name: 'PayPal Holdings' },
+    { symbol: 'SQ', name: 'Block Inc.' },
+    { symbol: 'SHOP', name: 'Shopify Inc.' },
+    { symbol: 'UBER', name: 'Uber Technologies' },
+    { symbol: 'ABNB', name: 'Airbnb Inc.' },
+    { symbol: 'SPOT', name: 'Spotify Technology' },
+    { symbol: 'RBLX', name: 'Roblox Corporation' },
+    { symbol: 'U', name: 'Unity Software' },
+    { symbol: 'PLTR', name: 'Palantir Technologies' },
+    { symbol: 'SNOW', name: 'Snowflake Inc.' },
+    { symbol: 'COIN', name: 'Coinbase Global' },
+    { symbol: 'ZM', name: 'Zoom Video Communications' },
+    { symbol: 'DOCU', name: 'DocuSign Inc.' },
+  ];
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 100);
@@ -248,79 +283,214 @@ export default function Dashboard() {
               <CardHeader>
                 <CardTitle className="text-2xl font-mono">Select Stocks to Analyze</CardTitle>
                 <CardDescription className="font-mono">
-                  Choose up to {(session?.user as any)?.tier === 'Starter' ? '3' : (session?.user as any)?.tier === 'Professional' ? '10' : '30'} stocks from NASDAQ top 20
+                  Choose up to <span className="text-yellow-500 font-bold text-lg">3</span> stocks from US market or search custom symbols
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 {/* Custom Stock Search */}
-                <div className="flex gap-3">
-                  <Input
-                    placeholder="Search other stocks (e.g., TSMC, 7203.T, etc.)"
-                    value={customStock}
-                    onChange={(e) => setCustomStock(e.target.value.toUpperCase())}
-                    className="font-mono flex-1"
-                  />
-                  <Button
-                    onClick={() => {
-                      if (customStock && !selectedStocks.includes(customStock)) {
-                        const maxSelections = (session?.user as any)?.tier === 'Starter' ? 3 : (session?.user as any)?.tier === 'Professional' ? 10 : 30;
-                        if (selectedStocks.length < maxSelections) {
-                          setSelectedStocks([...selectedStocks, customStock]);
-                          setCustomStock("");
+                <div className="relative">
+                  <div className="flex gap-3">
+                    <div className="flex-1 relative">
+                      <Input
+                        placeholder="Search stocks (e.g., Micro, Tesla, SONY, etc.)"
+                        value={customStock}
+                        onChange={(e) => {
+                          const value = e.target.value.toUpperCase();
+                          setCustomStock(value);
+                          
+                          // Filter suggestions
+                          if (value.length >= 2) {
+                            const filtered = stockDatabase.filter(stock => 
+                              stock.symbol.includes(value) || 
+                              stock.name.toUpperCase().includes(value)
+                            ).slice(0, 5);
+                            setSuggestions(filtered);
+                          } else {
+                            setSuggestions([]);
+                          }
+                        }}
+                        onBlur={() => {
+                          // Delay to allow click on suggestion
+                          setTimeout(() => setSuggestions([]), 200);
+                        }}
+                        className="font-mono"
+                      />
+                      
+                      {/* Suggestions dropdown */}
+                      {suggestions.length > 0 && (
+                        <div className="absolute top-full left-0 right-0 mt-1 bg-background border border-yellow-500/40 rounded-md shadow-xl z-50 max-h-48 overflow-y-auto">
+                          {suggestions.map((stock) => (
+                            <button
+                              key={stock.symbol}
+                              className="w-full text-left px-4 py-2 hover:bg-yellow-500/10 font-mono text-sm transition-colors"
+                              onClick={() => {
+                                if (!selectedStocks.includes(stock.symbol) && selectedStocks.length < 3) {
+                                  setSelectedStocks([...selectedStocks, stock.symbol]);
+                                  setCustomStock("");
+                                  setSuggestions([]);
+                                }
+                              }}
+                              disabled={selectedStocks.includes(stock.symbol)}
+                            >
+                              <span className="text-yellow-500 font-bold">
+                                {stock.symbol}
+                              </span>
+                              <span className="text-foreground/60 ml-2">
+                                ({stock.name})
+                              </span>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                    <Button
+                      onClick={() => {
+                        if (customStock && !selectedStocks.includes(customStock)) {
+                          const maxSelections = 3;
+                          if (selectedStocks.length < maxSelections) {
+                            setSelectedStocks([...selectedStocks, customStock]);
+                            setCustomStock("");
+                            setSuggestions([]);
+                          }
                         }
-                      }
-                    }}
-                    disabled={!customStock || selectedStocks.includes(customStock)}
-                    className="font-mono"
-                  >
-                    Add Stock
-                  </Button>
+                      }}
+                      disabled={!customStock || selectedStocks.includes(customStock)}
+                      className="font-mono"
+                    >
+                      Add Stock
+                    </Button>
+                  </div>
                 </div>
 
                 {/* Selected Custom Stocks */}
-                {selectedStocks.filter(s => !['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA', 'BRK.B', 'AVGO', 'JPM', 'LLY', 'V', 'UNH', 'XOM', 'MA', 'COST', 'HD', 'PG', 'NFLX', 'BAC'].map(st => st.symbol).includes(s)).length > 0 && (
-                  <div className="flex flex-wrap gap-2">
-                    <span className="text-xs font-mono text-foreground/60">Custom selections:</span>
-                    {selectedStocks.filter(s => !['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA', 'BRK.B', 'AVGO', 'JPM', 'LLY', 'V', 'UNH', 'XOM', 'MA', 'COST', 'HD', 'PG', 'NFLX', 'BAC'].includes(s)).map(stock => (
-                      <Badge 
-                        key={stock}
-                        variant="outline"
-                        className="bg-yellow-500/20 border-yellow-500 text-yellow-500 font-mono cursor-pointer hover:bg-yellow-500/30"
-                        onClick={() => setSelectedStocks(prev => prev.filter(s => s !== stock))}
-                      >
-                        {stock} ✕
-                      </Badge>
-                    ))}
+                {(() => {
+                  const quickSelectSymbols = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA', 'BRK.B', 'JPM', 'V', 'MA', 'BAC', 'WFC', 'GS', 'MS', 'AVGO', 'ORCL', 'AMD', 'INTC', 'QCOM', 'CRM', 'ADBE', 'CSCO', 'LLY', 'UNH', 'JNJ', 'ABBV', 'MRK', 'PFE', 'COST', 'HD', 'WMT', 'PG', 'KO', 'PEP', 'MCD', 'NKE', 'SBUX', 'XOM', 'CVX', 'NFLX', 'DIS', 'CMCSA', 'F', 'GM', 'BA', 'CAT', 'GE'];
+                  const customStocks = selectedStocks.filter(s => !quickSelectSymbols.includes(s));
+                  
+                  if (customStocks.length === 0) return null;
+                  
+                  return (
+                    <div className="flex flex-wrap gap-2">
+                      <span className="text-xs font-mono text-foreground/60">Custom selections:</span>
+                      {customStocks.map(symbol => {
+                        const stockInfo = stockDatabase.find(s => s.symbol === symbol);
+                        const displayText = stockInfo ? `${symbol} (${stockInfo.name})` : symbol;
+                        
+                        return (
+                          <Badge 
+                            key={symbol}
+                            variant="outline"
+                            className="bg-yellow-500/20 border-yellow-500 text-yellow-500 font-mono cursor-pointer hover:bg-yellow-500/30"
+                            onClick={() => setSelectedStocks(prev => prev.filter(s => s !== symbol))}
+                          >
+                            {displayText} ✕
+                          </Badge>
+                        );
+                      })}
                   </div>
-                )}
+                  );
+                })()}
 
                 <div className="border-t border-border/20 pt-4">
-                  <p className="text-xs font-mono text-foreground/60 mb-3">NASDAQ Top 20 (Quick Select)</p>
-                  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                  <p className="text-xs font-mono text-foreground/60 mb-4">Top US Stocks (Quick Select)</p>
+                  
+                  {/* Stock Categories */}
                   {[
-                    { symbol: 'AAPL', name: 'Apple Inc.' },
-                    { symbol: 'MSFT', name: 'Microsoft Corp.' },
-                    { symbol: 'GOOGL', name: 'Alphabet Inc.' },
-                    { symbol: 'AMZN', name: 'Amazon.com Inc.' },
-                    { symbol: 'NVDA', name: 'NVIDIA Corp.' },
-                    { symbol: 'META', name: 'Meta Platforms' },
-                    { symbol: 'TSLA', name: 'Tesla Inc.' },
-                    { symbol: 'BRK.B', name: 'Berkshire Hathaway' },
-                    { symbol: 'AVGO', name: 'Broadcom Inc.' },
-                    { symbol: 'JPM', name: 'JPMorgan Chase' },
-                    { symbol: 'LLY', name: 'Eli Lilly' },
-                    { symbol: 'V', name: 'Visa Inc.' },
-                    { symbol: 'UNH', name: 'UnitedHealth' },
-                    { symbol: 'XOM', name: 'Exxon Mobil' },
-                    { symbol: 'MA', name: 'Mastercard' },
-                    { symbol: 'COST', name: 'Costco' },
-                    { symbol: 'HD', name: 'Home Depot' },
-                    { symbol: 'PG', name: 'Procter & Gamble' },
-                    { symbol: 'NFLX', name: 'Netflix Inc.' },
-                    { symbol: 'BAC', name: 'Bank of America' }
-                  ].map((stock) => {
+                    {
+                      category: '💻 Technology Giants',
+                      stocks: [
+                        { symbol: 'AAPL', name: 'Apple Inc.' },
+                        { symbol: 'MSFT', name: 'Microsoft Corp.' },
+                        { symbol: 'GOOGL', name: 'Alphabet Inc.' },
+                        { symbol: 'AMZN', name: 'Amazon.com Inc.' },
+                        { symbol: 'META', name: 'Meta Platforms' },
+                      ]
+                    },
+                    {
+                      category: '🔌 Semiconductors & Software',
+                      stocks: [
+                        { symbol: 'NVDA', name: 'NVIDIA Corp.' },
+                        { symbol: 'AVGO', name: 'Broadcom Inc.' },
+                        { symbol: 'AMD', name: 'AMD' },
+                        { symbol: 'INTC', name: 'Intel Corp.' },
+                        { symbol: 'QCOM', name: 'Qualcomm Inc.' },
+                        { symbol: 'ORCL', name: 'Oracle Corp.' },
+                        { symbol: 'CRM', name: 'Salesforce' },
+                        { symbol: 'ADBE', name: 'Adobe Inc.' },
+                        { symbol: 'CSCO', name: 'Cisco Systems' },
+                      ]
+                    },
+                    {
+                      category: '💰 Finance & Banking',
+                      stocks: [
+                        { symbol: 'BRK.B', name: 'Berkshire Hathaway' },
+                        { symbol: 'JPM', name: 'JPMorgan Chase' },
+                        { symbol: 'V', name: 'Visa Inc.' },
+                        { symbol: 'MA', name: 'Mastercard' },
+                        { symbol: 'BAC', name: 'Bank of America' },
+                        { symbol: 'WFC', name: 'Wells Fargo' },
+                        { symbol: 'GS', name: 'Goldman Sachs' },
+                        { symbol: 'MS', name: 'Morgan Stanley' },
+                      ]
+                    },
+                    {
+                      category: '🏥 Healthcare & Pharma',
+                      stocks: [
+                        { symbol: 'LLY', name: 'Eli Lilly' },
+                        { symbol: 'UNH', name: 'UnitedHealth' },
+                        { symbol: 'JNJ', name: 'Johnson & Johnson' },
+                        { symbol: 'ABBV', name: 'AbbVie Inc.' },
+                        { symbol: 'MRK', name: 'Merck & Co.' },
+                        { symbol: 'PFE', name: 'Pfizer Inc.' },
+                      ]
+                    },
+                    {
+                      category: '🛒 Consumer & Retail',
+                      stocks: [
+                        { symbol: 'COST', name: 'Costco' },
+                        { symbol: 'HD', name: 'Home Depot' },
+                        { symbol: 'WMT', name: 'Walmart Inc.' },
+                        { symbol: 'PG', name: 'Procter & Gamble' },
+                        { symbol: 'KO', name: 'Coca-Cola' },
+                        { symbol: 'PEP', name: 'PepsiCo Inc.' },
+                        { symbol: 'MCD', name: 'McDonald\'s' },
+                        { symbol: 'NKE', name: 'Nike Inc.' },
+                        { symbol: 'SBUX', name: 'Starbucks' },
+                      ]
+                    },
+                    {
+                      category: '🎬 Entertainment & Media',
+                      stocks: [
+                        { symbol: 'NFLX', name: 'Netflix Inc.' },
+                        { symbol: 'DIS', name: 'Walt Disney' },
+                        { symbol: 'CMCSA', name: 'Comcast Corp.' },
+                      ]
+                    },
+                    {
+                      category: '⚡ Energy',
+                      stocks: [
+                        { symbol: 'XOM', name: 'Exxon Mobil' },
+                        { symbol: 'CVX', name: 'Chevron Corp.' },
+                      ]
+                    },
+                    {
+                      category: '🚗 Automotive & Industrial',
+                      stocks: [
+                        { symbol: 'TSLA', name: 'Tesla Inc.' },
+                        { symbol: 'F', name: 'Ford Motor' },
+                        { symbol: 'GM', name: 'General Motors' },
+                        { symbol: 'BA', name: 'Boeing Co.' },
+                        { symbol: 'CAT', name: 'Caterpillar Inc.' },
+                        { symbol: 'GE', name: 'General Electric' },
+                      ]
+                    },
+                  ].map((category) => (
+                    <div key={category.category} className="mb-4">
+                      <h3 className="text-sm font-mono font-bold text-yellow-500 mb-2">{category.category}</h3>
+                      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                        {category.stocks.map((stock) => {
                     const isSelected = selectedStocks.includes(stock.symbol);
-                    const maxSelections = (session?.user as any)?.tier === 'Starter' ? 3 : (session?.user as any)?.tier === 'Professional' ? 10 : 30;
+                    const maxSelections = 3;
                     const canSelect = selectedStocks.length < maxSelections || isSelected;
                     
                     return (
@@ -346,13 +516,15 @@ export default function Dashboard() {
                         <span className={`text-xs truncate w-full text-left ${isSelected ? 'text-yellow-600' : 'text-foreground/60'}`}>{stock.name}</span>
                       </Button>
                     );
-                  })}
-                </div>
+                        })}
+                      </div>
+                    </div>
+                  ))}
                 </div>
 
                 <div className="flex items-center justify-between pt-4 border-t border-border/20">
                   <div className="text-sm font-mono text-foreground/60">
-                    <span className="text-yellow-500 font-bold text-lg">{selectedStocks.length}</span> / {(session?.user as any)?.tier === 'Starter' ? '3' : (session?.user as any)?.tier === 'Professional' ? '10' : '30'} stocks selected
+                    <span className="text-yellow-500 font-bold text-lg">{selectedStocks.length}</span> / 3 stocks selected
                   </div>
                   <Button 
                     className="font-mono px-8"
