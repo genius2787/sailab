@@ -151,10 +151,10 @@ export default function Dashboard() {
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <Badge variant="outline" className="bg-green-500/10 text-green-500 border-green-500/30 font-mono">
+              <Button variant="outline" size="sm" className="bg-green-500/10 text-green-500 border-green-500/30 hover:bg-green-500/20 font-mono cursor-default">
                 <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse" />
-                {t('dashboard.agents')}
-              </Badge>
+                Your Agents Online
+              </Button>
               <Button variant="outline" size="sm" className="font-mono">
                 <RefreshCw className="h-4 w-4 mr-2" />
                 {t('dashboard.refresh')}
