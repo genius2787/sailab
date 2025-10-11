@@ -162,7 +162,7 @@ export default function Dashboard() {
     <div className="min-h-screen relative bg-background">
       <GL hovering={hovering} />
 
-      <div className="relative z-10 container mx-auto pt-52 pb-12 px-6">
+      <div className="relative z-10 container mx-auto pt-64 pb-12 px-6">
         {/* Header */}
         <div className="mb-8" ref={el => sectionRefs.current.header = el}>
           <h1 className={`text-4xl md:text-5xl font-mono font-bold text-foreground mb-4 ${isLoaded ? 'animate-fade-in-up' : ''}`}>
