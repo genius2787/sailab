@@ -1179,17 +1179,17 @@ export default function Dashboard() {
                   <AlertCircle className="h-6 w-6 text-amber-400" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-2xl font-mono font-bold text-amber-400 mb-4 flex items-center gap-2">
+                  <h3 className="text-lg font-mono font-bold text-amber-400 mb-3 flex items-center gap-2">
                     ⚠️ Risk Disclosure
                   </h3>
-                  <div className="space-y-3">
-                    <p className="text-base font-mono text-foreground/90 leading-relaxed font-semibold">
+                  <div className="space-y-2">
+                    <p className="text-sm font-mono text-foreground/90 leading-relaxed font-semibold">
                       This analysis is for informational purposes only. Market data analysis involves substantial risk.
                     </p>
-                    <p className="text-base font-mono text-foreground/80 leading-relaxed">
+                    <p className="text-sm font-mono text-foreground/80 leading-relaxed">
                       Past performance does not guarantee future results. SAIL Lab AI provides research and analysis tools, not investment advice.
                     </p>
-                    <p className="text-base font-mono text-foreground/80 leading-relaxed">
+                    <p className="text-sm font-mono text-foreground/80 leading-relaxed">
                       Please conduct your own due diligence and consult with qualified financial advisors before making any investment decisions.
                     </p>
                   </div>
