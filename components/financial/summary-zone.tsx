@@ -34,9 +34,14 @@ interface SummaryZoneProps {
   isLoading?: boolean
   error?: string
   className?: string
+  selectedStocks?: string[]
+  analysisResults?: any
 }
 
-export function SummaryZone({ isLoading = false, error, className }: SummaryZoneProps) {
+export function SummaryZone({ isLoading = false, error, className, selectedStocks = [], analysisResults }: SummaryZoneProps) {
+  console.log('[SummaryZone] selectedStocks:', selectedStocks);
+  console.log('[SummaryZone] analysisResults:', analysisResults);
+  
   // Mock data - in real app, this would come from props or API
   const marketSentiment: MarketSentiment = {
     overallSentiment: "neutral",
@@ -134,13 +139,31 @@ export function SummaryZone({ isLoading = false, error, className }: SummaryZone
     )
   }
 
+  // If no stocks analyzed yet, show placeholder
+  if (selectedStocks.length === 0) {
+    return (
+      <Card className={`w-full bg-card/60 backdrop-blur-sm border-border/40 ${className}`}>
+        <CardContent className="flex items-center justify-center py-16">
+          <div className="text-center space-y-4">
+            <div className="text-6xl mb-4">📊</div>
+            <div className="text-xl font-bold font-mono text-foreground">No Analysis Yet</div>
+            <div className="text-sm text-foreground/60 font-mono max-w-md">
+              Select up to 3 stocks above and click "Analyze Selected Stocks" to view AI-powered analysis
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }
+
   return (
     <Card className={`w-full bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 transition-all duration-300 ${className}`}>
       <CardHeader className="pb-6">
         <div className="flex items-center justify-between">
           <div>
             <CardTitle className="flex items-center gap-3 text-3xl font-mono mb-2">
-              Summary Sentiment
+              Summary of Your Selected{' '}
+              <span className="text-yellow-500">{selectedStocks.join(', ')}</span>
               <div className="p-2 rounded-full bg-primary/10">
                 <Clock className="h-6 w-6 text-primary" />
               </div>
@@ -151,7 +174,7 @@ export function SummaryZone({ isLoading = false, error, className }: SummaryZone
               )}
             </CardTitle>
             <p className="text-lg text-foreground/70 font-mono">
-              Multi-Agent AI Market Sentiment Analysis
+              Multi-Agent AI {selectedStocks.length === 1 ? 'Stock' : 'Portfolio'} Sentiment Analysis
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -244,7 +267,8 @@ export function SummaryZone({ isLoading = false, error, className }: SummaryZone
           </div>
         </div>
 
-        <div className="p-6 bg-background/20 backdrop-blur-sm rounded-xl border border-border/30">
+        {/* Market Analysis Summary */}
+        <div className="p-6 bg-background/20 backdrop-blur-sm rounded-xl border border-border/30 mb-6">
           <div className="flex items-start gap-4">
             <div className="w-3 h-3 rounded-full bg-primary mt-3 flex-shrink-0 animate-pulse" />
             <div className="flex-1">
@@ -276,6 +300,45 @@ export function SummaryZone({ isLoading = false, error, className }: SummaryZone
             </div>
           </div>
         </div>
+
+        {/* Trading Agent Results */}
+        {analysisResults && Object.keys(analysisResults).length > 0 && (
+          <div className="space-y-4">
+            <h4 className="text-lg font-bold text-foreground font-mono">🤖 Trading Agent Analysis Results</h4>
+            {Object.entries(analysisResults).map(([stock, data]: [string, any]) => (
+              <div key={stock} className="p-6 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 backdrop-blur-sm rounded-xl border border-yellow-500/30">
+                <h5 className="text-xl font-bold text-yellow-500 mb-4 font-mono">{stock}</h5>
+                
+                {data.financial && data.financial !== 'N/A' && (
+                  <div className="mb-4">
+                    <div className="text-sm font-bold text-foreground/80 mb-2 font-mono">📊 Financial Analysis:</div>
+                    <div className="bg-background/50 rounded-lg p-4 max-h-60 overflow-y-auto">
+                      <pre className="text-xs font-mono text-foreground/90 whitespace-pre-wrap">{data.financial}</pre>
+                    </div>
+                  </div>
+                )}
+                
+                {data.news && data.news !== 'N/A' && (
+                  <div className="mb-4">
+                    <div className="text-sm font-bold text-foreground/80 mb-2 font-mono">📰 News Analysis:</div>
+                    <div className="bg-background/50 rounded-lg p-4 max-h-60 overflow-y-auto">
+                      <pre className="text-xs font-mono text-foreground/90 whitespace-pre-wrap">{data.news}</pre>
+                    </div>
+                  </div>
+                )}
+                
+                {data.rawOutput && (
+                  <details className="mt-4">
+                    <summary className="cursor-pointer text-sm font-bold text-foreground/60 hover:text-foreground font-mono">🔍 View Raw Output</summary>
+                    <div className="mt-2 bg-background/50 rounded-lg p-4 max-h-40 overflow-y-auto">
+                      <pre className="text-xs font-mono text-foreground/70 whitespace-pre-wrap">{data.rawOutput}</pre>
+                    </div>
+                  </details>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
       </CardContent>
     </Card>
   )

@@ -41,6 +41,9 @@ export default function Dashboard() {
   const [visibleSections, setVisibleSections] = useState(new Set());
   const sectionRefs = useRef({});
   const [selectedStocks, setSelectedStocks] = useState<string[]>([]);
+  const [analyzedStocks, setAnalyzedStocks] = useState<string[]>([]);
+  const [analysisResults, setAnalysisResults] = useState<any>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [customStock, setCustomStock] = useState("");
   const [suggestions, setSuggestions] = useState<Array<{ symbol: string; name: string }>>([]);
   
@@ -92,6 +95,52 @@ export default function Dashboard() {
       console.log('[Dashboard] User tier:', (session.user as any).tier);
     }
   }, [session, status]);
+
+  // Handle stock analysis
+  const handleAnalyzeStocks = async () => {
+    if (selectedStocks.length === 0) return;
+    
+    setIsAnalyzing(true);
+    console.log('[Dashboard] Analyzing stocks:', selectedStocks);
+    
+    try {
+      // Call Trading Agent API
+      const response = await fetch('/api/analyze-stocks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ stocks: selectedStocks })
+      });
+      
+      if (!response.ok) {
+        throw new Error(`API error: ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      console.log('[Dashboard] Analysis response:', data);
+      
+      if (data.error) {
+        // Server returned error details
+        console.error('[Dashboard] Server error details:', data);
+        throw new Error(data.message || data.error);
+      }
+      
+      setAnalyzedStocks(selectedStocks);
+      setAnalysisResults(data.results);
+      
+    } catch (error) {
+      console.error('[Dashboard] Analysis failed:', error);
+      
+      // Try to get more error details
+      let errorMessage = 'Unknown error';
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      
+      alert(`Analysis failed:\n${errorMessage}\n\nPlease check the browser console (F12) for more details.`);
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
 
   useEffect(() => {
     const observers = new Map();
@@ -528,9 +577,17 @@ export default function Dashboard() {
                   </div>
                   <Button 
                     className="font-mono px-8"
-                    disabled={selectedStocks.length === 0}
+                    disabled={selectedStocks.length === 0 || isAnalyzing}
+                    onClick={handleAnalyzeStocks}
                   >
-                    Analyze Selected Stocks
+                    {isAnalyzing ? (
+                      <>
+                        <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                        Analyzing...
+                      </>
+                    ) : (
+                      'Analyze Selected Stocks'
+                    )}
                   </Button>
                 </div>
               </CardContent>
@@ -544,7 +601,11 @@ export default function Dashboard() {
             {/* Summary Zone */}
             <div ref={el => sectionRefs.current.summary = el}>
               <div className={`${visibleSections.has('summary') ? 'animate-fade-in-up' : ''}`}>
-                <SummaryZone />
+                <SummaryZone 
+                  selectedStocks={analyzedStocks} 
+                  isLoading={isAnalyzing}
+                  analysisResults={analysisResults}
+                />
               </div>
             </div>
 
