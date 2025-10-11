@@ -231,6 +231,12 @@ export default function Dashboard() {
                     
                     console.log('[Dashboard] Cleaned JSON string:', finalOutputStr);
                     
+                    // Check if it's an empty object or invalid
+                    if (finalOutputStr === '{}' || finalOutputStr === '{{}}' || finalOutputStr === '') {
+                      console.log('[Dashboard] Skipping parse: Empty or invalid JSON object');
+                      return;
+                    }
+                    
                     // Try to parse the JSON
                     try {
                       const parsedFinalOutput = JSON.parse(finalOutputStr);
