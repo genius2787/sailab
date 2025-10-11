@@ -107,47 +107,55 @@ export async function POST(request: NextRequest) {
                   const newsOutputPath = path.join(tradeAgentPath, 'output_news', `News Agent_${stock}_${analysisDate}.txt`);
                   
                   // Read Financial Agent output
+                  controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'debug', message: `[1/4] Reading financial data from: ${financialOutputPath}`, stock })}\n\n`));
+                  
                   try {
                     console.log('[API Stream] Reading financial data from:', financialOutputPath);
-                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'debug', message: `Reading financial data from: ${financialOutputPath}`, stock })}\n\n`));
                     
                     const financialData = await fs.readFile(financialOutputPath, 'utf-8');
+                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'debug', message: `[2/4] Financial data read successfully, length: ${financialData.length} bytes`, stock })}\n\n`));
                     console.log('[API Stream] Financial data length:', financialData.length);
-                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'debug', message: `Financial data length: ${financialData.length}`, stock })}\n\n`));
                     
                     const financialLines = financialData.split('\n').filter(line => line.trim());
+                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'debug', message: `[3/4] Financial lines count: ${financialLines.length}`, stock })}\n\n`));
                     console.log('[API Stream] Financial lines count:', financialLines.length);
-                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'debug', message: `Financial lines count: ${financialLines.length}`, stock })}\n\n`));
                     
                     financialLines.forEach(line => {
                       controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'financial_agent', message: line, stock })}\n\n`));
                     });
-                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'info', message: `✓ Sent ${financialLines.length} financial lines`, stock })}\n\n`));
-                  } catch (e) {
+                    
+                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'info', message: `[4/4] ✓ Successfully sent ${financialLines.length} financial lines for ${stock}`, stock })}\n\n`));
+                    console.log('[API Stream] Successfully sent financial lines');
+                  } catch (e: any) {
+                    const errorMsg = `✗ Error reading Financial Agent output: ${e.message || e}`;
                     console.error('[API Stream] Error reading financial data:', e);
-                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'warning', message: `✗ Could not read Financial Agent output for ${stock}: ${e}`, stock })}\n\n`));
+                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'error', message: errorMsg, stock })}\n\n`));
                   }
                   
                   // Read News Agent output
+                  controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'debug', message: `[1/4] Reading news data from: ${newsOutputPath}`, stock })}\n\n`));
+                  
                   try {
                     console.log('[API Stream] Reading news data from:', newsOutputPath);
-                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'debug', message: `Reading news data from: ${newsOutputPath}`, stock })}\n\n`));
                     
                     const newsData = await fs.readFile(newsOutputPath, 'utf-8');
+                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'debug', message: `[2/4] News data read successfully, length: ${newsData.length} bytes`, stock })}\n\n`));
                     console.log('[API Stream] News data length:', newsData.length);
-                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'debug', message: `News data length: ${newsData.length}`, stock })}\n\n`));
                     
                     const newsLines = newsData.split('\n').filter(line => line.trim());
+                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'debug', message: `[3/4] News lines count: ${newsLines.length}`, stock })}\n\n`));
                     console.log('[API Stream] News lines count:', newsLines.length);
-                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'debug', message: `News lines count: ${newsLines.length}`, stock })}\n\n`));
                     
                     newsLines.forEach(line => {
                       controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'news_agent', message: line, stock })}\n\n`));
                     });
-                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'info', message: `✓ Sent ${newsLines.length} news lines`, stock })}\n\n`));
-                  } catch (e) {
+                    
+                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'info', message: `[4/4] ✓ Successfully sent ${newsLines.length} news lines for ${stock}`, stock })}\n\n`));
+                    console.log('[API Stream] Successfully sent news lines');
+                  } catch (e: any) {
+                    const errorMsg = `✗ Error reading News Agent output: ${e.message || e}`;
                     console.error('[API Stream] Error reading news data:', e);
-                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'warning', message: `✗ Could not read News Agent output for ${stock}: ${e}`, stock })}\n\n`));
+                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'error', message: errorMsg, stock })}\n\n`));
                   }
                   
                 } catch (e) {
