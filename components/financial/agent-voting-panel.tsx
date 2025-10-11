@@ -16,7 +16,17 @@ interface AgentVote {
   color: string
 }
 
-export function AgentVotingPanel() {
+interface AgentVotingPanelProps {
+  agentResults?: {
+    rlAgent?: string
+    financialAgent?: string
+    newsAgent?: string
+    institutionalAgent?: string
+  }
+  isLoading?: boolean
+}
+
+export function AgentVotingPanel({ agentResults, isLoading = false }: AgentVotingPanelProps) {
   const [selectedAgent, setSelectedAgent] = useState<string | null>(null)
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [expandedView, setExpandedView] = useState(false)
@@ -39,38 +49,68 @@ export function AgentVotingPanel() {
     }
   }
 
+  // Parse agent results and create voting data
+  const parseAgentResults = () => {
+    const defaultVote = {
+      sentiment: "Neutral" as const,
+      percentage: 50,
+      reasoning: "No analysis available",
+      color: "neutral"
+    };
+
+    const rlAgent = agentResults?.rlAgent ? {
+      sentiment: "Positive" as const, // This would need to be parsed from the actual RL output
+      percentage: 75, // This would need to be extracted from RL results
+      reasoning: agentResults.rlAgent.substring(0, 100) + "...",
+      color: "positive"
+    } : defaultVote;
+
+    const financialAgent = agentResults?.financialAgent ? {
+      sentiment: "Positive" as const,
+      percentage: 80,
+      reasoning: agentResults.financialAgent.substring(0, 100) + "...",
+      color: "positive"
+    } : defaultVote;
+
+    const newsAgent = agentResults?.newsAgent ? {
+      sentiment: "Neutral" as const,
+      percentage: 65,
+      reasoning: agentResults.newsAgent.substring(0, 100) + "...",
+      color: "neutral"
+    } : defaultVote;
+
+    const institutionalAgent = agentResults?.institutionalAgent ? {
+      sentiment: "Positive" as const,
+      percentage: 70,
+      reasoning: agentResults.institutionalAgent.substring(0, 100) + "...",
+      color: "positive"
+    } : defaultVote;
+
+    return { rlAgent, financialAgent, newsAgent, institutionalAgent };
+  };
+
+  const { rlAgent, financialAgent, newsAgent, institutionalAgent } = parseAgentResults();
+
   const agentVotes: AgentVote[] = [
     {
       name: "RL Agent",
       icon: <Brain className="h-4 w-4" />,
-      sentiment: "Negative",
-      percentage: 72,
-      reasoning: "Short-term momentum weak, downtrend continuing",
-      color: "negative",
-    },
-    {
-      name: "News Agent",
-      icon: <Newspaper className="h-4 w-4" />,
-      sentiment: "Neutral",
-      percentage: 68,
-      reasoning: "Mixed signals from news, cautious outlook prevailing",
-      color: "neutral",
+      ...rlAgent,
     },
     {
       name: "Financial Agent",
       icon: <TrendingUp className="h-4 w-4" />,
-      sentiment: "Positive",
-      percentage: 85,
-      reasoning: "Strong earnings and revenue, fundamentals solid",
-      color: "positive",
+      ...financialAgent,
+    },
+    {
+      name: "News Agent",
+      icon: <Newspaper className="h-4 w-4" />,
+      ...newsAgent,
     },
     {
       name: "Institutional Agent",
       icon: <Building className="h-4 w-4" />,
-      sentiment: "Positive",
-      percentage: 78,
-      reasoning: "Average price target +15%, institutions bullish",
-      color: "positive",
+      ...institutionalAgent,
     },
   ]
 

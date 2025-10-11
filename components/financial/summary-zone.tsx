@@ -36,9 +36,15 @@ interface SummaryZoneProps {
   className?: string
   selectedStocks?: string[]
   analysisResults?: any
+  agentResults?: {
+    rlAgent?: string;
+    financialAgent?: string;
+    newsAgent?: string;
+    institutionalAgent?: string;
+  }
 }
 
-export function SummaryZone({ isLoading = false, error, className, selectedStocks = [], analysisResults }: SummaryZoneProps) {
+export function SummaryZone({ isLoading = false, error, className, selectedStocks = [], analysisResults, agentResults }: SummaryZoneProps) {
   console.log('[SummaryZone] selectedStocks:', selectedStocks);
   console.log('[SummaryZone] analysisResults:', analysisResults);
   
@@ -300,6 +306,49 @@ export function SummaryZone({ isLoading = false, error, className, selectedStock
             </div>
           </div>
         </div>
+
+        {/* Agent Results Summary */}
+        {agentResults && (agentResults.rlAgent || agentResults.financialAgent || agentResults.newsAgent || agentResults.institutionalAgent) && (
+          <div className="space-y-4">
+            <h4 className="text-lg font-bold text-foreground font-mono">🤖 Agent Analysis Summary</h4>
+            
+            {agentResults.rlAgent && (
+              <div className="p-4 bg-blue-500/10 backdrop-blur-sm rounded-xl border border-blue-500/30">
+                <div className="text-sm font-bold text-blue-400 mb-2 font-mono">🧠 RL Agent Results:</div>
+                <div className="bg-background/50 rounded-lg p-3 max-h-40 overflow-y-auto">
+                  <pre className="text-xs font-mono text-foreground/90 whitespace-pre-wrap">{agentResults.rlAgent}</pre>
+                </div>
+              </div>
+            )}
+            
+            {agentResults.financialAgent && (
+              <div className="p-4 bg-emerald-500/10 backdrop-blur-sm rounded-xl border border-emerald-500/30">
+                <div className="text-sm font-bold text-emerald-400 mb-2 font-mono">📊 Financial Agent Results:</div>
+                <div className="bg-background/50 rounded-lg p-3 max-h-40 overflow-y-auto">
+                  <pre className="text-xs font-mono text-foreground/90 whitespace-pre-wrap">{agentResults.financialAgent}</pre>
+                </div>
+              </div>
+            )}
+            
+            {agentResults.newsAgent && (
+              <div className="p-4 bg-orange-500/10 backdrop-blur-sm rounded-xl border border-orange-500/30">
+                <div className="text-sm font-bold text-orange-400 mb-2 font-mono">📰 News Agent Results:</div>
+                <div className="bg-background/50 rounded-lg p-3 max-h-40 overflow-y-auto">
+                  <pre className="text-xs font-mono text-foreground/90 whitespace-pre-wrap">{agentResults.newsAgent}</pre>
+                </div>
+              </div>
+            )}
+            
+            {agentResults.institutionalAgent && (
+              <div className="p-4 bg-purple-500/10 backdrop-blur-sm rounded-xl border border-purple-500/30">
+                <div className="text-sm font-bold text-purple-400 mb-2 font-mono">🏢 Institutional Agent Results:</div>
+                <div className="bg-background/50 rounded-lg p-3 max-h-40 overflow-y-auto">
+                  <pre className="text-xs font-mono text-foreground/90 whitespace-pre-wrap">{agentResults.institutionalAgent}</pre>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Trading Agent Results */}
         {analysisResults && Object.keys(analysisResults).length > 0 && (

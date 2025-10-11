@@ -49,6 +49,12 @@ export default function Dashboard() {
   const [streamOutput, setStreamOutput] = useState<string[]>([]);
   const [currentStock, setCurrentStock] = useState<string>('');
   const terminalRef = useRef<HTMLDivElement>(null);
+  const [agentResults, setAgentResults] = useState<{
+    rlAgent?: string;
+    financialAgent?: string;
+    newsAgent?: string;
+    institutionalAgent?: string;
+  }>({});
   
   // Extended stock database for autocomplete
   const stockDatabase = [
@@ -150,6 +156,25 @@ export default function Dashboard() {
               // Update current stock
               if (data.stock) {
                 setCurrentStock(data.stock);
+              }
+              
+              // Collect agent results
+              if (data.type === 'financial_agent' && data.stock) {
+                setAgentResults(prev => ({
+                  ...prev,
+                  financialAgent: prev.financialAgent ? prev.financialAgent + '\n' + data.message : data.message
+                }));
+              } else if (data.type === 'news_agent' && data.stock) {
+                setAgentResults(prev => ({
+                  ...prev,
+                  newsAgent: prev.newsAgent ? prev.newsAgent + '\n' + data.message : data.message
+                }));
+              } else if (data.type === 'stdout' && data.message.includes('Sharpe:') && data.stock) {
+                // Extract RL Agent results from training output
+                setAgentResults(prev => ({
+                  ...prev,
+                  rlAgent: prev.rlAgent ? prev.rlAgent + '\n' + data.message : data.message
+                }));
               }
               
               // Auto-scroll to bottom
@@ -711,6 +736,7 @@ export default function Dashboard() {
                   selectedStocks={analyzedStocks} 
                   isLoading={isAnalyzing}
                   analysisResults={analysisResults}
+                  agentResults={agentResults}
                 />
               </div>
             </div>
@@ -718,7 +744,7 @@ export default function Dashboard() {
             {/* Agent Voting Panel */}
             <div ref={el => sectionRefs.current.agents = el}>
               <div className={`${visibleSections.has('agents') ? 'animate-fade-in-up animate-delay-200' : ''}`}>
-                <AgentVotingPanel />
+                <AgentVotingPanel agentResults={agentResults} isLoading={isAnalyzing} />
               </div>
             </div>
 
