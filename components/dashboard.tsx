@@ -46,6 +46,9 @@ export default function Dashboard() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [customStock, setCustomStock] = useState("");
   const [suggestions, setSuggestions] = useState<Array<{ symbol: string; name: string }>>([]);
+  const [streamOutput, setStreamOutput] = useState<string[]>([]);
+  const [currentStock, setCurrentStock] = useState<string>('');
+  const terminalRef = useRef<HTMLDivElement>(null);
   
   // Extended stock database for autocomplete
   const stockDatabase = [
@@ -96,16 +99,18 @@ export default function Dashboard() {
     }
   }, [session, status]);
 
-  // Handle stock analysis
+  // Handle stock analysis with streaming
   const handleAnalyzeStocks = async () => {
     if (selectedStocks.length === 0) return;
     
     setIsAnalyzing(true);
+    setStreamOutput([]);
+    setCurrentStock('');
     console.log('[Dashboard] Analyzing stocks:', selectedStocks);
     
     try {
-      // Call Trading Agent API
-      const response = await fetch('/api/analyze-stocks', {
+      // Call Trading Agent Stream API
+      const response = await fetch('/api/analyze-stocks-stream', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ stocks: selectedStocks })
@@ -115,28 +120,65 @@ export default function Dashboard() {
         throw new Error(`API error: ${response.statusText}`);
       }
       
-      const data = await response.json();
-      console.log('[Dashboard] Analysis response:', data);
-      
-      if (data.error) {
-        // Server returned error details
-        console.error('[Dashboard] Server error details:', data);
-        throw new Error(data.message || data.error);
+      const reader = response.body?.getReader();
+      if (!reader) {
+        throw new Error('No response body');
       }
       
-      setAnalyzedStocks(selectedStocks);
-      setAnalysisResults(data.results);
+      const decoder = new TextDecoder();
+      let buffer = '';
+      
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() || '';
+        
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            try {
+              const data = JSON.parse(line.slice(6));
+              console.log('[Dashboard] Stream data:', data);
+              
+              // Update stream output
+              setStreamOutput(prev => [...prev, `[${data.type}] ${data.message}`]);
+              
+              // Update current stock
+              if (data.stock) {
+                setCurrentStock(data.stock);
+              }
+              
+              // Auto-scroll to bottom
+              setTimeout(() => {
+                if (terminalRef.current) {
+                  terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+                }
+              }, 100);
+              
+              // Handle completion
+              if (data.type === 'complete') {
+                setAnalyzedStocks(selectedStocks);
+                // You can still set analysis results here if needed
+              }
+              
+            } catch (e) {
+              console.error('[Dashboard] Failed to parse stream data:', e);
+            }
+          }
+        }
+      }
       
     } catch (error) {
       console.error('[Dashboard] Analysis failed:', error);
       
-      // Try to get more error details
       let errorMessage = 'Unknown error';
       if (error instanceof Error) {
         errorMessage = error.message;
       }
       
-      alert(`Analysis failed:\n${errorMessage}\n\nPlease check the browser console (F12) for more details.`);
+      setStreamOutput(prev => [...prev, `[ERROR] ${errorMessage}`]);
     } finally {
       setIsAnalyzing(false);
     }
@@ -598,6 +640,34 @@ export default function Dashboard() {
         {/* Main Dashboard Grid */}
         <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
           <div className="xl:col-span-3 space-y-8">
+            {/* Real-time Terminal Output */}
+            {isAnalyzing && (
+              <div className="bg-gray-900 rounded-lg p-6 border border-gray-700">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold text-white font-mono">
+                    Trading Agent Live Output
+                  </h3>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    <span className="text-sm text-gray-400 font-mono">
+                      {currentStock ? `Processing ${currentStock}` : 'Initializing...'}
+                    </span>
+                  </div>
+                </div>
+                <div ref={terminalRef} className="bg-black rounded-lg p-4 h-64 overflow-y-auto font-mono text-sm">
+                  {streamOutput.length === 0 ? (
+                    <div className="text-gray-500">Starting analysis...</div>
+                  ) : (
+                    streamOutput.map((line, index) => (
+                      <div key={index} className="text-green-400 mb-1">
+                        {line}
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            )}
+
             {/* Summary Zone */}
             <div ref={el => sectionRefs.current.summary = el}>
               <div className={`${visibleSections.has('summary') ? 'animate-fade-in-up' : ''}`}>
