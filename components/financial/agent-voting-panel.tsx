@@ -278,17 +278,24 @@ export function AgentVotingPanel({ agentResults, isLoading = false, finalOutput,
                 const negativePercent = Math.round((negativeCount / totalAgents) * 100);
                 const neutralPercent = Math.round((neutralCount / totalAgents) * 100);
                 
+                // Generate consensus text based on actual agent counts
                 let consensusText = "";
-                if (positivePercent > 60) {
-                  consensusText = "Agents show strong positive consensus. Most indicators suggest bullish sentiment.";
-                } else if (negativePercent > 60) {
-                  consensusText = "Agents show strong negative consensus. Most indicators suggest bearish sentiment.";
-                } else if (positivePercent > negativePercent) {
-                  consensusText = "Agents lean positive overall. Mixed signals but slightly bullish bias.";
-                } else if (negativePercent > positivePercent) {
-                  consensusText = "Agents lean negative overall. Mixed signals but slightly bearish bias.";
+                const agentWord = totalAgents === 1 ? "Agent" : "Agents";
+                
+                if (positiveCount === totalAgents) {
+                  consensusText = `All ${totalAgents} ${agentWord} show positive sentiment. Strong bullish consensus.`;
+                } else if (negativeCount === totalAgents) {
+                  consensusText = `All ${totalAgents} ${agentWord} show negative sentiment. Strong bearish consensus.`;
+                } else if (positiveCount > totalAgents / 2) {
+                  consensusText = `${positiveCount} ${positiveCount === 1 ? 'Agent' : 'Agents'} positive, ${negativeCount + neutralCount} ${negativeCount + neutralCount === 1 ? 'shows' : 'show'} caution. Leaning bullish.`;
+                } else if (negativeCount > totalAgents / 2) {
+                  consensusText = `${negativeCount} ${negativeCount === 1 ? 'Agent' : 'Agents'} negative, ${positiveCount + neutralCount} ${positiveCount + neutralCount === 1 ? 'shows' : 'show'} optimism. Leaning bearish.`;
+                } else if (positiveCount > negativeCount) {
+                  consensusText = `${positiveCount} ${positiveCount === 1 ? 'Agent' : 'Agents'} positive vs ${negativeCount} negative. Mixed signals with slight bullish bias.`;
+                } else if (negativeCount > positiveCount) {
+                  consensusText = `${negativeCount} ${negativeCount === 1 ? 'Agent' : 'Agents'} negative vs ${positiveCount} positive. Mixed signals with slight bearish bias.`;
                 } else {
-                  consensusText = "Agents show mixed opinions. Careful evaluation and risk management required.";
+                  consensusText = `${positiveCount} positive, ${negativeCount} negative, ${neutralCount} neutral. Balanced outlook, careful evaluation required.`;
                 }
                 
                 return (
@@ -297,19 +304,19 @@ export function AgentVotingPanel({ agentResults, isLoading = false, finalOutput,
                       {consensusText}
                     </p>
                     <div className="flex items-center gap-3 pt-2 flex-wrap">
-                      {positivePercent > 0 && (
+                      {positiveCount > 0 && (
                         <div className="px-4 py-2 bg-green-500/10 rounded-full text-sm font-medium text-green-400 border border-green-500/20 font-mono">
-                          {positivePercent}% Positive
+                          {positiveCount} {positiveCount === 1 ? 'Agent' : 'Agents'} Positive
                         </div>
                       )}
-                      {negativePercent > 0 && (
+                      {negativeCount > 0 && (
                         <div className="px-4 py-2 bg-red-500/10 rounded-full text-sm font-medium text-red-400 border border-red-500/20 font-mono">
-                          {negativePercent}% Negative
+                          {negativeCount} {negativeCount === 1 ? 'Agent' : 'Agents'} Negative
                         </div>
                       )}
-                      {neutralPercent > 0 && (
+                      {neutralCount > 0 && (
                         <div className="px-4 py-2 bg-blue-500/10 rounded-full text-sm font-medium text-blue-400 border border-blue-500/20 font-mono">
-                          {neutralPercent}% Neutral
+                          {neutralCount} {neutralCount === 1 ? 'Agent' : 'Agents'} Neutral
                         </div>
                       )}
                     </div>
