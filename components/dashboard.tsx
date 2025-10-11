@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useSession, signOut } from "next-auth/react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
@@ -33,6 +34,7 @@ import {
 
 export default function Dashboard() {
   const { t } = useLanguage();
+  const { data: session } = useSession();
   const [hovering, setHovering] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [visibleSections, setVisibleSections] = useState(new Set());
@@ -116,9 +118,21 @@ export default function Dashboard() {
             {t('dashboard.title')}
           </h1>
           <div className="flex items-center justify-between flex-wrap gap-4">
-            <p className={`text-lg text-foreground/70 font-mono ${isLoaded ? 'animate-fade-in-up animate-delay-200' : ''}`}>
-              {t('dashboard.subtitle')}
-            </p>
+            <div className="flex-1">
+              <p className={`text-lg text-foreground/70 font-mono mb-2 ${isLoaded ? 'animate-fade-in-up animate-delay-200' : ''}`}>
+                {t('dashboard.subtitle')}
+              </p>
+              {session?.user && (
+                <div className="flex items-center gap-3">
+                  <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 font-mono">
+                    👤 {session.user.name || session.user.email}
+                  </Badge>
+                  <Badge variant="outline" className="bg-green-500/10 text-green-500 border-green-500/30 font-mono">
+                    💎 Paid Member
+                  </Badge>
+                </div>
+              )}
+            </div>
             <div className="flex items-center gap-3">
               <Badge variant="outline" className="bg-green-500/10 text-green-500 border-green-500/30 font-mono">
                 <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse" />
@@ -127,6 +141,14 @@ export default function Dashboard() {
               <Button variant="outline" size="sm" className="font-mono">
                 <RefreshCw className="h-4 w-4 mr-2" />
                 {t('dashboard.refresh')}
+              </Button>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="font-mono text-red-500 border-red-500/30 hover:bg-red-500/10"
+                onClick={() => signOut({ callbackUrl: '/' })}
+              >
+                Sign Out
               </Button>
             </div>
           </div>
