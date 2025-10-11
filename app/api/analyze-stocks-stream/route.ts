@@ -108,24 +108,34 @@ export async function POST(request: NextRequest) {
                   
                   // Read Financial Agent output
                   try {
+                    console.log('[API Stream] Reading financial data from:', financialOutputPath);
                     const financialData = await fs.readFile(financialOutputPath, 'utf-8');
+                    console.log('[API Stream] Financial data length:', financialData.length);
                     const financialLines = financialData.split('\n').filter(line => line.trim());
+                    console.log('[API Stream] Financial lines count:', financialLines.length);
                     financialLines.forEach(line => {
                       controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'financial_agent', message: line, stock })}\n\n`));
                     });
+                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'info', message: `Sent ${financialLines.length} financial lines`, stock })}\n\n`));
                   } catch (e) {
-                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'warning', message: `Could not read Financial Agent output for ${stock}`, stock })}\n\n`));
+                    console.error('[API Stream] Error reading financial data:', e);
+                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'warning', message: `Could not read Financial Agent output for ${stock}: ${e}`, stock })}\n\n`));
                   }
                   
                   // Read News Agent output
                   try {
+                    console.log('[API Stream] Reading news data from:', newsOutputPath);
                     const newsData = await fs.readFile(newsOutputPath, 'utf-8');
+                    console.log('[API Stream] News data length:', newsData.length);
                     const newsLines = newsData.split('\n').filter(line => line.trim());
+                    console.log('[API Stream] News lines count:', newsLines.length);
                     newsLines.forEach(line => {
                       controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'news_agent', message: line, stock })}\n\n`));
                     });
+                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'info', message: `Sent ${newsLines.length} news lines`, stock })}\n\n`));
                   } catch (e) {
-                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'warning', message: `Could not read News Agent output for ${stock}`, stock })}\n\n`));
+                    console.error('[API Stream] Error reading news data:', e);
+                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'warning', message: `Could not read News Agent output for ${stock}: ${e}`, stock })}\n\n`));
                   }
                   
                 } catch (e) {
