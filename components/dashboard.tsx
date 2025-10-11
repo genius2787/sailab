@@ -30,7 +30,8 @@ import {
   Settings,
   Bell,
   Filter,
-  Zap
+  Zap,
+  Newspaper
 } from "lucide-react";
 
 export default function Dashboard() {
@@ -56,6 +57,8 @@ export default function Dashboard() {
     institutionalAgent?: string;
   }>({});
   const [finalOutput, setFinalOutput] = useState<any>(null);
+  const [newsData, setNewsData] = useState<string>('');
+  const [financialData, setFinancialData] = useState<string>('');
 
   // Debug logging for agentResults
   console.log('[Dashboard] agentResults state:', agentResults);
@@ -118,6 +121,8 @@ export default function Dashboard() {
     setCurrentStock('');
     setAgentResults({});
     setFinalOutput(null);
+    setNewsData('');
+    setFinancialData('');
     console.log('[Dashboard] Analyzing stock:', selectedStock);
     
     try {
@@ -170,12 +175,16 @@ export default function Dashboard() {
                   ...prev,
                   financialAgent: prev.financialAgent ? prev.financialAgent + '\n' + data.message : data.message
                 }));
+                // Also save to financialData for the dedicated block
+                setFinancialData(prev => prev ? prev + '\n' + data.message : data.message);
                 console.log('[Dashboard] Updated financialAgent:', data.message);
               } else if (data.type === 'news_agent' && data.stock) {
                 setAgentResults(prev => ({
                   ...prev,
                   newsAgent: prev.newsAgent ? prev.newsAgent + '\n' + data.message : data.message
                 }));
+                // Also save to newsData for the dedicated block
+                setNewsData(prev => prev ? prev + '\n' + data.message : data.message);
                 console.log('[Dashboard] Updated newsAgent:', data.message);
               } else if (data.type === 'stdout' && data.message.includes('Sharpe:') && data.stock) {
                 // Extract RL Agent results from training output
@@ -857,6 +866,50 @@ export default function Dashboard() {
                 />
               </div>
             </div>
+
+            {/* Important News Block */}
+            {newsData && (
+              <Card className="bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 transition-all duration-300 mt-8">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-3 text-2xl font-mono">
+                    <Newspaper className="h-5 w-5 text-orange-400" />
+                    Important News for {selectedStock || (analyzedStocks.length > 0 ? analyzedStocks[0] : '')}
+                    <Badge variant="outline" className="bg-orange-500/10 text-orange-400 border-orange-500/30 font-mono text-xs">
+                      Latest Updates
+                    </Badge>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="bg-background/20 backdrop-blur-sm rounded-xl border border-border/30 p-6">
+                    <pre className="text-sm font-mono text-foreground/90 whitespace-pre-wrap leading-relaxed">
+                      {newsData}
+                    </pre>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Specific Financial Analysis Block */}
+            {financialData && (
+              <Card className="bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 transition-all duration-300 mt-8">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-3 text-2xl font-mono">
+                    <TrendingUp className="h-5 w-5 text-emerald-400" />
+                    Specific Financial Analysis for {selectedStock || (analyzedStocks.length > 0 ? analyzedStocks[0] : '')}
+                    <Badge variant="outline" className="bg-emerald-500/10 text-emerald-400 border-emerald-500/30 font-mono text-xs">
+                      Detailed Report
+                    </Badge>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="bg-background/20 backdrop-blur-sm rounded-xl border border-border/30 p-6">
+                    <pre className="text-sm font-mono text-foreground/90 whitespace-pre-wrap leading-relaxed">
+                      {financialData}
+                    </pre>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
 
             {/* KPI Snapshot */}
             <div ref={el => sectionRefs.current.kpis = el}>
