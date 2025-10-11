@@ -68,11 +68,12 @@ DATE = ${analysisDate}
 
       // Run TradeAgent
       console.log(`[API] Running TradeAgent for ${stock}...`);
-      console.log(`[API] Python command: python main.py`);
+      console.log(`[API] Python command: conda run -n FinRL python main.py`);
       console.log(`[API] Working directory: ${srcPath}`);
       
       const output = await new Promise<string>((resolve, reject) => {
-        const pythonProcess = spawn('python', ['main.py'], {
+        // Use conda to activate FinRL environment and run Python
+        const pythonProcess = spawn('conda', ['run', '-n', 'FinRL', 'python', 'main.py'], {
           cwd: srcPath,
           stdio: ['pipe', 'pipe', 'pipe'],
           shell: true  // Use shell on Windows
