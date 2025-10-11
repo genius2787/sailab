@@ -87,7 +87,7 @@ export function AgentVotingPanel({ agentResults, isLoading = false, finalOutput,
                  agentResults.rlAgent.toLowerCase().includes('buy') ? "Positive" as const : "Neutral" as const,
       percentage: percentageFromFinal || (agentResults.rlAgent.includes('60%') ? 60 : 
                   agentResults.rlAgent.includes('80%') ? 80 : 70),
-      reasoning: agentResults.rlAgent.substring(0, 120) + "...",
+      reasoning: agentResults.rlAgent,  // Show full text, not truncated
       color: agentResults.rlAgent.toLowerCase().includes('sell') ? "negative" : 
              agentResults.rlAgent.toLowerCase().includes('buy') ? "positive" : "neutral"
     } : defaultVote;
@@ -97,7 +97,7 @@ export function AgentVotingPanel({ agentResults, isLoading = false, finalOutput,
       sentiment: agentResults.financialAgent.toLowerCase().includes('increase') || 
                  agentResults.financialAgent.toLowerCase().includes('growth') ? "Positive" as const : "Neutral" as const,
       percentage: 80,
-      reasoning: agentResults.financialAgent.substring(0, 120) + "...",
+      reasoning: agentResults.financialAgent,  // Show full text, not truncated
       color: "positive"
     } : defaultVote;
 
@@ -106,7 +106,7 @@ export function AgentVotingPanel({ agentResults, isLoading = false, finalOutput,
       sentiment: agentResults.newsAgent.toLowerCase().includes('positive') ? "Positive" as const :
                  agentResults.newsAgent.toLowerCase().includes('negative') ? "Negative" as const : "Neutral" as const,
       percentage: 65,
-      reasoning: agentResults.newsAgent.substring(0, 120) + "...",
+      reasoning: agentResults.newsAgent,  // Show full text, not truncated
       color: agentResults.newsAgent.toLowerCase().includes('positive') ? "positive" :
              agentResults.newsAgent.toLowerCase().includes('negative') ? "negative" : "neutral"
     } : defaultVote;
@@ -116,7 +116,7 @@ export function AgentVotingPanel({ agentResults, isLoading = false, finalOutput,
       sentiment: agentResults.institutionalAgent.toLowerCase().includes('optimistic') || 
                  agentResults.institutionalAgent.toLowerCase().includes('target') ? "Positive" as const : "Neutral" as const,
       percentage: 70,
-      reasoning: agentResults.institutionalAgent.substring(0, 120) + "...",
+      reasoning: agentResults.institutionalAgent,  // Show full text, not truncated
       color: "positive"
     } : defaultVote;
 
@@ -252,8 +252,8 @@ export function AgentVotingPanel({ agentResults, isLoading = false, finalOutput,
               </div>
 
               {/* Reasoning */}
-              <div className="text-sm text-foreground/70 leading-relaxed font-mono">
-                {agent.reasoning}
+              <div className="text-sm text-foreground/70 leading-relaxed font-mono max-h-40 overflow-y-auto p-3 bg-background/30 rounded-lg border border-border/20">
+                <pre className="whitespace-pre-wrap break-words">{agent.reasoning}</pre>
               </div>
             </div>
           ))}
