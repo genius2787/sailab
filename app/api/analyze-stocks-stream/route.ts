@@ -94,9 +94,43 @@ export async function POST(request: NextRequest) {
             });
 
             // Handle process completion
-            pythonProcess.on('close', (code) => {
+            pythonProcess.on('close', async (code) => {
               if (code === 0) {
                 controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'process_complete', message: `TradeAgent completed for ${stock}`, stock, code })}\n\n`));
+                
+                // Add separator
+                controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'separator', message: `========== Agent Analysis Results for ${stock} ==========`, stock })}\n\n`));
+                
+                // Read and stream the Agent outputs
+                try {
+                  const financialOutputPath = path.join(tradeAgentPath, 'output_financial', `Financial Data Agent_${stock}_${analysisDate}.txt`);
+                  const newsOutputPath = path.join(tradeAgentPath, 'output_news', `News Agent_${stock}_${analysisDate}.txt`);
+                  
+                  // Read Financial Agent output
+                  try {
+                    const financialData = await fs.readFile(financialOutputPath, 'utf-8');
+                    const financialLines = financialData.split('\n').filter(line => line.trim());
+                    financialLines.forEach(line => {
+                      controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'financial_agent', message: line, stock })}\n\n`));
+                    });
+                  } catch (e) {
+                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'warning', message: `Could not read Financial Agent output for ${stock}`, stock })}\n\n`));
+                  }
+                  
+                  // Read News Agent output
+                  try {
+                    const newsData = await fs.readFile(newsOutputPath, 'utf-8');
+                    const newsLines = newsData.split('\n').filter(line => line.trim());
+                    newsLines.forEach(line => {
+                      controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'news_agent', message: line, stock })}\n\n`));
+                    });
+                  } catch (e) {
+                    controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'warning', message: `Could not read News Agent output for ${stock}`, stock })}\n\n`));
+                  }
+                  
+                } catch (e) {
+                  controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'error', message: `Error reading Agent outputs for ${stock}: ${e}`, stock })}\n\n`));
+                }
               } else {
                 controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'process_error', message: `TradeAgent failed for ${stock} with code ${code}`, stock, code })}\n\n`));
               }

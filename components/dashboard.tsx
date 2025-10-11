@@ -144,7 +144,8 @@ export default function Dashboard() {
               
               // Update stream output - split by lines for better readability
               const lines = data.message.split('\n').filter(line => line.trim() !== '');
-              setStreamOutput(prev => [...prev, ...lines.map(line => `[${data.type}] ${line}`)]);
+              const timestamp = new Date().toLocaleTimeString();
+              setStreamOutput(prev => [...prev, ...lines.map(line => `[${timestamp}] [${data.type}] ${line}`)]);
               
               // Update current stock
               if (data.stock) {
@@ -641,45 +642,67 @@ export default function Dashboard() {
         {/* Main Dashboard Grid */}
         <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
           <div className="xl:col-span-3 space-y-8">
-            {/* Real-time Terminal Output */}
-            {isAnalyzing && (
-              <div className="bg-gray-900 rounded-lg p-6 border border-gray-700">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-white font-mono">
-                    Trading Agent Live Output
-                  </h3>
+            {/* Real-time Terminal Output - Always Visible */}
+            <div className="bg-gray-900 rounded-lg p-6 border border-gray-700">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold text-white font-mono">
+                  Trading Agent Live Output
+                </h3>
+                <div className="flex items-center space-x-4">
+                  <button
+                    onClick={() => setStreamOutput([])}
+                    className="px-3 py-1 bg-gray-700 hover:bg-gray-600 text-gray-300 text-xs rounded transition-colors"
+                    disabled={isAnalyzing}
+                  >
+                    Clear Log
+                  </button>
                   <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    <div className={`w-2 h-2 rounded-full ${isAnalyzing ? 'bg-green-500 animate-pulse' : 'bg-gray-500'}`}></div>
                     <span className="text-sm text-gray-400 font-mono">
-                      {currentStock ? `Processing ${currentStock}` : 'Initializing...'}
+                      {isAnalyzing 
+                        ? (currentStock ? `Processing ${currentStock}` : 'Initializing...')
+                        : 'Ready'
+                      }
                     </span>
                   </div>
                 </div>
-                <div ref={terminalRef} className="bg-black rounded-lg p-4 h-80 overflow-y-auto font-mono text-xs">
-                  {streamOutput.length === 0 ? (
-                    <div className="text-gray-500">Starting analysis...</div>
-                  ) : (
-                    streamOutput.map((line, index) => {
-                      // Color code different types of output
-                      let textColor = 'text-green-400';
-                      if (line.includes('[ERROR]')) textColor = 'text-red-400';
-                      else if (line.includes('[WARNING]')) textColor = 'text-yellow-400';
-                      else if (line.includes('[TRAIN]')) textColor = 'text-blue-400';
-                      else if (line.includes('[PREDICT]')) textColor = 'text-purple-400';
-                      else if (line.includes('ep_len_mean') || line.includes('ep_rew_mean') || line.includes('fps')) textColor = 'text-cyan-400';
-                      else if (line.includes('Sharpe:') || line.includes('total_reward:')) textColor = 'text-yellow-300';
-                      else if (line.includes('|') && line.includes('rollout')) textColor = 'text-gray-300';
-                      
-                      return (
-                        <div key={index} className={`${textColor} mb-0.5 leading-tight`}>
-                          {line}
-                        </div>
-                      );
-                    })
-                  )}
-                </div>
               </div>
-            )}
+              <div ref={terminalRef} className="bg-black rounded-lg p-4 h-80 overflow-y-auto font-mono text-xs">
+                {streamOutput.length === 0 ? (
+                  <div className="text-gray-500">No analysis yet. Select stocks and click "Analyze Selected Stocks" to start.</div>
+                ) : (
+                  streamOutput.map((line, index) => {
+                    // Color code different types of output
+                    let textColor = 'text-green-400';
+                    if (line.includes('[ERROR]')) textColor = 'text-red-400';
+                    else if (line.includes('[WARNING]')) textColor = 'text-yellow-400';
+                    else if (line.includes('[TRAIN]')) textColor = 'text-blue-400';
+                    else if (line.includes('[PREDICT]')) textColor = 'text-purple-400';
+                    else if (line.includes('[financial_agent]')) textColor = 'text-emerald-400';
+                    else if (line.includes('[news_agent]')) textColor = 'text-orange-400';
+                    else if (line.includes('[process_complete]')) textColor = 'text-green-300';
+                    else if (line.includes('[separator]')) textColor = 'text-white font-bold';
+                    else if (line.includes('ep_len_mean') || line.includes('ep_rew_mean') || line.includes('fps')) textColor = 'text-cyan-400';
+                    else if (line.includes('Sharpe:') || line.includes('total_reward:')) textColor = 'text-yellow-300';
+                    else if (line.includes('|') && line.includes('rollout')) textColor = 'text-gray-300';
+                    
+                    // Extract timestamp for special styling
+                    const timestampMatch = line.match(/^\[(\d{1,2}:\d{2}:\d{2} [AP]M)\]/);
+                    const timestamp = timestampMatch ? timestampMatch[1] : '';
+                    const content = timestampMatch ? line.replace(/^\[\d{1,2}:\d{2}:\d{2} [AP]M\] /, '') : line;
+                    
+                    return (
+                      <div key={index} className={`${textColor} mb-0.5 leading-tight`}>
+                        {timestamp && (
+                          <span className="text-gray-500 text-xs">[{timestamp}] </span>
+                        )}
+                        {content}
+                      </div>
+                    );
+                  })
+                )}
+              </div>
+            </div>
 
             {/* Summary Zone */}
             <div ref={el => sectionRefs.current.summary = el}>
