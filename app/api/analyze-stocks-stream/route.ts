@@ -93,13 +93,15 @@ export async function POST(request: NextRequest) {
               });
             });
 
-            // Handle process completion
-            pythonProcess.on('close', async (code) => {
-              if (code === 0) {
-                controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'process_complete', message: `TradeAgent completed for ${stock}`, stock, code })}\n\n`));
-                
-                // Add separator
-                controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'separator', message: `========== Agent Analysis Results for ${stock} ==========`, stock })}\n\n`));
+            // Create a promise that resolves when file reading is done
+            const fileReadingPromise = new Promise<void>((resolveFileReading) => {
+              // Handle process completion
+              pythonProcess.on('close', async (code) => {
+                if (code === 0) {
+                  controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'process_complete', message: `TradeAgent completed for ${stock}`, stock, code })}\n\n`));
+                  
+                  // Add separator
+                  controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'separator', message: `========== Agent Analysis Results for ${stock} ==========`, stock })}\n\n`));
                 
                 // Read and stream the Agent outputs
                 try {
@@ -161,19 +163,22 @@ export async function POST(request: NextRequest) {
                 } catch (e) {
                   controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'error', message: `Error reading Agent outputs for ${stock}: ${e}`, stock })}\n\n`));
                 }
+                
+                // Resolve the file reading promise
+                resolveFileReading();
               } else {
                 controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'process_error', message: `TradeAgent failed for ${stock} with code ${code}`, stock, code })}\n\n`));
+                resolveFileReading();
               }
+              });
             });
 
             pythonProcess.on('error', (error) => {
               controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'process_error', message: `Failed to start TradeAgent for ${stock}: ${error.message}`, stock })}\n\n`));
             });
 
-            // Wait for process to complete
-            await new Promise((resolve) => {
-              pythonProcess.on('close', resolve);
-            });
+            // Wait for file reading to complete (which happens after process closes)
+            await fileReadingPromise;
 
           } catch (error: any) {
             controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'error', message: `Error processing ${stock}: ${error.message}`, stock })}\n\n`));
