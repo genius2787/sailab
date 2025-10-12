@@ -21,7 +21,7 @@ export function Hero() {
     <div className="flex flex-col h-svh justify-between">
       <GL hovering={hovering} />
 
-      <div className="pt-32 pb-32 sm:pt-64 sm:pb-64 my-auto text-center relative">
+      <div className="pt-24 pb-96 sm:pt-64 sm:pb-64 my-auto text-center relative">
         <Pill className={`mb-6 ${isLoaded ? 'animate-fade-in-up' : ''}`}>SAIL LAB</Pill>
         <h1 className={`text-5xl sm:text-6xl md:text-7xl font-mono ${isLoaded ? 'animate-fade-in-up animate-delay-200' : ''}`}>
           AI-Powered <br />
