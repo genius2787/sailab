@@ -18,10 +18,11 @@ export function Hero() {
     return () => clearTimeout(timer);
   }, []);
   return (
-    <div className="flex flex-col h-svh justify-between">
+    <div className="flex flex-col min-h-svh">
       <GL hovering={hovering} />
 
-      <div className="pt-32 pb-[800px] sm:pt-64 sm:pb-64 my-auto text-center relative">
+      <div className="flex-1 flex items-center justify-center text-center relative px-6">
+        <div className="w-full max-w-4xl py-32 sm:py-0">
         <Pill className={`mb-6 ${isLoaded ? 'animate-fade-in-up' : ''}`}>SAIL LAB</Pill>
         <h1 className={`text-5xl sm:text-6xl md:text-7xl font-mono ${isLoaded ? 'animate-fade-in-up animate-delay-200' : ''}`}>
           AI-Powered <br />
@@ -133,7 +134,11 @@ export function Hero() {
             </Button>
           </Link>
         </div>
+        </div>
       </div>
+      
+      {/* Spacer for mobile to push content away from footer */}
+      <div className="h-48 sm:h-0"></div>
     </div>
   );
 }
