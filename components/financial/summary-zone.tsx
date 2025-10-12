@@ -6,6 +6,22 @@ import { CircularGauge } from "@/components/ui/circular-gauge"
 import { TrendingUp, TrendingDown, Minus, Clock, Shield, AlertTriangle, Database, Wifi, WifiOff } from "lucide-react"
 import { useState } from "react"
 
+// Parse markdown bold syntax and highlight
+const parseMarkdownBold = (text: string, color: string = "primary") => {
+  const parts = text.split(/(\*\*.*?\*\*)/g);
+  return parts.map((part, index) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      const content = part.slice(2, -2);
+      return (
+        <span key={index} className={`font-bold text-${color}-400`}>
+          {content}
+        </span>
+      );
+    }
+    return <span key={index}>{part}</span>;
+  });
+};
+
 interface MarketSentiment {
   overallSentiment: "positive" | "negative" | "neutral"
   confidenceScore: number
@@ -420,7 +436,9 @@ export function SummaryZone({ isLoading = false, error, className, selectedStock
               <div className="p-4 bg-blue-500/10 backdrop-blur-sm rounded-xl border border-blue-500/30">
                 <div className="text-sm font-bold text-blue-400 mb-2 font-mono">🧠 RL Agent Results:</div>
                 <div className="bg-background/50 rounded-lg p-3 max-h-40 overflow-y-auto">
-                  <pre className="text-xs font-mono text-foreground/90 whitespace-pre-wrap">{agentResults.rlAgent}</pre>
+                  <div className="text-xs font-mono text-foreground/90 whitespace-pre-wrap">
+                    {parseMarkdownBold(agentResults.rlAgent, "blue")}
+                  </div>
                 </div>
               </div>
             )}
@@ -429,7 +447,9 @@ export function SummaryZone({ isLoading = false, error, className, selectedStock
               <div className="p-4 bg-emerald-500/10 backdrop-blur-sm rounded-xl border border-emerald-500/30">
                 <div className="text-sm font-bold text-emerald-400 mb-2 font-mono">📊 Financial Agent Results:</div>
                 <div className="bg-background/50 rounded-lg p-3 max-h-40 overflow-y-auto">
-                  <pre className="text-xs font-mono text-foreground/90 whitespace-pre-wrap">{agentResults.financialAgent}</pre>
+                  <div className="text-xs font-mono text-foreground/90 whitespace-pre-wrap">
+                    {parseMarkdownBold(agentResults.financialAgent, "emerald")}
+                  </div>
                 </div>
               </div>
             )}
@@ -438,7 +458,9 @@ export function SummaryZone({ isLoading = false, error, className, selectedStock
               <div className="p-4 bg-orange-500/10 backdrop-blur-sm rounded-xl border border-orange-500/30">
                 <div className="text-sm font-bold text-orange-400 mb-2 font-mono">📰 News Agent Results:</div>
                 <div className="bg-background/50 rounded-lg p-3 max-h-40 overflow-y-auto">
-                  <pre className="text-xs font-mono text-foreground/90 whitespace-pre-wrap">{agentResults.newsAgent}</pre>
+                  <div className="text-xs font-mono text-foreground/90 whitespace-pre-wrap">
+                    {parseMarkdownBold(agentResults.newsAgent, "orange")}
+                  </div>
                 </div>
               </div>
             )}
@@ -447,7 +469,9 @@ export function SummaryZone({ isLoading = false, error, className, selectedStock
               <div className="p-4 bg-purple-500/10 backdrop-blur-sm rounded-xl border border-purple-500/30">
                 <div className="text-sm font-bold text-purple-400 mb-2 font-mono">🏢 Institutional Agent Results:</div>
                 <div className="bg-background/50 rounded-lg p-3 max-h-40 overflow-y-auto">
-                  <pre className="text-xs font-mono text-foreground/90 whitespace-pre-wrap">{agentResults.institutionalAgent}</pre>
+                  <div className="text-xs font-mono text-foreground/90 whitespace-pre-wrap">
+                    {parseMarkdownBold(agentResults.institutionalAgent, "purple")}
+                  </div>
                 </div>
               </div>
             )}

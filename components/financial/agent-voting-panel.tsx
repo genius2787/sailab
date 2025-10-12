@@ -7,6 +7,22 @@ import { Button } from "@/components/ui/button"
 import { Brain, Newspaper, TrendingUp, Building, RefreshCw, MoreVertical } from "lucide-react"
 import { CircularGauge } from "@/components/ui/circular-gauge"
 
+// Parse markdown bold syntax and highlight
+const parseMarkdownBold = (text: string, color: string = "primary") => {
+  const parts = text.split(/(\*\*.*?\*\*)/g);
+  return parts.map((part, index) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      const content = part.slice(2, -2);
+      return (
+        <span key={index} className={`font-bold text-${color}-400`}>
+          {content}
+        </span>
+      );
+    }
+    return <span key={index}>{part}</span>;
+  });
+};
+
 interface AgentVote {
   name: string
   icon: React.ReactNode
@@ -253,7 +269,9 @@ export function AgentVotingPanel({ agentResults, isLoading = false, finalOutput,
 
               {/* Reasoning */}
               <div className="text-sm text-foreground/70 leading-relaxed font-mono max-h-40 overflow-y-auto p-3 bg-background/30 rounded-lg border border-border/20">
-                <pre className="whitespace-pre-wrap break-words">{agent.reasoning}</pre>
+                <div className="whitespace-pre-wrap break-words">
+                  {parseMarkdownBold(agent.reasoning, agent.color === "positive" ? "green" : agent.color === "negative" ? "red" : "yellow")}
+                </div>
               </div>
             </div>
           ))}
