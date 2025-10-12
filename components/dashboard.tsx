@@ -57,6 +57,12 @@ export default function Dashboard() {
     institutionalAgent?: string;
   }>({});
   const [finalOutput, setFinalOutput] = useState<any>(null);
+  
+  // Debug: log whenever finalOutput or agentResults change
+  useEffect(() => {
+    console.log('[Dashboard State] finalOutput changed:', finalOutput);
+    console.log('[Dashboard State] agentResults changed:', agentResults);
+  }, [finalOutput, agentResults]);
   const [newsData, setNewsData] = useState<string>('');
   const [financialData, setFinancialData] = useState<string>('');
 
