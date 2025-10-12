@@ -99,6 +99,9 @@ ${message}
     }
 
     // Send email using Resend
+    // Note: Use onboarding@resend.dev for testing, or your verified domain
+    const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+    
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -106,21 +109,25 @@ ${message}
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'noreply@saillaboratory.com',
+        from: fromEmail,
         to: 'wasedajoe@gmail.com',
         reply_to: email,
-        subject: `Contact Form: ${subject}`,
+        subject: `[SAIL Lab Contact] ${subject}`,
         html: emailContent.html,
       }),
     });
 
+    const data = await response.json();
+    
     if (!response.ok) {
-      const error = await response.text();
-      console.error('Resend API error:', error);
-      throw new Error('Failed to send email');
+      console.error('Resend API error:', {
+        status: response.status,
+        statusText: response.statusText,
+        error: data
+      });
+      throw new Error(data.message || 'Failed to send email');
     }
 
-    const data = await response.json();
     console.log('Email sent successfully:', data);
 
     return NextResponse.json({ 
