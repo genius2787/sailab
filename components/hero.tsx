@@ -138,7 +138,7 @@ export function Hero() {
       </div>
       
       {/* Spacer for mobile to push content away from footer */}
-      <div className="h-48 sm:h-0"></div>
+      <div className="h-24 sm:h-0"></div>
     </div>
   );
 }
