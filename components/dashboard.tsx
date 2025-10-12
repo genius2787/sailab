@@ -176,24 +176,38 @@ export default function Dashboard() {
               // Handle Final Output (contains all agent results and consensus)
               if (data.type === 'final_output') {
                 try {
+                  console.log('[Dashboard] Raw final_output message:', data.message);
                   const finalOutputData = JSON.parse(data.message);
-                  console.log('[Dashboard] Received Final Output:', finalOutputData);
+                  console.log('[Dashboard] Parsed Final Output:', finalOutputData);
                   setFinalOutput(finalOutputData);
+                  
+                  const timestamp = new Date().toLocaleTimeString();
+                  setStreamOutput(prev => [...prev, `[${timestamp}] [final_output] Received Final Output with agent votes`]);
                   
                   // Extract individual agent results
                   Object.entries(finalOutputData).forEach(([stock, result]: [string, any]) => {
+                    console.log('[Dashboard] Processing stock:', stock);
+                    console.log('[Dashboard] Result structure:', result);
+                    
                     if (result.Evaluation) {
-                      setAgentResults({
+                      const newAgentResults = {
                         rlAgent: result.Evaluation.RL_agent_result || '',
                         financialAgent: result.Evaluation.Financial_agent_result || '',
                         newsAgent: result.Evaluation.News_agent_result || '',
                         institutionalAgent: result.Evaluation.Professional_insitutions_prediction_search_agent_result || ''
-                      });
-                      console.log('[Dashboard] Updated agent results from Final Output');
+                      };
+                      
+                      console.log('[Dashboard] Setting agent results:', newAgentResults);
+                      setAgentResults(newAgentResults);
+                      setStreamOutput(prev => [...prev, `[${timestamp}] [final_output] Agent results updated successfully`]);
+                    } else {
+                      console.warn('[Dashboard] No Evaluation field in result');
                     }
                   });
                 } catch (e) {
                   console.error('[Dashboard] Failed to parse Final Output:', e);
+                  const timestamp = new Date().toLocaleTimeString();
+                  setStreamOutput(prev => [...prev, `[${timestamp}] [error] Failed to parse Final Output`]);
                 }
               }
               
