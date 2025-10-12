@@ -173,6 +173,30 @@ export default function Dashboard() {
                 }
               }, 100);
               
+              // Handle Final Output (contains all agent results and consensus)
+              if (data.type === 'final_output') {
+                try {
+                  const finalOutputData = JSON.parse(data.message);
+                  console.log('[Dashboard] Received Final Output:', finalOutputData);
+                  setFinalOutput(finalOutputData);
+                  
+                  // Extract individual agent results
+                  Object.entries(finalOutputData).forEach(([stock, result]: [string, any]) => {
+                    if (result.Evaluation) {
+                      setAgentResults({
+                        rlAgent: result.Evaluation.RL_agent_result || '',
+                        financialAgent: result.Evaluation.Financial_agent_result || '',
+                        newsAgent: result.Evaluation.News_agent_result || '',
+                        institutionalAgent: result.Evaluation.Professional_insitutions_prediction_search_agent_result || ''
+                      });
+                      console.log('[Dashboard] Updated agent results from Final Output');
+                    }
+                  });
+                } catch (e) {
+                  console.error('[Dashboard] Failed to parse Final Output:', e);
+                }
+              }
+              
               // Handle financial agent output
               if (data.type === 'financial_agent') {
                 setFinancialData(data.message);
