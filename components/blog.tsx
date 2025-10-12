@@ -37,7 +37,7 @@ const blogPosts: BlogPost[] = [
     date: "2025-08-15",
     author: "Zhao WANG",
     featured: true,
-    image: "/companny.png",
+    image: "/Capture.JPG",
     views: 324,
     comments: 23,
     likes: 47

@@ -96,11 +96,11 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
       <p><strong>株式会社Sail Laboratory</strong><br/>
       <em>Smarter Investing. Powered by AI.</em></p>
     `,
-    image: '/companny.png',
+    image: '/Capture.JPG',
     media: [
       {
         type: 'image',
-        url: '/companny.png',
+        url: '/Capture.JPG',
         alt: 'SAIL Laboratory Company',
         caption: 'SAIL Laboratory - Official Launch Announcement'
       },
