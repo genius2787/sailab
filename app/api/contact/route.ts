@@ -2,11 +2,15 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
   try {
+    console.log('[Contact API] Request received');
     const body = await request.json();
     const { name, email, company, subject, message } = body;
+    
+    console.log('[Contact API] Form data:', { name, email, company, subject });
 
     // Validate required fields
     if (!name || !email || !subject || !message) {
+      console.log('[Contact API] Validation failed: missing fields');
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -16,6 +20,7 @@ export async function POST(request: NextRequest) {
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
+      console.log('[Contact API] Validation failed: invalid email format');
       return NextResponse.json(
         { error: 'Invalid email format' },
         { status: 400 }
@@ -88,10 +93,11 @@ ${message}
     // Use Resend API to send email
     const RESEND_API_KEY = process.env.RESEND_API_KEY;
     
+    console.log('[Contact API] RESEND_API_KEY exists:', !!RESEND_API_KEY);
+    
     if (!RESEND_API_KEY) {
-      console.error('RESEND_API_KEY is not configured');
-      // For now, log the email content and return success
-      console.log('Email content:', emailContent);
+      console.error('[Contact API] RESEND_API_KEY is not configured');
+      console.log('[Contact API] Email content:', emailContent);
       return NextResponse.json({ 
         success: true, 
         message: 'Form submitted successfully (email service not configured)' 
@@ -101,6 +107,9 @@ ${message}
     // Send email using Resend
     // Note: Use onboarding@resend.dev for testing, or your verified domain
     const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+    
+    console.log('[Contact API] Sending email from:', fromEmail);
+    console.log('[Contact API] Sending email to:', 'wasedajoe@gmail.com');
     
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -119,8 +128,11 @@ ${message}
 
     const data = await response.json();
     
+    console.log('[Contact API] Resend response status:', response.status);
+    console.log('[Contact API] Resend response data:', data);
+    
     if (!response.ok) {
-      console.error('Resend API error:', {
+      console.error('[Contact API] Resend API error:', {
         status: response.status,
         statusText: response.statusText,
         error: data
@@ -128,7 +140,7 @@ ${message}
       throw new Error(data.message || 'Failed to send email');
     }
 
-    console.log('Email sent successfully:', data);
+    console.log('[Contact API] Email sent successfully! ID:', data.id);
 
     return NextResponse.json({ 
       success: true, 
@@ -136,7 +148,7 @@ ${message}
     });
 
   } catch (error) {
-    console.error('Contact form error:', error);
+    console.error('[Contact API] Error:', error);
     return NextResponse.json(
       { error: 'Failed to send message. Please try again later.' },
       { status: 500 }
