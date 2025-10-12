@@ -126,57 +126,81 @@ export default function Dashboard() {
     console.log('[Dashboard] Analyzing stock:', selectedStock);
     
     try {
-      // Call Remote Trading Agent API
-      console.log('[Dashboard] Calling remote TradeAgent API...');
-      const timestamp1 = new Date().toLocaleTimeString();
-      setStreamOutput(prev => [...prev, `[${timestamp1}] Starting analysis for ${selectedStock}...`]);
-      setStreamOutput(prev => [...prev, `[${timestamp1}] Connecting to TradeAgent server...`]);
-      setStreamOutput(prev => [...prev, `[${timestamp1}] This may take 5-10 minutes, please wait...`]);
+      // Call Remote Trading Agent Streaming API
+      console.log('[Dashboard] Calling remote TradeAgent streaming API...');
       
-      const response = await fetch('/api/analyze-stocks-remote', {
+      const response = await fetch('/api/analyze-stocks-stream-remote', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ stocks: [selectedStock] })
       });
       
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ error: response.statusText }));
-        throw new Error(errorData.error || response.statusText);
+        throw new Error(`API error: ${response.statusText}`);
       }
       
-      const result = await response.json();
-      console.log('[Dashboard] Remote API result:', result);
+      const reader = response.body?.getReader();
+      if (!reader) {
+        throw new Error('No response body');
+      }
       
-      if (result.success && result.results) {
-        const timestamp = new Date().toLocaleTimeString();
-        setStreamOutput(prev => [...prev, `[${timestamp}] Analysis completed successfully!`]);
-        setStreamOutput(prev => [...prev, `[${timestamp}] Processing results...`]);
+      const decoder = new TextDecoder();
+      let buffer = '';
+      
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
         
-        // Update financial and news data
-        if (result.results.financial) {
-          setFinancialData(result.results.financial);
-          setStreamOutput(prev => [...prev, `[${timestamp}] Financial analysis received`]);
-          setAgentResults(prev => ({
-            ...prev,
-            financialAgent: result.results.financial
-          }));
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() || '';
+        
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            try {
+              const data = JSON.parse(line.slice(6));
+              console.log('[Dashboard] Stream data:', data);
+              
+              // Update stream output with timestamp and type
+              const timestamp = new Date().toLocaleTimeString();
+              const lines = data.message.split('\n').filter((l: string) => l.trim() !== '');
+              setStreamOutput(prev => [...prev, ...lines.map((l: string) => `[${timestamp}] [${data.type}] ${l}`)]);
+              
+              // Auto-scroll to bottom
+              setTimeout(() => {
+                if (terminalRef.current) {
+                  terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+                }
+              }, 100);
+              
+              // Handle financial agent output
+              if (data.type === 'financial_agent') {
+                setFinancialData(data.message);
+                setAgentResults(prev => ({
+                  ...prev,
+                  financialAgent: data.message
+                }));
+              }
+              
+              // Handle news agent output
+              if (data.type === 'news_agent') {
+                setNewsData(data.message);
+                setAgentResults(prev => ({
+                  ...prev,
+                  newsAgent: data.message
+                }));
+              }
+              
+              // Handle completion
+              if (data.type === 'complete') {
+                setAnalyzedStocks([selectedStock]);
+              }
+              
+            } catch (e) {
+              console.error('[Dashboard] Failed to parse stream data:', e);
+            }
+          }
         }
-        
-        if (result.results.news) {
-          setNewsData(result.results.news);
-          setStreamOutput(prev => [...prev, `[${timestamp}] News analysis received`]);
-          setAgentResults(prev => ({
-            ...prev,
-            newsAgent: result.results.news
-          }));
-        }
-        
-        setStreamOutput(prev => [...prev, `[${timestamp}] All analysis complete!`]);
-        
-        // Mark as completed
-        setAnalyzedStocks([selectedStock]);
-      } else {
-        throw new Error('Invalid response format');
       }
       
     } catch (error) {
