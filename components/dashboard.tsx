@@ -39,8 +39,8 @@ export default function Dashboard() {
   const { data: session, status } = useSession();
   const [hovering, setHovering] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [visibleSections, setVisibleSections] = useState(new Set());
-  const sectionRefs = useRef({});
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
+  const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const [selectedStock, setSelectedStock] = useState<string>('');
   const [analyzedStocks, setAnalyzedStocks] = useState<string[]>([]);
   const [analysisResults, setAnalysisResults] = useState<any>(null);
@@ -112,13 +112,13 @@ export default function Dashboard() {
     }
   }, [session, status]);
 
-  // Handle stock analysis with streaming
+  // Handle stock analysis with remote API
   const handleAnalyzeStocks = async () => {
     if (!selectedStock) return;
     
     setIsAnalyzing(true);
     setStreamOutput([]);
-    setCurrentStock('');
+    setCurrentStock(selectedStock);
     setAgentResults({});
     setFinalOutput(null);
     setNewsData('');
@@ -128,8 +128,10 @@ export default function Dashboard() {
     try {
       // Call Remote Trading Agent API
       console.log('[Dashboard] Calling remote TradeAgent API...');
-      setStreamOutput(prev => [...prev, `[${new Date().toLocaleTimeString()}] Starting analysis for ${selectedStock}...`]);
-      setStreamOutput(prev => [...prev, `[${new Date().toLocaleTimeString()}] Connecting to TradeAgent server...`]);
+      const timestamp1 = new Date().toLocaleTimeString();
+      setStreamOutput(prev => [...prev, `[${timestamp1}] Starting analysis for ${selectedStock}...`]);
+      setStreamOutput(prev => [...prev, `[${timestamp1}] Connecting to TradeAgent server...`]);
+      setStreamOutput(prev => [...prev, `[${timestamp1}] This may take 5-10 minutes, please wait...`]);
       
       const response = await fetch('/api/analyze-stocks-remote', {
         method: 'POST',
@@ -138,12 +140,9 @@ export default function Dashboard() {
       });
       
       if (!response.ok) {
-        const errorData = await response.json();
+        const errorData = await response.json().catch(() => ({ error: response.statusText }));
         throw new Error(errorData.error || response.statusText);
       }
-      
-      setStreamOutput(prev => [...prev, `[${new Date().toLocaleTimeString()}] Analysis in progress, please wait...`]);
-      setStreamOutput(prev => [...prev, `[${new Date().toLocaleTimeString()}] This may take 5-10 minutes...`]);
       
       const result = await response.json();
       console.log('[Dashboard] Remote API result:', result);
@@ -157,208 +156,27 @@ export default function Dashboard() {
         if (result.results.financial) {
           setFinancialData(result.results.financial);
           setStreamOutput(prev => [...prev, `[${timestamp}] Financial analysis received`]);
+          setAgentResults(prev => ({
+            ...prev,
+            financialAgent: result.results.financial
+          }));
         }
         
         if (result.results.news) {
           setNewsData(result.results.news);
           setStreamOutput(prev => [...prev, `[${timestamp}] News analysis received`]);
+          setAgentResults(prev => ({
+            ...prev,
+            newsAgent: result.results.news
+          }));
         }
         
         setStreamOutput(prev => [...prev, `[${timestamp}] All analysis complete!`]);
+        
+        // Mark as completed
+        setAnalyzedStocks([selectedStock]);
       } else {
         throw new Error('Invalid response format');
-      }
-      
-      // Mark as completed
-      setAnalyzedStocks([selectedStock]);
-      
-      // Old streaming code - disabled when using remote API
-      if (false) {
-        const data = { type: 'placeholder', message: '' };
-              console.log('[Dashboard] Stream data:', data);
-              
-              // Update stream output - split by lines for better readability
-              const lines = data.message.split('\n').filter(line => line.trim() !== '');
-              const timestamp = new Date().toLocaleTimeString();
-              setStreamOutput(prev => [...prev, ...lines.map(line => `[${timestamp}] [${data.type}] ${line}`)]);
-              
-              // Update current stock
-              if (data.stock) {
-                setCurrentStock(data.stock);
-              }
-              
-              // Collect agent results
-              if (data.type === 'financial_agent' && data.stock) {
-                setAgentResults(prev => ({
-                  ...prev,
-                  financialAgent: prev.financialAgent ? prev.financialAgent + '\n' + data.message : data.message
-                }));
-                // Also save to financialData for the dedicated block
-                setFinancialData(prev => {
-                  const newData = prev ? prev + '\n' + data.message : data.message;
-                  console.log('[Dashboard] Updated financialData:', newData);
-                  return newData;
-                });
-                console.log('[Dashboard] Updated financialAgent:', data.message);
-              } else if (data.type === 'news_agent' && data.stock) {
-                setAgentResults(prev => ({
-                  ...prev,
-                  newsAgent: prev.newsAgent ? prev.newsAgent + '\n' + data.message : data.message
-                }));
-                // Also save to newsData for the dedicated block
-                setNewsData(prev => {
-                  const newData = prev ? prev + '\n' + data.message : data.message;
-                  console.log('[Dashboard] Updated newsData:', newData);
-                  return newData;
-                });
-                console.log('[Dashboard] Updated newsAgent:', data.message);
-              } else if (data.type === 'stdout' && data.message.includes('Sharpe:') && data.stock) {
-                // Extract RL Agent results from training output
-                setAgentResults(prev => ({
-                  ...prev,
-                  rlAgent: prev.rlAgent ? prev.rlAgent + '\n' + data.message : data.message
-                }));
-                console.log('[Dashboard] Updated rlAgent:', data.message);
-              } else if (data.type === 'stdout' && data.message.includes('Final Output:')) {
-                // Parse Final Output JSON
-                try {
-                  console.log('[Dashboard] Raw Final Output message:', data.message);
-                  
-                  // Try different regex patterns to extract JSON
-                  let finalOutputStr = '';
-                  const patterns = [
-                    /Final Output:\s*(\{.*\})/s,
-                    /Final Output:\s*(\{[\s\S]*\})/,
-                    /"Final Output":\s*(\{.*\})/s
-                  ];
-                  
-                  for (const pattern of patterns) {
-                    const match = data.message.match(pattern);
-                    if (match) {
-                      finalOutputStr = match[1];
-                      break;
-                    }
-                  }
-                  
-                  if (finalOutputStr) {
-                    console.log('[Dashboard] Extracted JSON string:', finalOutputStr);
-                    
-                    // Clean up the JSON string
-                    finalOutputStr = finalOutputStr.trim();
-                    
-                    // Try to clean up common JSON issues
-                    finalOutputStr = finalOutputStr
-                      .replace(/\\'/g, "'")  // Replace escaped single quotes
-                      .replace(/\\"/g, '"')  // Replace escaped double quotes
-                      .replace(/\\n/g, ' ')  // Replace newlines with spaces
-                      .replace(/\\t/g, ' ')  // Replace tabs with spaces
-                      .replace(/\\r/g, ' ')  // Replace carriage returns with spaces
-                      .replace(/�/g, "'")    // Replace problematic Unicode characters
-                      .replace(/[^\x20-\x7E\s]/g, ' ')  // Replace non-ASCII characters with spaces
-                      .replace(/\s+/g, ' ')  // Replace multiple spaces with single space
-                      .trim();
-                    
-                    console.log('[Dashboard] Cleaned JSON string:', finalOutputStr);
-                    
-                    // Check if it's an empty object or invalid
-                    if (finalOutputStr === '{}' || finalOutputStr === '{{}}' || finalOutputStr === '') {
-                      console.log('[Dashboard] Skipping parse: Empty or invalid JSON object, continuing to listen...');
-                      // Don't return, just skip this parse and continue listening for more data
-                    } else {
-                    // Try to parse the JSON if not empty
-                    try {
-                      const parsedFinalOutput = JSON.parse(finalOutputStr);
-                      console.log('[Dashboard] Successfully parsed Final Output:', parsedFinalOutput);
-                      
-                      // Save the complete Final Output
-                      setFinalOutput(parsedFinalOutput);
-                      console.log('[Dashboard] Saved finalOutput state:', parsedFinalOutput);
-                    
-                    // Extract results for each stock
-                    Object.entries(parsedFinalOutput).forEach(([stock, result]: [string, any]) => {
-                      if (result.Evaluation) {
-                        setAgentResults(prev => ({
-                          ...prev,
-                          rlAgent: result.Evaluation.RL_agent_result || prev.rlAgent,
-                          financialAgent: result.Evaluation.Financial_agent_result || prev.financialAgent,
-                          newsAgent: result.Evaluation.News_agent_result || prev.newsAgent,
-                          institutionalAgent: result.Evaluation.Professional_insitutions_prediction_search_agent_result || prev.institutionalAgent
-                        }));
-                        console.log('[Dashboard] Updated all agents from Final Output for', stock);
-                      }
-                    });
-                    } catch (jsonError) {
-                      console.error('[Dashboard] JSON parse error:', jsonError);
-                      console.error('[Dashboard] Failed JSON string:', finalOutputStr);
-                      throw jsonError; // Re-throw to trigger fallback parsing
-                    }
-                    } // Close the else block for non-empty JSON
-                  } else {
-                    console.log('[Dashboard] No JSON pattern matched in Final Output');
-                  }
-                } catch (e) {
-                  console.error('[Dashboard] Failed to parse Final Output:', e);
-                  console.error('[Dashboard] Error details:', e.message);
-                  console.error('[Dashboard] Raw message that failed:', data.message);
-                  
-                  // Fallback: try to extract agent results using string matching
-                  try {
-                    const message = data.message;
-                    console.log('[Dashboard] Attempting fallback parsing with message:', message);
-                    
-                    // More flexible regex patterns for fallback parsing
-                    const patterns = [
-                      { key: 'rlAgent', regex: /RL_agent_result["\s]*:["\s]*"([^"]+)"/ },
-                      { key: 'financialAgent', regex: /Financial_agent_result["\s]*:["\s]*"([^"]+)"/ },
-                      { key: 'newsAgent', regex: /News_agent_result["\s]*:["\s]*"([^"]+)"/ },
-                      { key: 'institutionalAgent', regex: /Professional_insitutions_prediction_search_agent_result["\s]*:["\s]*"([^"]+)"/ }
-                    ];
-                    
-                    const extractedResults: any = {};
-                    let foundAny = false;
-                    
-                    patterns.forEach(({ key, regex }) => {
-                      const match = message.match(regex);
-                      if (match) {
-                        extractedResults[key] = match[1];
-                        foundAny = true;
-                        console.log(`[Dashboard] Extracted ${key}:`, match[1]);
-                      }
-                    });
-                    
-                    if (foundAny) {
-                      setAgentResults(prev => ({
-                        ...prev,
-                        ...extractedResults
-                      }));
-                      console.log('[Dashboard] Fallback parsing successful');
-                    } else {
-                      console.log('[Dashboard] No patterns matched in fallback parsing');
-                    }
-                  } catch (fallbackError) {
-                    console.error('[Dashboard] Fallback parsing also failed:', fallbackError);
-                  }
-                }
-              }
-              
-              // Auto-scroll to bottom
-              setTimeout(() => {
-                if (terminalRef.current) {
-                  terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
-                }
-              }, 100);
-              
-              // Handle completion
-              if (data.type === 'complete') {
-                setAnalyzedStocks([selectedStock]);
-                // You can still set analysis results here if needed
-              }
-              
-            } catch (e) {
-              console.error('[Dashboard] Failed to parse stream data:', e);
-            }
-          }
-        }
       }
       
     } catch (error) {
@@ -446,7 +264,7 @@ export default function Dashboard() {
 
       <div className="relative z-10 container mx-auto pt-64 pb-12 px-6">
         {/* Header */}
-        <div className="mb-8" ref={el => sectionRefs.current.header = el}>
+        <div className="mb-8" ref={el => { sectionRefs.current.header = el; }}>
           <h1 className={`text-4xl md:text-5xl font-mono font-bold text-foreground mb-4 ${isLoaded ? 'animate-fade-in-up' : ''}`}>
             Hello, {session?.user?.name || session?.user?.email?.split('@')[0] || 'Member'}! Welcome Back
           </h1>
@@ -878,7 +696,7 @@ export default function Dashboard() {
             </div>
 
             {/* Summary Zone */}
-            <div ref={el => sectionRefs.current.summary = el}>
+            <div ref={el => { sectionRefs.current.summary = el; }}>
               <div className={`${visibleSections.has('summary') ? 'animate-fade-in-up' : ''}`}>
                 <SummaryZone 
                   selectedStocks={analyzedStocks.length > 0 ? analyzedStocks : (selectedStock ? [selectedStock] : [])} 
@@ -891,7 +709,7 @@ export default function Dashboard() {
             </div>
 
             {/* Agent Voting Panel */}
-            <div ref={el => sectionRefs.current.agents = el}>
+            <div ref={el => { sectionRefs.current.agents = el; }}>
               <div className={`${visibleSections.has('agents') ? 'animate-fade-in-up animate-delay-200' : ''}`}>
                 <AgentVotingPanel 
                   agentResults={agentResults} 
@@ -986,7 +804,7 @@ export default function Dashboard() {
 
             {/* KPI Snapshot - Hidden until real account data is available */}
             {false && (
-            <div ref={el => sectionRefs.current.kpis = el}>
+            <div ref={el => { sectionRefs.current.kpis = el; }}>
               <div className={`${visibleSections.has('kpis') ? 'animate-fade-in-up animate-delay-400' : ''}`}>
                 <KPISnapshot />
               </div>
@@ -995,7 +813,7 @@ export default function Dashboard() {
 
             {/* Recent Trades - Hidden */}
             {false && (
-            <Card className="bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 transition-all duration-300" ref={el => sectionRefs.current.trades = el}>
+            <Card className="bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 transition-all duration-300" ref={el => { sectionRefs.current.trades = el; }}>
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 text-2xl font-mono">
                   <BarChart3 className="h-5 w-5 text-primary" />
@@ -1045,7 +863,7 @@ export default function Dashboard() {
           {false && (
           <div className="xl:col-span-1 space-y-6">
             {/* Market Summary */}
-            <Card className="bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 transition-all duration-300" ref={el => sectionRefs.current.market = el}>
+            <Card className="bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 transition-all duration-300" ref={el => { sectionRefs.current.market = el; }}>
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 text-xl font-mono">
                   <PieChart className="h-5 w-5 text-primary" />
@@ -1214,7 +1032,7 @@ export default function Dashboard() {
 
         {/* News Ticker - Hidden */}
         {false && (
-        <div className="mt-12 mb-8" ref={el => sectionRefs.current.news = el}>
+        <div className="mt-12 mb-8" ref={el => { sectionRefs.current.news = el; }}>
           <div className={`${visibleSections.has('news') ? 'animate-fade-in-up' : ''}`}>
             <NewsTicker />
           </div>
