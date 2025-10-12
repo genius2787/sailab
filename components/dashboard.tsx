@@ -126,37 +126,55 @@ export default function Dashboard() {
     console.log('[Dashboard] Analyzing stock:', selectedStock);
     
     try {
-      // Call Trading Agent Stream API
-      const response = await fetch('/api/analyze-stocks-stream', {
+      // Call Remote Trading Agent API
+      console.log('[Dashboard] Calling remote TradeAgent API...');
+      setStreamOutput(prev => [...prev, `[${new Date().toLocaleTimeString()}] Starting analysis for ${selectedStock}...`]);
+      setStreamOutput(prev => [...prev, `[${new Date().toLocaleTimeString()}] Connecting to TradeAgent server...`]);
+      
+      const response = await fetch('/api/analyze-stocks-remote', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ stocks: [selectedStock] })
       });
       
       if (!response.ok) {
-        throw new Error(`API error: ${response.statusText}`);
+        const errorData = await response.json();
+        throw new Error(errorData.error || response.statusText);
       }
       
-      const reader = response.body?.getReader();
-      if (!reader) {
-        throw new Error('No response body');
+      setStreamOutput(prev => [...prev, `[${new Date().toLocaleTimeString()}] Analysis in progress, please wait...`]);
+      setStreamOutput(prev => [...prev, `[${new Date().toLocaleTimeString()}] This may take 5-10 minutes...`]);
+      
+      const result = await response.json();
+      console.log('[Dashboard] Remote API result:', result);
+      
+      if (result.success && result.results) {
+        const timestamp = new Date().toLocaleTimeString();
+        setStreamOutput(prev => [...prev, `[${timestamp}] Analysis completed successfully!`]);
+        setStreamOutput(prev => [...prev, `[${timestamp}] Processing results...`]);
+        
+        // Update financial and news data
+        if (result.results.financial) {
+          setFinancialData(result.results.financial);
+          setStreamOutput(prev => [...prev, `[${timestamp}] Financial analysis received`]);
+        }
+        
+        if (result.results.news) {
+          setNewsData(result.results.news);
+          setStreamOutput(prev => [...prev, `[${timestamp}] News analysis received`]);
+        }
+        
+        setStreamOutput(prev => [...prev, `[${timestamp}] All analysis complete!`]);
+      } else {
+        throw new Error('Invalid response format');
       }
       
-      const decoder = new TextDecoder();
-      let buffer = '';
+      // Mark as completed
+      setAnalyzedStocks([selectedStock]);
       
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split('\n');
-        buffer = lines.pop() || '';
-        
-        for (const line of lines) {
-          if (line.startsWith('data: ')) {
-            try {
-              const data = JSON.parse(line.slice(6));
+      // Old streaming code - disabled when using remote API
+      if (false) {
+        const data = { type: 'placeholder', message: '' };
               console.log('[Dashboard] Stream data:', data);
               
               // Update stream output - split by lines for better readability
