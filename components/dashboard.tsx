@@ -167,17 +167,19 @@ export default function Dashboard() {
               const data = JSON.parse(line.slice(6));
               console.log('[Dashboard] Stream data:', data);
               
-              // Update stream output with timestamp and type
-              const timestamp = new Date().toLocaleTimeString();
-              const lines = data.message.split('\n').filter((l: string) => l.trim() !== '');
-              setStreamOutput(prev => [...prev, ...lines.map((l: string) => `[${timestamp}] [${data.type}] ${l}`)]);
-              
-              // Auto-scroll to bottom
-              setTimeout(() => {
-                if (terminalRef.current) {
-                  terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
-                }
-              }, 100);
+              // Only add to stream output for stdout/stderr/info types (not for data types)
+              if (data.type === 'stdout' || data.type === 'stderr' || data.type === 'info' || data.type === 'debug' || data.type === 'error') {
+                const timestamp = new Date().toLocaleTimeString();
+                const lines = data.message.split('\n').filter((l: string) => l.trim() !== '');
+                setStreamOutput(prev => [...prev, ...lines.map((l: string) => `[${timestamp}] [${data.type}] ${l}`)]);
+                
+                // Auto-scroll to bottom
+                setTimeout(() => {
+                  if (terminalRef.current) {
+                    terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+                  }
+                }, 100);
+              }
               
               // Handle Final Output (contains all agent results and consensus)
               if (data.type === 'final_output') {
@@ -219,20 +221,24 @@ export default function Dashboard() {
               
               // Handle financial agent output
               if (data.type === 'financial_agent') {
+                console.log('[Dashboard] Received financial_agent data:', data.message.substring(0, 200) + '...');
                 setFinancialData(data.message);
                 setAgentResults(prev => ({
                   ...prev,
                   financialAgent: data.message
                 }));
+                console.log('[Dashboard] Financial data state updated');
               }
               
               // Handle news agent output
               if (data.type === 'news_agent') {
+                console.log('[Dashboard] Received news_agent data:', data.message.substring(0, 200) + '...');
                 setNewsData(data.message);
                 setAgentResults(prev => ({
                   ...prev,
                   newsAgent: data.message
                 }));
+                console.log('[Dashboard] News data state updated');
               }
               
               // Handle completion
