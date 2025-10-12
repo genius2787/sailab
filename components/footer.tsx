@@ -42,7 +42,7 @@ export const Footer = () => {
           <div>
             <h3 className="font-mono text-blue-400 font-bold mb-4">Services</h3>
             <ul className="space-y-2 font-mono text-sm text-foreground/60">
-              <li>Multi-Agent LLM Analysis</li>
+              <li>Multi LLM Agent based Stock Analysis (In Dashboard)</li>
               <li>Neural Network Trading</li>
               <li>AI Trader Community</li>
               <li>Custom AI Solutions</li>

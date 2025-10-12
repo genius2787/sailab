@@ -55,9 +55,10 @@ export function Portfolio() {
         t('portfolio.multiAgentFeature5')
       ],
       pricing: {
-        basic: "$18/month",
-        pro: "$39/month",
-        note: "Enterprise solutions available"
+        starter: "$99/month",
+        professional: "$249/month",
+        enterprise: "$599/month",
+        note: "Contact for Enterprise pricing"
       },
       badge: t('portfolio.popular')
     },
@@ -155,16 +156,16 @@ export function Portfolio() {
                   <CardFooter className="border-t border-border/20 mt-auto">
                     <div className="w-full">
                       <div className="space-y-2">
-                        {service.pricing.basic && (
+                        {service.pricing.starter && (
                           <div className="flex justify-between items-center group-hover:scale-105 transition-transform duration-300">
-                            <span className="font-mono text-sm text-foreground/70">Basic:</span>
-                            <span className="font-mono text-primary font-medium hover-glow">{service.pricing.basic}</span>
+                            <span className="font-mono text-sm text-foreground/70">Starter:</span>
+                            <span className="font-mono text-primary font-medium hover-glow">{service.pricing.starter}</span>
                           </div>
                         )}
-                        {service.pricing.pro && (
+                        {service.pricing.professional && (
                           <div className="flex justify-between items-center group-hover:scale-105 transition-transform duration-300">
-                            <span className="font-mono text-sm text-foreground/70">Pro:</span>
-                            <span className="font-mono text-primary font-medium hover-glow">{service.pricing.pro}</span>
+                            <span className="font-mono text-sm text-foreground/70">Professional:</span>
+                            <span className="font-mono text-primary font-medium hover-glow">{service.pricing.professional}</span>
                           </div>
                         )}
                         {service.pricing.core && (

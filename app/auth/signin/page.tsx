@@ -137,7 +137,7 @@ export default function SignInPage() {
 
         {/* Membership Plans */}
         <div className="w-full max-w-6xl">
-          <h2 className="text-3xl font-mono font-bold text-center mb-12">Membership Plans</h2>
+          <h2 className="text-3xl font-mono font-bold text-center mb-12">DashBoard首页的Price Plan</h2>
           
           <div className="grid md:grid-cols-3 gap-8">
             {/* Tier 1 */}
