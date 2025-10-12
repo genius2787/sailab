@@ -82,7 +82,9 @@ export function Portfolio() {
       },
       badge: t('portfolio.enterprise'),
       link: "/insights/backtest-sep-2025",
-      linkText: "View Backtest Results"
+      linkText: "View Backtest",
+      secondLink: "/contact",
+      secondLinkText: "Ask for Access"
     },
     {
       title: t('portfolio.communityTitle'),
@@ -195,13 +197,37 @@ export function Portfolio() {
                       {service.link && (
                         <div className="space-y-2">
                           {service.isDisabled ? (
-                            <Button 
-                              className="w-full font-mono cursor-not-allowed"
-                              variant="secondary"
-                              disabled
-                            >
-                              {service.linkText}
-                            </Button>
+                            <>
+                              <Button 
+                                className="w-full font-mono cursor-not-allowed"
+                                variant="secondary"
+                                disabled
+                              >
+                                {service.linkText}
+                              </Button>
+                              <p className="text-center text-xs font-mono text-foreground/50 italic">
+                                (In Development)
+                              </p>
+                            </>
+                          ) : service.secondLink ? (
+                            <div className="grid grid-cols-2 gap-3">
+                              <Link href={service.link}>
+                                <Button 
+                                  className="w-full font-mono hover-lift"
+                                  variant="default"
+                                >
+                                  {service.linkText}
+                                </Button>
+                              </Link>
+                              <Link href={service.secondLink}>
+                                <Button 
+                                  className="w-full font-mono hover-lift"
+                                  variant="default"
+                                >
+                                  {service.secondLinkText}
+                                </Button>
+                              </Link>
+                            </div>
                           ) : (
                             <Link href={service.link}>
                               <Button 
@@ -211,11 +237,6 @@ export function Portfolio() {
                                 {service.linkText}
                               </Button>
                             </Link>
-                          )}
-                          {service.isDisabled && (
-                            <p className="text-center text-xs font-mono text-foreground/50 italic">
-                              (In Development)
-                            </p>
                           )}
                         </div>
                       )}
