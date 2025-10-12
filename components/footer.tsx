@@ -15,9 +15,10 @@ export const Footer = () => {
               SAIL Lab is a Tokyo-based AI financial technology company offering innovative solutions for quants systems, investment analysis, and trading automation.
             </p>
             <div className="font-mono text-xs text-foreground/50">
+              <p>Sail Lab Co., Ltd</p>
               <p>Daiya Gate 5F</p>
               <p>Minami-Ikebukuro 1-16-15</p>
-              <p>Tokyo, Japan</p>
+              <p>Toshima City, Tokyo 171-0022, Japan</p>
             </div>
           </div>
 

@@ -115,21 +115,38 @@ export function Contact() {
 
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    try {
+      // Send email via API
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      company: "",
-      subject: "",
-      message: ""
-    });
-    setIsSubmitting(false);
+      const data = await response.json();
 
-    // In a real application, you would handle the success/error states
-    alert(t('contact.successMessage'));
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message');
+      }
+
+      // Reset form on success
+      setFormData({
+        name: "",
+        email: "",
+        company: "",
+        subject: "",
+        message: ""
+      });
+
+      alert(t('contact.successMessage') || 'Your message has been sent successfully!');
+    } catch (error) {
+      console.error('Error sending message:', error);
+      alert('Failed to send message. Please try again or contact us directly at wasedajoe@gmail.com');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (field: keyof ContactFormData, value: string) => {
@@ -157,16 +174,18 @@ export function Contact() {
             </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {/* Contact Form */}
-          <Card className={`border-border/40 bg-background/30 backdrop-blur-sm hover-lift ${isLoaded ? 'animate-slide-in-left animate-delay-400' : ''}`} ref={(el) => { sectionRefs.current.form = el; }}>
-            <CardHeader>
-              <CardTitle className={`text-2xl font-mono ${visibleSections.has('form') ? 'animate-fade-in-up animate-delay-200' : ''}`}>{t('contact.sendMessage')}</CardTitle>
-              <CardDescription className={`${visibleSections.has('form') ? 'animate-fade-in-up animate-delay-300' : ''}`}>
-                {t('contact.formDescription')}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Left Column: Contact Form and Quick Response */}
+          <div className="space-y-6">
+            {/* Contact Form */}
+            <Card className={`border-border/40 bg-background/30 backdrop-blur-sm hover-lift ${isLoaded ? 'animate-slide-in-left animate-delay-400' : ''}`} ref={(el) => { sectionRefs.current.form = el; }}>
+              <CardHeader>
+                <CardTitle className={`text-2xl font-mono ${visibleSections.has('form') ? 'animate-fade-in-up animate-delay-200' : ''}`}>{t('contact.sendMessage')}</CardTitle>
+                <CardDescription className={`${visibleSections.has('form') ? 'animate-fade-in-up animate-delay-300' : ''}`}>
+                  {t('contact.formDescription')}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-mono text-foreground/80 mb-2">
@@ -267,7 +286,33 @@ export function Contact() {
             </CardContent>
           </Card>
 
-          {/* Contact Information */}
+            {/* Quick Response */}
+            <Card className={`border-primary/20 bg-primary/5 backdrop-blur-sm hover-lift ${visibleSections.has('form') ? 'animate-scale-in animate-delay-600' : ''}`}>
+              <CardContent className="py-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="text-primary animate-bounce-subtle">⚡</div>
+                  <h4 className="font-mono text-lg">{t('contact.quickResponse')}</h4>
+                </div>
+                <p className="text-sm text-foreground/80 leading-relaxed mb-3">
+                  We typically respond to inquiries within 24 hours during business days. For urgent matters, please call our office directly.
+                </p>
+                <p className="text-sm text-foreground/80 leading-relaxed">
+                  Feel free to connect with us on{' '}
+                  <a 
+                    href="https://www.linkedin.com/in/wang1946may7" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-primary hover:text-primary/80 transition-colors duration-150 underline font-medium"
+                  >
+                    LinkedIn
+                  </a>
+                  {' '}as listed on the right.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Right Column: Contact Information */}
           <div className="space-y-6" ref={(el) => { sectionRefs.current.info = el; }}>
             {/* Office Information */}
             <Card className={`border-border/40 bg-background/30 backdrop-blur-sm hover-lift ${isLoaded ? 'animate-slide-in-right animate-delay-500' : ''}`}>
@@ -280,8 +325,10 @@ export function Contact() {
                   <div className="text-primary mt-1">📍</div>
                   <div>
                     <p className="font-mono text-sm text-foreground/80">{t('contact.location')}</p>
-                    <p className="font-mono text-foreground">Daiya Gate 5F, Minami-Ikebukuro 1-16-15</p>
-                    <p className="font-mono text-foreground">Tokyo, Japan</p>
+                    <p className="font-mono text-foreground">Sail Lab Co., Ltd</p>
+                    <p className="font-mono text-foreground">Daiya Gate 5F</p>
+                    <p className="font-mono text-foreground">Minami-Ikebukuro 1-16-15</p>
+                    <p className="font-mono text-foreground">Toshima City, Tokyo 171-0022, Japan</p>
                   </div>
                 </div>
 
@@ -370,19 +417,6 @@ export function Contact() {
                 ))}
               </div>
             </div>
-
-            {/* Quick Response */}
-            <Card className={`border-primary/20 bg-primary/5 backdrop-blur-sm hover-lift ${visibleSections.has('team') ? 'animate-scale-in animate-delay-600' : ''}`}>
-              <CardContent className="py-6">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="text-primary animate-bounce-subtle">⚡</div>
-                  <h4 className="font-mono text-lg">{t('contact.quickResponse')}</h4>
-                </div>
-                <p className="text-sm text-foreground/80 leading-relaxed">
-                  {t('contact.responseInfo')}
-                </p>
-              </CardContent>
-            </Card>
           </div>
         </div>
 

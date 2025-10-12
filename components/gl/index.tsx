@@ -1,3 +1,5 @@
+"use client";
+
 import { Perf } from "r3f-perf";
 import { Effects } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";

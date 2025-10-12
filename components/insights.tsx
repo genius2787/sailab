@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { GL } from "./gl";
 import { useLanguage } from "@/contexts/language-context";
+import Link from "next/link";
 
 interface InsightArticle {
   id: string;
@@ -16,9 +17,21 @@ interface InsightArticle {
   date: string;
   author: string;
   featured?: boolean;
+  image?: string;
 }
 
 const insightArticles: InsightArticle[] = [
+  {
+    id: "backtest-sep-2025",
+    title: "September 2025 Quant System Backtest Results: GOLD Trading Performance Analysis",
+    description: "Comprehensive analysis of our AI-powered quantitative trading system's performance on GOLD markets during September 2025, showcasing consistent profitability and adaptive risk management strategies.",
+    category: "AI Trading",
+    readTime: "12 min read",
+    date: "2025-10-11",
+    author: "Joe Wang",
+    featured: true,
+    image: "/backtest/backtest_GOLD._2025-09-11_0800_to_2025-09-11_2359_winrate_54pct_profit_22.png"
+  },
   {
     id: "1",
     title: "LLM-Powered Quantitative Trading: The Future is Now",
@@ -26,53 +39,7 @@ const insightArticles: InsightArticle[] = [
     category: "AI Trading",
     readTime: "8 min read",
     date: "2024-10-01",
-    author: "Joe Wang",
-    featured: true
-  },
-  {
-    id: "2",
-    title: "Neural Networks in High-Frequency Trading",
-    description: "Deep dive into how neural network architectures can process market microstructure data for ultra-low latency trading decisions.",
-    category: "Deep Learning",
-    readTime: "12 min read",
-    date: "2024-09-28",
-    author: "Evy Yang"
-  },
-  {
-    id: "3",
-    title: "AI Governance in Financial Markets",
-    description: "Establishing frameworks for responsible AI deployment in trading systems while maintaining competitive advantage and regulatory compliance.",
-    category: "AI Governance",
-    readTime: "6 min read",
-    date: "2024-09-25",
-    author: "Jayne Yu"
-  },
-  {
-    id: "4",
-    title: "Transformer Models for Market Sentiment Analysis",
-    description: "Leveraging attention mechanisms to analyze news sentiment and social media signals for predictive market insights.",
-    category: "NLP",
-    readTime: "10 min read",
-    date: "2024-09-20",
     author: "Joe Wang"
-  },
-  {
-    id: "5",
-    title: "Risk Management with Reinforcement Learning",
-    description: "Implementing RL agents for dynamic portfolio optimization and automated risk adjustment in volatile market conditions.",
-    category: "Risk Management",
-    readTime: "14 min read",
-    date: "2024-09-15",
-    author: "Evy Yang"
-  },
-  {
-    id: "6",
-    title: "Explainable AI in Trading Algorithms",
-    description: "Building transparency into black-box trading models for better interpretability and regulatory compliance.",
-    category: "Explainable AI",
-    readTime: "7 min read",
-    date: "2024-09-10",
-    author: "Jayne Yu"
   }
 ];
 
@@ -181,47 +148,67 @@ export function Insights() {
             {insightArticles
               .filter(article => article.featured)
               .map((article) => (
-                <Card
-                  key={article.id}
-                  className={`border-primary/20 bg-background/50 backdrop-blur-sm hover:border-primary/40 hover-lift transition-all duration-300 cursor-pointer ${visibleSections.has('featured') ? 'animate-scale-in' : ''}`}
-                  onMouseEnter={() => setHoveredCard(article.id)}
-                  onMouseLeave={() => setHoveredCard(null)}
-                >
-                  <CardHeader className="pb-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 font-mono">
-                        {t('insights.featured')}
-                      </Badge>
-                      <Badge variant="outline" className="font-mono text-xs">
-                        {article.category}
-                      </Badge>
-                    </div>
-                    <CardTitle className={`text-2xl md:text-3xl font-mono leading-tight hover:text-primary transition-colors duration-300 ${visibleSections.has('featured') ? 'animate-fade-in-up animate-delay-400' : ''}`}>
-                      {article.title}
-                    </CardTitle>
-                    <CardDescription className="text-base leading-relaxed font-mono">
-                      {article.description}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center justify-between text-sm font-mono text-foreground/60">
-                      <div className="flex items-center gap-4">
-                        <span>{article.author}</span>
-                        <span>{formatDate(article.date)}</span>
+                <Link key={article.id} href={`/insights/${article.id}`}>
+                  <Card
+                    className={`border-primary/20 bg-background/50 backdrop-blur-sm hover:border-primary/40 hover-lift transition-all duration-300 cursor-pointer ${visibleSections.has('featured') ? 'animate-scale-in' : ''}`}
+                    onMouseEnter={() => setHoveredCard(article.id)}
+                    onMouseLeave={() => setHoveredCard(null)}
+                  >
+                    <div className="flex flex-col md:flex-row gap-6 p-6">
+                      {/* Left: Image */}
+                      {article.image && (
+                        <div className="w-full md:w-96 h-64 md:h-72 bg-muted overflow-hidden rounded-lg flex-shrink-0">
+                          <img 
+                            src={article.image} 
+                            alt={article.title} 
+                            className="w-full h-full object-contain hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                      )}
+                      
+                      {/* Center: Text Content */}
+                      <div className="flex-1 space-y-3">
+                        <div className="flex items-center gap-2">
+                          <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 font-mono">
+                            {t('insights.featured')}
+                          </Badge>
+                          <Badge variant="outline" className="font-mono text-xs">
+                            {article.category}
+                          </Badge>
+                        </div>
+                        
+                        <h3 className={`text-xl md:text-2xl font-mono leading-tight hover:text-primary transition-colors duration-300 ${visibleSections.has('featured') ? 'animate-fade-in-up animate-delay-400' : ''}`}>
+                          {article.title}
+                        </h3>
+                        
+                        <p className="text-sm leading-relaxed font-mono text-foreground/80 line-clamp-3">
+                          {article.description}
+                        </p>
+                        
+                        <div className="flex items-center gap-3 text-xs font-mono text-foreground/60">
+                          <span>{article.author}</span>
+                          <span>•</span>
+                          <span>{formatDate(article.date)}</span>
+                          <span>•</span>
+                          <span>{article.readTime}</span>
+                        </div>
                       </div>
-                      <span>{article.readTime}</span>
+                      
+                      {/* Right: Read Button */}
+                      <div className="flex items-center justify-end md:w-44">
+                        <Button
+                          variant="default"
+                          size="lg"
+                          className={`px-8 py-6 text-base font-mono transition-all duration-300 ${
+                            hoveredCard === article.id ? "translate-x-2" : ""
+                          }`}
+                        >
+                          {t('insights.readMore')}
+                        </Button>
+                      </div>
                     </div>
-                    <Button
-                      variant="default"
-                      size="sm"
-                      className={`mt-6 transition-all duration-300 ${
-                        hoveredCard === article.id ? "translate-x-2" : ""
-                      }`}
-                    >
-                      {t('insights.readMore')}
-                    </Button>
-                  </CardContent>
-                </Card>
+                  </Card>
+                </Link>
               ))}
           </div>
         )}
@@ -259,13 +246,15 @@ export function Insights() {
                     <span>{article.author}</span>
                     <span>{formatDate(article.date)}</span>
                   </div>
-                  <div className={`transition-all duration-300 ${
-                    hoveredCard === article.id ? "translate-x-2" : ""
-                  }`}>
-                    <span className="text-primary font-mono text-sm uppercase hover:text-primary/80 transition-colors duration-150">
-                      {t('insights.readArticle')} →
-                    </span>
-                  </div>
+                  <Link href={`/insights/${article.id}`}>
+                    <div className={`transition-all duration-300 cursor-pointer ${
+                      hoveredCard === article.id ? "translate-x-2" : ""
+                    }`}>
+                      <span className="text-primary font-mono text-sm uppercase hover:text-primary/80 transition-colors duration-150">
+                        {t('insights.readArticle')} →
+                      </span>
+                    </div>
+                  </Link>
                 </CardContent>
               </Card>
             ))}

@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import { GL } from "./gl";
 import { useState, useEffect, useRef } from "react";
 import { useLanguage } from "@/contexts/language-context";
+import Link from "next/link";
 
 export function Portfolio() {
   const { t } = useLanguage();
@@ -60,7 +61,9 @@ export function Portfolio() {
         enterprise: "$599/month",
         note: "Contact for Enterprise pricing"
       },
-      badge: t('portfolio.popular')
+      badge: t('portfolio.popular'),
+      link: "/dashboard",
+      linkText: "Go to Dashboard"
     },
     {
       title: t('portfolio.neuralNetworkTitle'),
@@ -77,7 +80,9 @@ export function Portfolio() {
         enterprise: "$120-180k/year",
         note: "Enterprise pricing"
       },
-      badge: t('portfolio.enterprise')
+      badge: t('portfolio.enterprise'),
+      link: "/insights/backtest-sep-2025",
+      linkText: "View Backtest Results"
     },
     {
       title: t('portfolio.communityTitle'),
@@ -95,7 +100,10 @@ export function Portfolio() {
         pro: "$15/month",
         note: "Community access"
       },
-      badge: t('portfolio.beta')
+      badge: t('portfolio.beta'),
+      link: "#",
+      linkText: "Join Community",
+      isDisabled: true
     }
   ];
 
@@ -154,7 +162,7 @@ export function Portfolio() {
                   </CardContent>
 
                   <CardFooter className="border-t border-border/20 mt-auto">
-                    <div className="w-full">
+                    <div className="w-full space-y-4">
                       <div className="space-y-2">
                         {service.pricing.starter && (
                           <div className="flex justify-between items-center group-hover:scale-105 transition-transform duration-300">
@@ -184,6 +192,33 @@ export function Portfolio() {
                           {service.pricing.note}
                         </p>
                       </div>
+                      {service.link && (
+                        <div className="space-y-2">
+                          {service.isDisabled ? (
+                            <Button 
+                              className="w-full font-mono cursor-not-allowed"
+                              variant="secondary"
+                              disabled
+                            >
+                              {service.linkText}
+                            </Button>
+                          ) : (
+                            <Link href={service.link}>
+                              <Button 
+                                className="w-full font-mono hover-lift"
+                                variant="default"
+                              >
+                                {service.linkText}
+                              </Button>
+                            </Link>
+                          )}
+                          {service.isDisabled && (
+                            <p className="text-center text-xs font-mono text-foreground/50 italic">
+                              (In Development)
+                            </p>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </CardFooter>
                 </Card>
