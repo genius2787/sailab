@@ -202,7 +202,7 @@ export default function Dashboard() {
                         rlAgent: result.Evaluation.RL_agent_result || '',
                         financialAgent: result.Evaluation.Financial_agent_result || '',
                         newsAgent: result.Evaluation.News_agent_result || '',
-                        institutionalAgent: result.Evaluation.Professional_insitutions_prediction_search_agent_result || ''
+                        institutionalAgent: result.Evaluation.Professional_institutions_prediction_search_agent_result || ''
                       };
                       
                       console.log('[Dashboard] Setting agent results:', newAgentResults);
