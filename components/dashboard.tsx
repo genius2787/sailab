@@ -278,6 +278,7 @@ export default function Dashboard() {
                       };
                       
                       console.log('[Dashboard] Available Evaluation fields:', Object.keys(evaluation));
+                      console.log('[Dashboard] Full Evaluation object:', evaluation);
                       console.log('[Dashboard] Setting agent results:', newAgentResults);
                       
                       // Check if any fields are missing
