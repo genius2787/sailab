@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
-import { getUserQuota, incrementUserQuota, initQuotaTable } from '@/lib/db';
+// import { getUserQuota, incrementUserQuota, initQuotaTable } from '@/lib/db';
 
 // Quota limits based on tier
 const QUOTA_LIMITS = {
@@ -8,6 +8,13 @@ const QUOTA_LIMITS = {
   'Professional': 10,
   'Enterprise': 30
 };
+
+// Temporary in-memory store for quota tracking (fallback)
+const quotaStore = new Map<string, {
+  usedToday: number;
+  lastReset: string;
+  tier: string;
+}>();
 
 export async function GET(request: NextRequest) {
   try {
@@ -19,22 +26,30 @@ export async function GET(request: NextRequest) {
 
     const userId = session.user.id;
     const userTier = (session.user as any).tier || 'Starter';
+    const today = new Date().toDateString();
     
-    // Initialize database table if needed
-    await initQuotaTable();
+    // Get or initialize user quota
+    let userQuota = quotaStore.get(userId);
     
-    // Get user quota from database
-    const userQuota = await getUserQuota(userId, userTier);
+    if (!userQuota || userQuota.lastReset !== today) {
+      // Reset quota for new day
+      userQuota = {
+        usedToday: 0,
+        lastReset: today,
+        tier: userTier
+      };
+      quotaStore.set(userId, userQuota);
+    }
     
     const limit = QUOTA_LIMITS[userTier as keyof typeof QUOTA_LIMITS] || 3;
-    const remaining = Math.max(0, limit - userQuota.used_today);
+    const remaining = Math.max(0, limit - userQuota.usedToday);
     
     return NextResponse.json({
-      usedToday: userQuota.used_today,
+      usedToday: userQuota.usedToday,
       limit,
       remaining,
       tier: userTier,
-      resetDate: userQuota.last_reset
+      resetDate: today
     });
     
   } catch (error) {
@@ -56,33 +71,42 @@ export async function POST(request: NextRequest) {
 
     const userId = session.user.id;
     const userTier = (session.user as any).tier || 'Starter';
+    const today = new Date().toDateString();
     
-    // Initialize database table if needed
-    await initQuotaTable();
+    // Get or initialize user quota
+    let userQuota = quotaStore.get(userId);
     
-    // Get current quota
-    const userQuota = await getUserQuota(userId, userTier);
+    if (!userQuota || userQuota.lastReset !== today) {
+      userQuota = {
+        usedToday: 0,
+        lastReset: today,
+        tier: userTier
+      };
+    }
+    
     const limit = QUOTA_LIMITS[userTier as keyof typeof QUOTA_LIMITS] || 3;
     
     // Check if user has remaining quota
-    if (userQuota.used_today >= limit) {
+    if (userQuota.usedToday >= limit) {
       return NextResponse.json({
         success: false,
         error: 'Daily quota exceeded',
-        usedToday: userQuota.used_today,
+        usedToday: userQuota.usedToday,
         limit,
         remaining: 0,
         tier: userTier
       }, { status: 429 });
     }
     
-    // Increment usage in database
-    const newUsedToday = await incrementUserQuota(userId, userTier);
-    const remaining = Math.max(0, limit - newUsedToday);
+    // Increment usage
+    userQuota.usedToday += 1;
+    quotaStore.set(userId, userQuota);
+    
+    const remaining = Math.max(0, limit - userQuota.usedToday);
     
     return NextResponse.json({
       success: true,
-      usedToday: newUsedToday,
+      usedToday: userQuota.usedToday,
       limit,
       remaining,
       tier: userTier
