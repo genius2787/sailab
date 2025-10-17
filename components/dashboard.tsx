@@ -157,6 +157,27 @@ export default function Dashboard() {
       return;
     }
     
+    // Update quota immediately when starting analysis
+    try {
+      console.log('[Dashboard] Updating quota before analysis...');
+      const quotaResponse = await fetch('/api/quota', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      if (quotaResponse.ok) {
+        const quotaData = await quotaResponse.json();
+        console.log('[Dashboard] Quota updated successfully:', quotaData);
+        setQuotaInfo(quotaData);
+      } else {
+        console.error('[Dashboard] Failed to update quota:', await quotaResponse.text());
+      }
+    } catch (error) {
+      console.error('[Dashboard] Quota update error:', error);
+    }
+    
     setIsAnalyzing(true);
     setStreamOutput([]);
     setCurrentStock(selectedStock);
@@ -340,9 +361,7 @@ export default function Dashboard() {
               // Handle completion
               if (data.type === 'complete') {
                 setAnalyzedStocks([selectedStock]);
-                // Update quota after successful analysis
-                await fetchQuotaInfo();
-                console.log('[Dashboard] Analysis completed, quota updated');
+                console.log('[Dashboard] Analysis completed');
               }
               
             } catch (e) {
@@ -363,15 +382,6 @@ export default function Dashboard() {
       setStreamOutput(prev => [...prev, `[ERROR] ${errorMessage}`]);
     } finally {
       setIsAnalyzing(false);
-      
-      // Always update quota when analysis ends (success or failure)
-      // This ensures quota is updated even if complete event is missed
-      try {
-        await fetchQuotaInfo();
-        console.log('[Dashboard] Quota updated after analysis end');
-      } catch (quotaError) {
-        console.error('[Dashboard] Failed to update quota:', quotaError);
-      }
     }
   };
 
