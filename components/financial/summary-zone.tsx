@@ -313,7 +313,7 @@ export function SummaryZone({ isLoading = false, error, className, selectedStock
       </CardHeader>
 
       <CardContent className="pt-2">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-center mb-8">
           {/* Judgment & Action */}
           <div className="space-y-4">
             <div className="flex items-center gap-3 flex-wrap">

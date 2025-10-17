@@ -207,6 +207,15 @@ export default function Dashboard() {
                       
                       console.log('[Dashboard] Setting agent results:', newAgentResults);
                       setAgentResults(newAgentResults);
+                      
+                      // Also set individual data for backward compatibility
+                      if (result.Evaluation.Financial_agent_result) {
+                        setFinancialData(result.Evaluation.Financial_agent_result);
+                      }
+                      if (result.Evaluation.News_agent_result) {
+                        setNewsData(result.Evaluation.News_agent_result);
+                      }
+                      
                       setStreamOutput(prev => [...prev, `[${timestamp}] [final_output] Agent results updated successfully`]);
                     } else {
                       console.warn('[Dashboard] No Evaluation field in result');
@@ -706,7 +715,7 @@ export default function Dashboard() {
 
         {/* Main Dashboard Grid */}
         <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
-          <div className="xl:col-span-3 space-y-8">
+          <div className="xl:col-span-4 space-y-8">
             {/* Real-time Terminal Output - Always Visible */}
             <div className="bg-gray-900 rounded-lg p-6 border border-gray-700">
               <div className="flex items-center justify-between mb-4">

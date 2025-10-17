@@ -231,7 +231,7 @@ export function AgentVotingPanel({ agentResults, isLoading = false, finalOutput,
 
       <CardContent>
         {/* 4-grid layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {agentVotes.map((agent, index) => (
             <div
               key={index}
