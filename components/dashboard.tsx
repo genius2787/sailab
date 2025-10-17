@@ -65,6 +65,12 @@ export default function Dashboard() {
   }, [finalOutput, agentResults]);
   const [newsData, setNewsData] = useState<string>('');
   const [financialData, setFinancialData] = useState<string>('');
+  const [quotaInfo, setQuotaInfo] = useState<{
+    usedToday: number;
+    limit: number;
+    remaining: number;
+    tier: string;
+  } | null>(null);
 
   // Debug logging for agentResults
   console.log('[Dashboard] agentResults state:', agentResults);
@@ -118,9 +124,38 @@ export default function Dashboard() {
     }
   }, [session, status]);
 
+  // Fetch quota information
+  const fetchQuotaInfo = async () => {
+    try {
+      const response = await fetch('/api/quota');
+      if (response.ok) {
+        const data = await response.json();
+        setQuotaInfo(data);
+        console.log('[Dashboard] Quota info:', data);
+      } else {
+        console.error('[Dashboard] Failed to fetch quota info');
+      }
+    } catch (error) {
+      console.error('[Dashboard] Error fetching quota info:', error);
+    }
+  };
+
+  // Load quota info when component mounts
+  useEffect(() => {
+    if (session?.user) {
+      fetchQuotaInfo();
+    }
+  }, [session]);
+
   // Handle stock analysis with remote API
   const handleAnalyzeStocks = async () => {
     if (!selectedStock) return;
+    
+    // Check quota before starting analysis
+    if (quotaInfo && quotaInfo.remaining <= 0) {
+      setStreamOutput(prev => [...prev, `[ERROR] Daily quota exceeded. You have used ${quotaInfo.usedToday}/${quotaInfo.limit} searches today.`]);
+      return;
+    }
     
     setIsAnalyzing(true);
     setStreamOutput([]);
@@ -253,6 +288,8 @@ export default function Dashboard() {
               // Handle completion
               if (data.type === 'complete') {
                 setAnalyzedStocks([selectedStock]);
+                // Update quota after successful analysis
+                await fetchQuotaInfo();
               }
               
             } catch (e) {
@@ -412,8 +449,8 @@ export default function Dashboard() {
                   <div className="text-center">
                     <div className="text-sm font-mono text-foreground/60 mb-2">Daily Limit</div>
                     <div className="text-2xl font-mono font-bold text-foreground">
-                      {(session?.user as any)?.tier === 'Starter' ? '3' : 
-                       (session?.user as any)?.tier === 'Professional' ? '10' : '30'}
+                      {quotaInfo?.limit || ((session?.user as any)?.tier === 'Starter' ? 3 : 
+                       (session?.user as any)?.tier === 'Professional' ? 10 : 30)}
                       <span className="text-sm text-foreground/60 ml-1">stocks</span>
                     </div>
                   </div>
@@ -422,7 +459,7 @@ export default function Dashboard() {
                   <div className="text-center">
                     <div className="text-sm font-mono text-foreground/60 mb-2">Used Today</div>
                     <div className="text-2xl font-mono font-bold text-orange-500">
-                      {(session?.user as any)?.usedToday || 0}
+                      {quotaInfo?.usedToday || 0}
                       <span className="text-sm text-foreground/60 ml-1">analyses</span>
                     </div>
                   </div>
@@ -431,8 +468,7 @@ export default function Dashboard() {
                   <div className="text-center">
                     <div className="text-sm font-mono text-foreground/60 mb-2">Remaining Today</div>
                     <div className="text-2xl font-mono font-bold text-green-500">
-                      {((session?.user as any)?.tier === 'Starter' ? 3 : 
-                        (session?.user as any)?.tier === 'Professional' ? 10 : 30) - ((session?.user as any)?.usedToday || 0)}
+                      {quotaInfo?.remaining || 0}
                       <span className="text-sm text-foreground/60 ml-1">left</span>
                     </div>
                   </div>
@@ -442,13 +478,13 @@ export default function Dashboard() {
                 <div className="mt-6 pt-6 border-t border-border/20">
                   <div className="flex justify-between items-center text-xs font-mono text-foreground/60 mb-2">
                     <span>Daily Usage Progress</span>
-                    <span className="text-foreground/50">{((session?.user as any)?.usedToday || 0)} / {(session?.user as any)?.tier === 'Starter' ? 3 : (session?.user as any)?.tier === 'Professional' ? 10 : 30}</span>
+                    <span className="text-foreground/50">{quotaInfo?.usedToday || 0} / {quotaInfo?.limit || 0}</span>
                   </div>
                   <div className="w-full bg-border/40 rounded-full h-4 overflow-hidden border border-border/60">
                     <div 
                       className="bg-gradient-to-r from-yellow-500 via-orange-500 to-green-500 h-full rounded-full transition-all duration-500 shadow-lg shadow-yellow-500/20" 
                       style={{ 
-                        width: `${Math.max(3, ((session?.user as any)?.usedToday || 0) / ((session?.user as any)?.tier === 'Starter' ? 3 : (session?.user as any)?.tier === 'Professional' ? 10 : 30) * 100)}%` 
+                        width: `${quotaInfo ? Math.max(3, (quotaInfo.usedToday / quotaInfo.limit) * 100) : 0}%` 
                       }}
                     ></div>
                   </div>
@@ -695,13 +731,18 @@ export default function Dashboard() {
                   </div>
                   <Button 
                     className="font-mono px-8"
-                    disabled={!selectedStock || isAnalyzing}
+                    disabled={!selectedStock || isAnalyzing || (quotaInfo && quotaInfo.remaining <= 0)}
                     onClick={handleAnalyzeStocks}
                   >
                     {isAnalyzing ? (
                       <>
                         <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
                         Analyzing...
+                      </>
+                    ) : quotaInfo && quotaInfo.remaining <= 0 ? (
+                      <>
+                        <AlertCircle className="h-4 w-4 mr-2" />
+                        Quota Exceeded
                       </>
                     ) : (
                       'Analyze Selected Stocks'

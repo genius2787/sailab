@@ -20,6 +20,32 @@ export async function POST(request: NextRequest) {
     return new Response('TradeAgent API not configured', { status: 500 });
   }
 
+  // Check quota before starting analysis
+  try {
+    const quotaResponse = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/quota`, {
+      method: 'POST',
+      headers: {
+        'Cookie': request.headers.get('cookie') || '',
+      },
+    });
+    
+    if (!quotaResponse.ok) {
+      const quotaData = await quotaResponse.json();
+      if (quotaData.error === 'Daily quota exceeded') {
+        return new Response(JSON.stringify({
+          error: 'Daily quota exceeded',
+          message: `You have used ${quotaData.usedToday}/${quotaData.limit} searches today. Please try again tomorrow.`
+        }), { 
+          status: 429,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+    }
+  } catch (error) {
+    console.error('[Stream Remote] Quota check failed:', error);
+    // Continue with analysis if quota check fails
+  }
+
   console.log(`[Stream Remote] Starting stream for ${stock}`);
   console.log(`[Stream Remote] API URL: ${TRADEAGENT_API_URL}`);
 
