@@ -341,6 +341,7 @@ export default function Dashboard() {
                 setAnalyzedStocks([selectedStock]);
                 // Update quota after successful analysis
                 await fetchQuotaInfo();
+                console.log('[Dashboard] Analysis completed, quota updated');
               }
               
             } catch (e) {
@@ -361,6 +362,15 @@ export default function Dashboard() {
       setStreamOutput(prev => [...prev, `[ERROR] ${errorMessage}`]);
     } finally {
       setIsAnalyzing(false);
+      
+      // Always update quota when analysis ends (success or failure)
+      // This ensures quota is updated even if complete event is missed
+      try {
+        await fetchQuotaInfo();
+        console.log('[Dashboard] Quota updated after analysis end');
+      } catch (quotaError) {
+        console.error('[Dashboard] Failed to update quota:', quotaError);
+      }
     }
   };
 

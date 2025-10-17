@@ -85,10 +85,28 @@ export async function POST(request: NextRequest) {
         }
 
         const decoder = new TextDecoder();
+        let hasCompleted = false;
         
         while (true) {
           const { done, value } = await reader.read();
-          if (done) break;
+          if (done) {
+            // Send completion event if not already sent
+            if (!hasCompleted) {
+              controller.enqueue(encoder.encode(`data: ${JSON.stringify({
+                type: 'complete',
+                message: 'Analysis complete!',
+                stock: stock
+              })}\n\n`));
+              hasCompleted = true;
+            }
+            break;
+          }
+          
+          // Check if this is a completion message from TradeAgent
+          const chunk = decoder.decode(value, { stream: true });
+          if (chunk.includes('"type":"complete"')) {
+            hasCompleted = true;
+          }
           
           // Forward the chunk as-is (it's already in SSE format)
           controller.enqueue(value);
