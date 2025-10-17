@@ -38,6 +38,7 @@ interface ExtendedBlogPost {
   views: number;
   comments: number;
   likes: number;
+  hidden?: boolean; // Add hidden property
 }
 
 // Extended blog data with full content
@@ -584,7 +585,8 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
     ],
     views: 156,
     comments: 12,
-    likes: 28
+    likes: 28,
+    hidden: true // Temporarily hide this post
   },
   {
     id: "2",
@@ -660,7 +662,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   // Find the blog post by slug
   const post = extendedBlogPosts.find(p => p.slug === params.slug);
 
-  if (!post) {
+  if (!post || post.hidden) {
     notFound();
   }
 

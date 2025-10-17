@@ -24,6 +24,7 @@ interface BlogPost {
   views?: number;
   comments?: number;
   likes?: number;
+  hidden?: boolean; // Add hidden property
 }
 
 const blogPosts: BlogPost[] = [
@@ -98,7 +99,8 @@ const blogPosts: BlogPost[] = [
     image: "/sts-young-leaders.jpg",
     views: 186,
     comments: 15,
-    likes: 34
+    likes: 34,
+    hidden: true // Temporarily hide this post
   },
   {
     id: "2",
@@ -221,8 +223,8 @@ export function Blog() {
   }, []);
 
   const filteredPosts = selectedCategory === "All"
-    ? blogPosts
-    : blogPosts.filter(post => post.category === selectedCategory);
+    ? blogPosts.filter(post => !post.hidden) // Hide posts with hidden: true
+    : blogPosts.filter(post => post.category === selectedCategory && !post.hidden);
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
