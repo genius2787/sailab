@@ -66,6 +66,17 @@ export function SummaryZone({ isLoading = false, error, className, selectedStock
   console.log('[SummaryZone] analysisResults:', analysisResults);
   console.log('[SummaryZone] finalOutput:', finalOutput);
   
+  // Debug finalOutput structure
+  if (finalOutput && selectedStocks.length > 0) {
+    const stockKey = selectedStocks[0];
+    const stockData = finalOutput[stockKey];
+    console.log('[SummaryZone] Stock data for', stockKey, ':', stockData);
+    if (stockData) {
+      console.log('[SummaryZone] Action:', stockData.Action);
+      console.log('[SummaryZone] Percentage:', stockData.Percentage);
+    }
+  }
+  
   // Generate market sentiment based on agent results
   const generateMarketSentiment = (): MarketSentiment => {
     // First, try to use Final Output if available

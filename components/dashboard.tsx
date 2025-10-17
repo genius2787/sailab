@@ -233,14 +233,65 @@ export default function Dashboard() {
                     console.log('[Dashboard] Result structure:', result);
                     
                     if (result.Evaluation) {
-                      const newAgentResults = {
-                        rlAgent: result.Evaluation.RL_agent_result || '',
-                        financialAgent: result.Evaluation.Financial_agent_result || '',
-                        newsAgent: result.Evaluation.News_agent_result || '',
-                        institutionalAgent: result.Evaluation.Professional_institutions_prediction_search_agent_result || ''
+                      // More robust field mapping with fallbacks
+                      const evaluation = result.Evaluation;
+                      
+                      // Helper function to find field with multiple possible names
+                      const findField = (possibleNames: string[]) => {
+                        for (const name of possibleNames) {
+                          if (evaluation[name]) return evaluation[name];
+                        }
+                        return '';
                       };
                       
+                      const newAgentResults = {
+                        rlAgent: findField([
+                          'RL_agent_result',
+                          'rl_agent_result', 
+                          'RLAgent_result',
+                          'rlAgent_result',
+                          'RL_Agent_Result'
+                        ]),
+                        financialAgent: findField([
+                          'Financial_agent_result',
+                          'financial_agent_result',
+                          'FinancialAgent_result', 
+                          'financialAgent_result',
+                          'Financial_Agent_Result'
+                        ]),
+                        newsAgent: findField([
+                          'News_agent_result',
+                          'news_agent_result',
+                          'NewsAgent_result',
+                          'newsAgent_result', 
+                          'News_Agent_Result'
+                        ]),
+                        institutionalAgent: findField([
+                          'Professional_institutions_prediction_search_agent_result',
+                          'professional_institutions_prediction_search_agent_result',
+                          'ProfessionalInstitutions_prediction_search_agent_result',
+                          'professionalInstitutions_prediction_search_agent_result',
+                          'Professional_Institutions_Prediction_Search_Agent_Result',
+                          'institutional_agent_result',
+                          'Institutional_agent_result'
+                        ])
+                      };
+                      
+                      console.log('[Dashboard] Available Evaluation fields:', Object.keys(evaluation));
                       console.log('[Dashboard] Setting agent results:', newAgentResults);
+                      
+                      // Check if any fields are missing
+                      const missingFields = [];
+                      if (!newAgentResults.rlAgent) missingFields.push('RL Agent');
+                      if (!newAgentResults.financialAgent) missingFields.push('Financial Agent');
+                      if (!newAgentResults.newsAgent) missingFields.push('News Agent');
+                      if (!newAgentResults.institutionalAgent) missingFields.push('Institutional Agent');
+                      
+                      if (missingFields.length > 0) {
+                        console.warn('[Dashboard] Missing agent results:', missingFields);
+                        console.warn('[Dashboard] Available fields in Evaluation:', Object.keys(evaluation));
+                      }
+                      
                       setAgentResults(newAgentResults);
                       
                       // Also set individual data for backward compatibility
@@ -823,7 +874,7 @@ export default function Dashboard() {
             <div ref={el => { sectionRefs.current.summary = el; }}>
               <div className={`${visibleSections.has('summary') ? 'animate-fade-in-up' : ''}`}>
                 <SummaryZone 
-                  selectedStocks={analyzedStocks.length > 0 ? analyzedStocks : (selectedStock ? [selectedStock] : [])} 
+                  selectedStocks={selectedStock ? [selectedStock] : []} 
                   isLoading={isAnalyzing}
                   analysisResults={analysisResults}
                   agentResults={agentResults}
@@ -836,10 +887,10 @@ export default function Dashboard() {
             <div ref={el => { sectionRefs.current.agents = el; }}>
               <div className={`${visibleSections.has('agents') ? 'animate-fade-in-up animate-delay-200' : ''}`}>
                 <AgentVotingPanel 
-                  agentResults={agentResults} 
-                  isLoading={isAnalyzing} 
+                  agentResults={agentResults}
+                  isLoading={isAnalyzing}
                   finalOutput={finalOutput}
-                  selectedStocks={analyzedStocks.length > 0 ? analyzedStocks : (selectedStock ? [selectedStock] : [])}
+                  selectedStocks={selectedStock ? [selectedStock] : []}
                 />
               </div>
             </div>
