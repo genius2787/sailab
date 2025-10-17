@@ -271,7 +271,7 @@ export function Blog() {
         {selectedCategory === "All" && (
           <div className="mb-16" ref={(el) => { sectionRefs.current.featured = el; }}>
             {blogPosts
-              .filter(post => post.featured)
+              .filter(post => post.featured && !post.hidden)
               .map((post) => (
                 <Link key={post.id} href={`/blog/${post.slug}`}>
                   <Card
