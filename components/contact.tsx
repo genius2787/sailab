@@ -26,12 +26,6 @@ interface TeamMember {
 
 const teamMembers: TeamMember[] = [
   {
-    name: "Jayne Yu",
-    title: "CEO",
-    expertise: "Keio University Law School JD, AI Governance & Legal Affairs specialist",
-    email: "jayne@saillab.ai"
-  },
-  {
     name: "Joe Wang",
     title: "Founder & CTO",
     expertise: "Waseda University PhD, 15+ years AI research, 12 years investment experience",

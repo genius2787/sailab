@@ -110,7 +110,7 @@ const blogPosts: BlogPost[] = [
     category: "Market News",
     readTime: "4 min read",
     date: "2024-10-05",
-    author: "Jayne Yu",
+    author: "SAIL Lab Team",
     views: 89,
     comments: 7,
     likes: 15
@@ -149,7 +149,7 @@ const blogPosts: BlogPost[] = [
     category: "Industry News",
     readTime: "4 min read",
     date: "2024-09-29",
-    author: "Jayne Yu",
+    author: "SAIL Lab Team",
     views: 97,
     comments: 11,
     likes: 19

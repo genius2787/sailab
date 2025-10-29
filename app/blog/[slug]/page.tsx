@@ -649,7 +649,7 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
     category: "Compliance",
     readTime: "6 min read",
     date: "2024-09-25",
-    author: "Jayne Yu",
+    author: "SAIL Lab Team",
     views: 8,
     comments: 0,
     likes: 0
