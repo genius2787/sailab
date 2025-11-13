@@ -22,6 +22,17 @@ interface InsightArticle {
 
 const insightArticles: InsightArticle[] = [
   {
+    id: "backtest-oct-2025",
+    title: "October 2025 Quant System Backtest Results: Trailing Stop Impact Analysis",
+    description: "Comprehensive analysis comparing trading performance with and without trailing stop protection on GOLD markets during October 2025, demonstrating the significant impact of dynamic risk management.",
+    category: "AI Trading",
+    readTime: "15 min read",
+    date: "2025-11-13",
+    author: "Joe Wang",
+    featured: true,
+    image: "/backtest/backtest_XAUUSDm_2025-10-13_0000_to_2025-10-13_2359_winrate_50pct_profit_49_Trailing.png"
+  },
+  {
     id: "backtest-sep-2025",
     title: "September 2025 Quant System Backtest Results: GOLD Trading Performance Analysis",
     description: "Comprehensive analysis of our AI-powered quantitative trading system's performance on GOLD markets during September 2025, showcasing consistent profitability and adaptive risk management strategies.",
@@ -29,7 +40,7 @@ const insightArticles: InsightArticle[] = [
     readTime: "12 min read",
     date: "2025-10-11",
     author: "Joe Wang",
-    featured: true,
+    featured: false,
     image: "/backtest/backtest_GOLD._2025-09-11_0800_to_2025-09-11_2359_winrate_54pct_profit_22.png"
   },
   {
