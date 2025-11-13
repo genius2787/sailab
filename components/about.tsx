@@ -121,37 +121,6 @@ export function About() {
               <CardHeader className="pb-4">
                 <div className="w-32 h-32 mx-auto mb-4 relative overflow-hidden rounded-full border-2 border-primary/20 group-hover:border-primary/40 group-hover:shadow-lg group-hover:shadow-primary/20 transition-all duration-300">
                   <img
-                    src="/Jayne.jpg"
-                    alt="Jayne Yu, Co-Founder of SAIL Lab"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <CardTitle className="text-xl font-sentient group-hover:text-primary transition-colors">
-                  Jayne Yu
-                </CardTitle>
-                <Badge variant="outline" className="w-fit mx-auto mb-2 border-primary/50 text-primary group-hover:bg-primary/10 transition-colors">
-                  Co-Founder & CEO
-                </Badge>
-                <CardDescription className="font-mono text-foreground/70">
-                  {t('about.jayneDesc')}
-                </CardDescription>
-                <div className="mt-4">
-                  <a
-                    href="https://www.linkedin.com/in/jayne-yu-synovaw/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:text-primary/80 transition-colors duration-150 font-mono text-sm group-hover:translate-x-1 transition-transform duration-300 inline-block"
-                  >
-                    Connect on LinkedIn →
-                  </a>
-                </div>
-              </CardHeader>
-            </Card>
-
-            <Card className={`bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 hover-lift transition-all duration-300 group text-center ${visibleSections.has('team') ? 'animate-scale-in animate-delay-300' : ''}`}>
-              <CardHeader className="pb-4">
-                <div className="w-32 h-32 mx-auto mb-4 relative overflow-hidden rounded-full border-2 border-primary/20 group-hover:border-primary/40 group-hover:shadow-lg group-hover:shadow-primary/20 transition-all duration-300">
-                  <img
                     src="/Joe.jpg"
                     alt="Joe Wang, CTO of SAIL Lab"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
@@ -179,7 +148,7 @@ export function About() {
               </CardHeader>
             </Card>
 
-            <Card className={`bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 hover-lift transition-all duration-300 group text-center ${visibleSections.has('team') ? 'animate-scale-in animate-delay-400' : ''}`}>
+            <Card className={`bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 hover-lift transition-all duration-300 group text-center ${visibleSections.has('team') ? 'animate-scale-in animate-delay-300' : ''}`}>
               <CardHeader className="pb-4">
                 <div className="w-32 h-32 mx-auto mb-4 relative overflow-hidden rounded-full border-2 border-primary/20 group-hover:border-primary/40 group-hover:shadow-lg group-hover:shadow-primary/20 transition-all duration-300">
                   <img
