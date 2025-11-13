@@ -99,8 +99,7 @@ const blogPosts: BlogPost[] = [
     image: "/sts-young-leaders.jpg",
     views: 186,
     comments: 15,
-    likes: 34,
-    hidden: true // Temporarily hide this post
+    likes: 34
   },
   {
     id: "2",

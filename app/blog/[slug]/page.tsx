@@ -585,8 +585,7 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
     ],
     views: 156,
     comments: 12,
-    likes: 28,
-    hidden: true // Temporarily hide this post
+    likes: 28
   },
   {
     id: "2",
