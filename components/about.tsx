@@ -116,8 +116,8 @@ export function About() {
         {/* Team Section */}
         <div className="mb-20" ref={(el) => { sectionRefs.current.team = el; }}>
           <h2 className={`text-4xl font-mono text-center mb-12 ${visibleSections.has('team') ? 'animate-fade-in-up' : ''}`}>{t('about.team')}</h2>
-          <div className="flex flex-wrap justify-center gap-8 max-w-4xl mx-auto">
-            <Card className={`bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 hover-lift transition-all duration-300 group text-center ${visibleSections.has('team') ? 'animate-scale-in animate-delay-200' : ''}`}>
+          <div className="flex flex-col md:flex-row justify-center items-stretch gap-8 max-w-4xl mx-auto px-4">
+            <Card className={`bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 hover-lift transition-all duration-300 group text-center flex-1 min-w-0 ${visibleSections.has('team') ? 'animate-scale-in animate-delay-200' : ''}`}>
               <CardHeader className="pb-4">
                 <div className="w-32 h-32 mx-auto mb-4 relative overflow-hidden rounded-full border-2 border-primary/20 group-hover:border-primary/40 group-hover:shadow-lg group-hover:shadow-primary/20 transition-all duration-300">
                   <img
@@ -148,7 +148,7 @@ export function About() {
               </CardHeader>
             </Card>
 
-            <Card className={`bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 hover-lift transition-all duration-300 group text-center ${visibleSections.has('team') ? 'animate-scale-in animate-delay-300' : ''}`}>
+            <Card className={`bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 hover-lift transition-all duration-300 group text-center flex-1 min-w-0 ${visibleSections.has('team') ? 'animate-scale-in animate-delay-300' : ''}`}>
               <CardHeader className="pb-4">
                 <div className="w-32 h-32 mx-auto mb-4 relative overflow-hidden rounded-full border-2 border-primary/20 group-hover:border-primary/40 group-hover:shadow-lg group-hover:shadow-primary/20 transition-all duration-300">
                   <img
