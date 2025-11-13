@@ -29,6 +29,21 @@ interface BlogPost {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "11",
+    slug: "cto-presents-at-emnlp-2025",
+    title: "SAIL Lab CTO Presents Research at EMNLP 2025 in Suzhou\nSAIL Lab CTO、蘇州で開催されたEMNLP 2025で研究を発表",
+    excerpt: "Our CTO Joe Wang presented groundbreaking research at EMNLP 2025 in Suzhou, including a Main Conference Oral paper, an Industry Track paper, and delivered an Invited Talk on Industrial LLM Agents, showcasing SAIL Lab's leadership in advancing AI-powered financial technology.",
+    category: "Research News",
+    readTime: "6 min read",
+    date: "2025-11-15",
+    author: "Joe Wang",
+    featured: true,
+    image: "/emnlp-2025-poster.jpg",
+    views: 0,
+    comments: 0,
+    likes: 0
+  },
+  {
     id: "1",
     slug: "sail-laboratory-official-launch-announcement",
     title: "Sail Laboratory — Official Launch Announcement\n株式会社Sail Laboratory — 開業のお知らせ",
