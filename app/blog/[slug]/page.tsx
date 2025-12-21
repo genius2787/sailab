@@ -44,8 +44,9 @@ interface ExtendedBlogPost {
 // Extended blog data with full content
 const extendedBlogPosts: ExtendedBlogPost[] = [
   {
-    id: "12",
+    id: "12-hidden",
     slug: "november-2025-backtest-results",
+    hidden: true,
     title: "November 2025 Backtest Results: TREND Strategy Performance Analysis\n2025年11月バックテスト結果：TREND戦略のパフォーマンス分析",
     excerpt: "Comprehensive 22-day backtest results for our TREND strategy on XAUUSD (Gold) in November 2025. Achieved $213.68 net profit with 40.6% win rate across 449 trades, demonstrating consistent performance with 68% profitable trading days.",
     content: `
