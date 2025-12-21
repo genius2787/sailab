@@ -29,6 +29,21 @@ interface BlogPost {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "12",
+    slug: "november-2025-backtest-results",
+    title: "November 2025 Backtest Results: TREND Strategy Performance Analysis\n2025年11月バックテスト結果：TREND戦略のパフォーマンス分析",
+    excerpt: "Comprehensive 22-day backtest results for our TREND strategy on XAUUSD (Gold) in November 2025. Achieved $213.68 net profit with 40.6% win rate across 449 trades, demonstrating consistent performance with 68% profitable trading days.",
+    category: "Market Analysis",
+    readTime: "8 min read",
+    date: "2025-12-21",
+    author: "SAIL Lab Team",
+    featured: true,
+    image: "/backtest/backtest_XAUUSD_2025-11-10_0000_to_2025-11-10_2359_winrate_68pct_profit_49_Trailing.png",
+    views: 0,
+    comments: 0,
+    likes: 0
+  },
+  {
     id: "11",
     slug: "cto-presents-at-emnlp-2025",
     title: "SAIL Lab CTO Presents Research at EMNLP 2025 in Suzhou\nSAIL Lab CTO、蘇州で開催されたEMNLP 2025で研究を発表",

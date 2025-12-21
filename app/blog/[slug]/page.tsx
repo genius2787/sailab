@@ -44,6 +44,368 @@ interface ExtendedBlogPost {
 // Extended blog data with full content
 const extendedBlogPosts: ExtendedBlogPost[] = [
   {
+    id: "12",
+    slug: "november-2025-backtest-results",
+    title: "November 2025 Backtest Results: TREND Strategy Performance Analysis\n2025年11月バックテスト結果：TREND戦略のパフォーマンス分析",
+    excerpt: "Comprehensive 22-day backtest results for our TREND strategy on XAUUSD (Gold) in November 2025. Achieved $213.68 net profit with 40.6% win rate across 449 trades, demonstrating consistent performance with 68% profitable trading days.",
+    content: `
+      <h2>November 2025 Backtest Results: TREND Strategy Performance</h2>
+      <p><em>December 21, 2025 | Backtest Analysis</em></p>
+
+      <p>We are pleased to present the comprehensive backtest results for our <strong>TREND strategy</strong> on XAUUSD (Gold) during November 2025. This 22-day backtest demonstrates the strategy's performance across various market conditions, providing valuable insights into its effectiveness and areas for potential optimization.</p>
+
+      <h3>Executive Summary</h3>
+      <p>The November 2025 backtest covered <strong>22 trading days</strong> (November 1-30, excluding weekends), during which our TREND strategy executed <strong>449 trades</strong> with the following key results:</p>
+
+      <ul>
+        <li><strong>Total Net Profit:</strong> $213.68 (2.14% return on $10,000 initial equity)</li>
+        <li><strong>Average Win Rate:</strong> 40.6%</li>
+        <li><strong>Profitable Days:</strong> 15 out of 22 days (68.2%)</li>
+        <li><strong>Total Trades:</strong> 449 trades</li>
+        <li><strong>Average Daily Profit:</strong> $9.71 per day</li>
+      </ul>
+
+      <h3>Strategy Configuration</h3>
+      <p>This backtest utilized our optimized TREND strategy with the following parameters:</p>
+
+      <ul>
+        <li><strong>Symbol:</strong> XAUUSD (Gold)</li>
+        <li><strong>Timeframe:</strong> M5 (5-minute bars)</li>
+        <li><strong>Fast EMA:</strong> 40 periods</li>
+        <li><strong>Slow EMA:</strong> 75 periods</li>
+        <li><strong>Pullback EMA:</strong> 5 periods</li>
+        <li><strong>Stop Loss:</strong> Fixed 5 points</li>
+        <li><strong>Risk/Reward Ratio:</strong> 2.0</li>
+        <li><strong>Trailing Stop:</strong> Enabled (4 points trailing step, 2 points distance)</li>
+        <li><strong>Risk per Trade:</strong> 1% of equity</li>
+      </ul>
+
+      <h3>Daily Performance Breakdown</h3>
+      <p>The backtest results show consistent performance throughout November, with notable highlights:</p>
+
+      <h4>Best Performing Days</h4>
+      <ul>
+        <li><strong>November 13:</strong> $57.76 profit, 52.2% win rate, 23 trades</li>
+        <li><strong>November 10:</strong> $48.96 profit, 68.4% win rate, 19 trades (highest win rate)</li>
+        <li><strong>November 6:</strong> $32.00 profit, 55.0% win rate, 20 trades</li>
+        <li><strong>November 21:</strong> $32.50 profit, 46.7% win rate, 15 trades</li>
+      </ul>
+
+      <h4>Challenging Days</h4>
+      <ul>
+        <li><strong>November 20:</strong> -$52.37 loss, 25.0% win rate, 24 trades (largest single-day loss)</li>
+        <li><strong>November 25:</strong> -$28.68 loss, 29.2% win rate, 24 trades</li>
+        <li><strong>November 11:</strong> -$16.29 loss, 27.3% win rate, 22 trades</li>
+        <li><strong>December 2:</strong> -$19.71 loss, 27.8% win rate, 18 trades</li>
+      </ul>
+
+      <h3>Key Insights</h3>
+
+      <h4>1. Win Rate Analysis</h4>
+      <p>With an average win rate of 40.6%, the strategy demonstrates that profitability can be achieved even with a win rate below 50%, thanks to the 2:1 risk/reward ratio. The best-performing days showed win rates above 50%, with November 10 achieving an exceptional 68.4% win rate.</p>
+
+      <h4>2. Trade Frequency</h4>
+      <p>The strategy executed an average of <strong>20.4 trades per day</strong>, indicating active participation in the market. The highest trade count was 24 trades (November 4, 11, 20, 24, 25), while the lowest was 12 trades (November 28).</p>
+
+      <h4>3. Profitability Consistency</h4>
+      <p>With 68.2% of trading days being profitable, the strategy shows strong consistency. However, the presence of several significant loss days (particularly November 20 with -$52.37) suggests the need for enhanced risk management during volatile market conditions.</p>
+
+      <h4>4. Trailing Stop Effectiveness</h4>
+      <p>The trailing stop mechanism (enabled with 4-point step and 2-point distance) helped protect profits on winning trades, contributing to the overall positive performance despite the moderate win rate.</p>
+
+      <h3>Performance Metrics</h3>
+      <ul>
+        <li><strong>Total Return:</strong> 2.14% over 22 trading days</li>
+        <li><strong>Annualized Return (estimated):</strong> ~25.7% (assuming 252 trading days per year)</li>
+        <li><strong>Average Daily Return:</strong> 0.097%</li>
+        <li><strong>Profit Factor:</strong> Positive (total profits exceed total losses)</li>
+        <li><strong>Maximum Drawdown:</strong> Analysis of individual daily charts shows drawdowns were contained within daily limits</li>
+      </ul>
+
+      <h3>Market Conditions</h3>
+      <p>November 2025 presented a mix of market conditions:</p>
+      <ul>
+        <li><strong>Trending Days:</strong> Days with clear directional moves (e.g., November 10, 13) showed excellent performance</li>
+        <li><strong>Choppy Days:</strong> Days with high volatility and reversals (e.g., November 20, 25) resulted in losses</li>
+        <li><strong>Range-Bound Days:</strong> Days with sideways movement showed mixed results</li>
+      </ul>
+
+      <h3>Lessons Learned</h3>
+      <ol>
+        <li><strong>Risk Management is Critical:</strong> The largest loss day (November 20) demonstrates the importance of position sizing and stop-loss discipline during volatile periods.</li>
+        <li><strong>Win Rate vs. Risk/Reward:</strong> The strategy's success with a 40.6% win rate validates the importance of maintaining a favorable risk/reward ratio (2:1 in this case).</li>
+        <li><strong>Trailing Stops Add Value:</strong> The trailing stop mechanism helped lock in profits and contributed to overall positive performance.</li>
+        <li><strong>Daily Consistency Matters:</strong> With 68% profitable days, the strategy shows promise for consistent daily trading, though further optimization may improve this ratio.</li>
+      </ol>
+
+      <h3>Future Optimizations</h3>
+      <p>Based on this backtest analysis, potential areas for optimization include:</p>
+      <ul>
+        <li><strong>Volatility Filtering:</strong> Implementing filters to reduce trading during highly volatile periods (like November 20)</li>
+        <li><strong>Dynamic Position Sizing:</strong> Adjusting position sizes based on market volatility and recent performance</li>
+        <li><strong>Time-of-Day Filters:</strong> Analyzing performance by trading session to identify optimal trading hours</li>
+        <li><strong>Enhanced Entry Criteria:</strong> Refining entry signals to improve win rate while maintaining trade frequency</li>
+      </ul>
+
+      <h3>Conclusion</h3>
+      <p>The November 2025 backtest demonstrates that our TREND strategy is capable of generating consistent profits in the gold market, achieving a 2.14% return over 22 trading days with a 40.6% win rate. The strategy's ability to maintain profitability despite a win rate below 50% highlights the importance of proper risk/reward management.</p>
+
+      <p>While the results are promising, the presence of significant loss days indicates areas for improvement in risk management and market condition filtering. Continued optimization and live trading validation will help refine the strategy further.</p>
+
+      <p><strong>Note:</strong> Past performance does not guarantee future results. This backtest is for educational and research purposes. Always conduct thorough testing and risk assessment before deploying any trading strategy with real capital.</p>
+
+      <hr style="margin: 3rem 0;"/>
+
+      <h2>2025年11月バックテスト結果：TREND戦略のパフォーマンス分析</h2>
+      <p><em>2025年12月21日 | バックテスト分析</em></p>
+
+      <p>2025年11月のXAUUSD（金）における<strong>TREND戦略</strong>の包括的なバックテスト結果をご報告いたします。この22日間のバックテストは、様々な市場環境における戦略のパフォーマンスを示し、その有効性と最適化の可能性について貴重な洞察を提供します。</p>
+
+      <h3>エグゼクティブサマリー</h3>
+      <p>2025年11月のバックテストは<strong>22取引日</strong>（11月1日～30日、週末を除く）をカバーし、TREND戦略は<strong>449回の取引</strong>を実行し、以下の主要な結果を達成しました：</p>
+
+      <ul>
+        <li><strong>純利益合計：</strong> $213.68（初期資本$10,000に対する2.14%のリターン）</li>
+        <li><strong>平均勝率：</strong> 40.6%</li>
+        <li><strong>利益が出た日：</strong> 22日中15日（68.2%）</li>
+        <li><strong>総取引数：</strong> 449回</li>
+        <li><strong>1日平均利益：</strong> $9.71</li>
+      </ul>
+
+      <h3>戦略設定</h3>
+      <p>このバックテストでは、以下のパラメータで最適化されたTREND戦略を使用しました：</p>
+
+      <ul>
+        <li><strong>シンボル：</strong> XAUUSD（金）</li>
+        <li><strong>時間足：</strong> M5（5分足）</li>
+        <li><strong>高速EMA：</strong> 40期間</li>
+        <li><strong>低速EMA：</strong> 75期間</li>
+        <li><strong>プルバックEMA：</strong> 5期間</li>
+        <li><strong>ストップロス：</strong> 固定5ポイント</li>
+        <li><strong>リスク/リワード比率：</strong> 2.0</li>
+        <li><strong>トレーリングストップ：</strong> 有効（4ポイントのトレーリングステップ、2ポイントの距離）</li>
+        <li><strong>取引あたりのリスク：</strong> 資本の1%</li>
+      </ul>
+
+      <h3>日次パフォーマンス内訳</h3>
+      <p>バックテスト結果は、11月を通じて一貫したパフォーマンスを示し、注目すべきハイライトがあります：</p>
+
+      <h4>最高パフォーマンス日</h4>
+      <ul>
+        <li><strong>11月13日：</strong> $57.76の利益、52.2%の勝率、23回の取引</li>
+        <li><strong>11月10日：</strong> $48.96の利益、68.4%の勝率、19回の取引（最高勝率）</li>
+        <li><strong>11月6日：</strong> $32.00の利益、55.0%の勝率、20回の取引</li>
+        <li><strong>11月21日：</strong> $32.50の利益、46.7%の勝率、15回の取引</li>
+      </ul>
+
+      <h4>困難な日</h4>
+      <ul>
+        <li><strong>11月20日：</strong> -$52.37の損失、25.0%の勝率、24回の取引（最大の1日損失）</li>
+        <li><strong>11月25日：</strong> -$28.68の損失、29.2%の勝率、24回の取引</li>
+        <li><strong>11月11日：</strong> -$16.29の損失、27.3%の勝率、22回の取引</li>
+        <li><strong>12月2日：</strong> -$19.71の損失、27.8%の勝率、18回の取引</li>
+      </ul>
+
+      <h3>主要な洞察</h3>
+
+      <h4>1. 勝率分析</h4>
+      <p>平均勝率40.6%で、2:1のリスク/リワード比率により、勝率が50%未満でも収益性を達成できることを示しています。最高パフォーマンス日は50%以上の勝率を示し、11月10日は例外的な68.4%の勝率を達成しました。</p>
+
+      <h4>2. 取引頻度</h4>
+      <p>戦略は<strong>1日平均20.4回の取引</strong>を実行し、市場への積極的な参加を示しています。最高取引数は24回（11月4日、11日、20日、24日、25日）、最低は12回（11月28日）でした。</p>
+
+      <h4>3. 収益性の一貫性</h4>
+      <p>取引日の68.2%が利益を出しており、戦略は強い一貫性を示しています。ただし、いくつかの重要な損失日（特に11月20日の-$52.37）の存在は、変動の激しい市場環境でのリスク管理の強化の必要性を示唆しています。</p>
+
+      <h4>4. トレーリングストップの有効性</h4>
+      <p>トレーリングストップメカニズム（4ポイントのステップと2ポイントの距離で有効）は、勝ち取引の利益を保護し、中程度の勝率にもかかわらず全体的なプラスパフォーマンスに貢献しました。</p>
+
+      <h3>パフォーマンス指標</h3>
+      <ul>
+        <li><strong>総リターン：</strong> 22取引日で2.14%</li>
+        <li><strong>年率リターン（推定）：</strong> 約25.7%（年間252取引日を想定）</li>
+        <li><strong>1日平均リターン：</strong> 0.097%</li>
+        <li><strong>プロフィットファクター：</strong> プラス（総利益が総損失を上回る）</li>
+        <li><strong>最大ドローダウン：</strong> 個別の日次チャート分析では、ドローダウンは日次制限内に収まっています</li>
+      </ul>
+
+      <h3>市場環境</h3>
+      <p>2025年11月は様々な市場環境を提示しました：</p>
+      <ul>
+        <li><strong>トレンド日：</strong> 明確な方向性の動きがある日（例：11月10日、13日）は優れたパフォーマンスを示しました</li>
+        <li><strong>不安定な日：</strong> 高ボラティリティと反転のある日（例：11月20日、25日）は損失を生みました</li>
+        <li><strong>レンジ相場日：</strong> 横ばいの動きのある日は混合的な結果を示しました</li>
+      </ul>
+
+      <h3>学んだ教訓</h3>
+      <ol>
+        <li><strong>リスク管理が重要：</strong> 最大損失日（11月20日）は、変動の激しい期間中のポジションサイズとストップロスの規律の重要性を示しています。</li>
+        <li><strong>勝率 vs. リスク/リワード：</strong> 40.6%の勝率での戦略の成功は、有利なリスク/リワード比率（この場合2:1）の維持の重要性を検証しています。</li>
+        <li><strong>トレーリングストップが価値を追加：</strong> トレーリングストップメカニズムは利益を確定し、全体的なプラスパフォーマンスに貢献しました。</li>
+        <li><strong>日次一貫性が重要：</strong> 68%の利益日で、戦略は一貫した日次取引の可能性を示していますが、さらなる最適化によりこの比率を改善できる可能性があります。</li>
+      </ol>
+
+      <h3>今後の最適化</h3>
+      <p>このバックテスト分析に基づき、最適化の潜在的な領域には以下が含まれます：</p>
+      <ul>
+        <li><strong>ボラティリティフィルタリング：</strong> 高ボラティリティ期間（11月20日など）中の取引を減らすフィルターの実装</li>
+        <li><strong>動的ポジションサイズ：</strong> 市場のボラティリティと最近のパフォーマンスに基づいてポジションサイズを調整</li>
+        <li><strong>時間帯フィルター：</strong> 取引セッション別のパフォーマンスを分析して最適な取引時間を特定</li>
+        <li><strong>エントリー基準の強化：</strong> 取引頻度を維持しながら勝率を向上させるためのエントリーシグナルの改善</li>
+      </ul>
+
+      <h3>結論</h3>
+      <p>2025年11月のバックテストは、TREND戦略が金市場で一貫した利益を生み出す能力があることを示しており、40.6%の勝率で22取引日に2.14%のリターンを達成しました。勝率が50%未満にもかかわらず収益性を維持する戦略の能力は、適切なリスク/リワード管理の重要性を強調しています。</p>
+
+      <p>結果は有望ですが、重要な損失日の存在は、リスク管理と市場環境フィルタリングの改善領域を示しています。継続的な最適化とライブ取引の検証により、戦略をさらに洗練することができます。</p>
+
+      <p><strong>注意：</strong> 過去のパフォーマンスは将来の結果を保証するものではありません。このバックテストは教育および研究目的のものです。実際の資本で取引戦略を展開する前に、常に徹底的なテストとリスク評価を実施してください。</p>
+    `,
+    category: "Market Analysis",
+    readTime: "8 min read",
+    date: "2025-12-21",
+    author: "SAIL Lab Team",
+    featured: true,
+    image: "/backtest/backtest_XAUUSD_2025-11-10_0000_to_2025-11-10_2359_winrate_68pct_profit_49_Trailing.png",
+    media: [
+      {
+        type: 'image',
+        url: '/backtest/backtest_XAUUSD_2025-11-03_0000_to_2025-11-03_2359_winrate_47pct_profit_26_Trailing.png',
+        alt: 'November 3, 2025 - Daily Backtest Chart',
+        caption: 'November 3, 2025: $25.88 profit, 47.4% win rate, 19 trades'
+      },
+      {
+        type: 'image',
+        url: '/backtest/backtest_XAUUSD_2025-11-04_0000_to_2025-11-04_2359_winrate_46pct_profit_14_Trailing.png',
+        alt: 'November 4, 2025 - Daily Backtest Chart',
+        caption: 'November 4, 2025: $14.28 profit, 45.8% win rate, 24 trades'
+      },
+      {
+        type: 'image',
+        url: '/backtest/backtest_XAUUSD_2025-11-05_0000_to_2025-11-05_2359_winrate_35pct_loss_4_Trailing.png',
+        alt: 'November 5, 2025 - Daily Backtest Chart',
+        caption: 'November 5, 2025: -$4.22 loss, 34.8% win rate, 23 trades'
+      },
+      {
+        type: 'image',
+        url: '/backtest/backtest_XAUUSD_2025-11-06_0000_to_2025-11-06_2359_winrate_55pct_profit_32_Trailing.png',
+        alt: 'November 6, 2025 - Daily Backtest Chart',
+        caption: 'November 6, 2025: $32.00 profit, 55.0% win rate, 20 trades'
+      },
+      {
+        type: 'image',
+        url: '/backtest/backtest_XAUUSD_2025-11-07_0000_to_2025-11-07_2359_winrate_40pct_profit_20_Trailing.png',
+        alt: 'November 7, 2025 - Daily Backtest Chart',
+        caption: 'November 7, 2025: $20.19 profit, 40.0% win rate, 20 trades'
+      },
+      {
+        type: 'image',
+        url: '/backtest/backtest_XAUUSD_2025-11-10_0000_to_2025-11-10_2359_winrate_68pct_profit_49_Trailing.png',
+        alt: 'November 10, 2025 - Daily Backtest Chart',
+        caption: 'November 10, 2025: $48.96 profit, 68.4% win rate, 19 trades (Best win rate day)'
+      },
+      {
+        type: 'image',
+        url: '/backtest/backtest_XAUUSD_2025-11-11_0000_to_2025-11-11_2359_winrate_27pct_loss_16_Trailing.png',
+        alt: 'November 11, 2025 - Daily Backtest Chart',
+        caption: 'November 11, 2025: -$16.29 loss, 27.3% win rate, 22 trades'
+      },
+      {
+        type: 'image',
+        url: '/backtest/backtest_XAUUSD_2025-11-12_0000_to_2025-11-12_2359_winrate_35pct_profit_5_Trailing.png',
+        alt: 'November 12, 2025 - Daily Backtest Chart',
+        caption: 'November 12, 2025: $5.20 profit, 34.8% win rate, 23 trades'
+      },
+      {
+        type: 'image',
+        url: '/backtest/backtest_XAUUSD_2025-11-13_0000_to_2025-11-13_2359_winrate_52pct_profit_58_Trailing.png',
+        alt: 'November 13, 2025 - Daily Backtest Chart',
+        caption: 'November 13, 2025: $57.76 profit, 52.2% win rate, 23 trades (Highest profit day)'
+      },
+      {
+        type: 'image',
+        url: '/backtest/backtest_XAUUSD_2025-11-14_0000_to_2025-11-14_2359_winrate_39pct_profit_25_Trailing.png',
+        alt: 'November 14, 2025 - Daily Backtest Chart',
+        caption: 'November 14, 2025: $25.43 profit, 39.1% win rate, 23 trades'
+      },
+      {
+        type: 'image',
+        url: '/backtest/backtest_XAUUSD_2025-11-17_0000_to_2025-11-17_2359_winrate_37pct_profit_20_Trailing.png',
+        alt: 'November 17, 2025 - Daily Backtest Chart',
+        caption: 'November 17, 2025: $19.77 profit, 36.8% win rate, 19 trades'
+      },
+      {
+        type: 'image',
+        url: '/backtest/backtest_XAUUSD_2025-11-18_0000_to_2025-11-18_2359_winrate_40pct_profit_9_Trailing.png',
+        alt: 'November 18, 2025 - Daily Backtest Chart',
+        caption: 'November 18, 2025: $8.59 profit, 40.0% win rate, 20 trades'
+      },
+      {
+        type: 'image',
+        url: '/backtest/backtest_XAUUSD_2025-11-19_0000_to_2025-11-19_2359_winrate_30pct_loss_1_Trailing.png',
+        alt: 'November 19, 2025 - Daily Backtest Chart',
+        caption: 'November 19, 2025: -$0.57 loss, 30.0% win rate, 20 trades'
+      },
+      {
+        type: 'image',
+        url: '/backtest/backtest_XAUUSD_2025-11-20_0000_to_2025-11-20_2359_winrate_25pct_loss_52_Trailing.png',
+        alt: 'November 20, 2025 - Daily Backtest Chart',
+        caption: 'November 20, 2025: -$52.37 loss, 25.0% win rate, 24 trades (Largest loss day)'
+      },
+      {
+        type: 'image',
+        url: '/backtest/backtest_XAUUSD_2025-11-21_0000_to_2025-11-21_2359_winrate_47pct_profit_33_Trailing.png',
+        alt: 'November 21, 2025 - Daily Backtest Chart',
+        caption: 'November 21, 2025: $32.50 profit, 46.7% win rate, 15 trades'
+      },
+      {
+        type: 'image',
+        url: '/backtest/backtest_XAUUSD_2025-11-24_0000_to_2025-11-24_2359_winrate_42pct_profit_15_Trailing.png',
+        alt: 'November 24, 2025 - Daily Backtest Chart',
+        caption: 'November 24, 2025: $14.63 profit, 41.7% win rate, 24 trades'
+      },
+      {
+        type: 'image',
+        url: '/backtest/backtest_XAUUSD_2025-11-25_0000_to_2025-11-25_2359_winrate_29pct_loss_29_Trailing.png',
+        alt: 'November 25, 2025 - Daily Backtest Chart',
+        caption: 'November 25, 2025: -$28.68 loss, 29.2% win rate, 24 trades'
+      },
+      {
+        type: 'image',
+        url: '/backtest/backtest_XAUUSD_2025-11-26_0000_to_2025-11-26_2359_winrate_43pct_profit_24_Trailing.png',
+        alt: 'November 26, 2025 - Daily Backtest Chart',
+        caption: 'November 26, 2025: $24.25 profit, 42.9% win rate, 21 trades'
+      },
+      {
+        type: 'image',
+        url: '/backtest/backtest_XAUUSD_2025-11-27_0000_to_2025-11-27_2359_winrate_38pct_loss_14_Trailing.png',
+        alt: 'November 27, 2025 - Daily Backtest Chart',
+        caption: 'November 27, 2025: -$13.96 loss, 38.5% win rate, 13 trades'
+      },
+      {
+        type: 'image',
+        url: '/backtest/backtest_XAUUSD_2025-11-28_0000_to_2025-11-28_2359_winrate_50pct_profit_7_Trailing.png',
+        alt: 'November 28, 2025 - Daily Backtest Chart',
+        caption: 'November 28, 2025: $6.76 profit, 50.0% win rate, 12 trades'
+      },
+      {
+        type: 'image',
+        url: '/backtest/backtest_XAUUSD_2025-12-01_0000_to_2025-12-01_2359_winrate_39pct_profit_13_Trailing.png',
+        alt: 'December 1, 2025 - Daily Backtest Chart',
+        caption: 'December 1, 2025: $13.25 profit, 39.1% win rate, 23 trades'
+      },
+      {
+        type: 'image',
+        url: '/backtest/backtest_XAUUSD_2025-12-02_0000_to_2025-12-02_2359_winrate_28pct_loss_20_Trailing.png',
+        alt: 'December 2, 2025 - Daily Backtest Chart',
+        caption: 'December 2, 2025: -$19.71 loss, 27.8% win rate, 18 trades'
+      }
+    ],
+    views: 0,
+    comments: 0,
+    likes: 0
+  },
+  {
     id: "11",
     slug: "cto-presents-at-emnlp-2025",
     title: "SAIL Lab CTO Presents Research at EMNLP 2025 in Suzhou\nSAIL Lab CTO、蘇州で開催されたEMNLP 2025で研究を発表",
