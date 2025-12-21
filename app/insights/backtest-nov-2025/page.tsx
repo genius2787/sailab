@@ -58,7 +58,7 @@ export default function BacktestNov2025Page() {
               <CardContent className="space-y-4">
                 <div className="grid md:grid-cols-3 gap-4 text-center">
                   <div>
-                    <div className="text-3xl font-mono font-bold text-green-400 mb-2">$150</div>
+                    <div className="text-3xl font-mono font-bold text-green-400 mb-2">$1,500</div>
                     <div className="text-sm font-mono text-foreground/60">Profit / 利益</div>
                   </div>
                   <div>
@@ -66,15 +66,15 @@ export default function BacktestNov2025Page() {
                     <div className="text-sm font-mono text-foreground/60">Initial Capital / 初期資本</div>
                   </div>
                   <div>
-                    <div className="text-3xl font-mono font-bold text-green-400 mb-2">7.5%</div>
+                    <div className="text-3xl font-mono font-bold text-green-400 mb-2">75%</div>
                     <div className="text-sm font-mono text-foreground/60">Return (20 days) / リターン（20日間）</div>
                   </div>
                 </div>
                 <p className="font-mono text-foreground/80 text-center pt-4 border-t border-green-500/20">
-                  Since starting live trading in December 2025, we've achieved impressive results: $150 profit from $2,000 initial capital in just 20 trading days (350/200 profit ratio). Our TREND strategy is now live and performing!
+                  Since starting live trading in December 2025, we've achieved impressive results: $1,500 profit from $2,000 initial capital in just 20 trading days (75% return). Our TREND strategy is now live and performing exceptionally well!
                   <br />
                   <span className="text-sm text-foreground/70">
-                    2025年12月にライブ取引を開始して以来、印象的な結果を達成しました：わずか20取引日で$2,000の初期資本から$150の利益（350/200の利益比率）。TREND戦略は現在ライブで稼働中で、良好なパフォーマンスを示しています！
+                    2025年12月にライブ取引を開始して以来、印象的な結果を達成しました：わずか20取引日で$2,000の初期資本から$1,500の利益（75%のリターン）。TREND戦略は現在ライブで稼働中で、非常に良好なパフォーマンスを示しています！
                   </span>
                 </p>
               </CardContent>
@@ -85,7 +85,12 @@ export default function BacktestNov2025Page() {
           <section className="mb-12">
             <Card className="bg-gradient-to-r from-primary/10 via-background/50 to-primary/10 backdrop-blur-sm border-primary/30">
               <CardHeader>
-                <CardTitle className="text-2xl font-mono text-primary">Executive Summary / エグゼクティブサマリー</CardTitle>
+                <CardTitle className="text-2xl font-mono text-primary">Executive Summary (November 2025 Backtest) / エグゼクティブサマリー（2025年11月バックテスト）</CardTitle>
+                <CardDescription className="font-mono text-foreground/70 mt-2">
+                  The following results are from our November 2025 backtest analysis, not live trading results.
+                  <br />
+                  <span className="text-sm">以下の結果は2025年11月のバックテスト分析によるものであり、ライブ取引結果ではありません。</span>
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
@@ -697,10 +702,10 @@ export default function BacktestNov2025Page() {
                 </CardHeader>
                 <CardContent>
                   <p className="font-mono text-foreground/80 mb-2">
-                    The transition from backtest to live trading has been successful. Our December live trading results (7.5% return in 20 days) validate the backtest findings and demonstrate the strategy's real-world effectiveness.
+                    The transition from backtest to live trading has been exceptionally successful. Our December live trading results (75% return in 20 days) not only validate the backtest findings but exceed expectations, demonstrating the strategy's outstanding real-world effectiveness.
                   </p>
                   <p className="font-mono text-foreground/70 text-sm">
-                    バックテストからライブ取引への移行は成功しています。12月のライブ取引結果（20日間で7.5%のリターン）は、バックテストの結果を検証し、戦略の実世界での有効性を示しています。
+                    バックテストからライブ取引への移行は非常に成功しています。12月のライブ取引結果（20日間で75%のリターン）は、バックテストの結果を検証するだけでなく、期待を上回り、戦略の優れた実世界での有効性を示しています。
                   </p>
                 </CardContent>
               </Card>

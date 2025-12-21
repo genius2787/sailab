@@ -5,10 +5,10 @@
 🚀 **Live Trading Results + November 2025 Backtest Analysis**
 
 **📈 LIVE TRADING UPDATE (December 2025):**
-Since starting live trading in December 2025, we've achieved impressive results:
-✅ **$150 profit** from **$2,000 initial capital** in just **20 trading days**
-✅ **7.5% return** in 20 days (350/200 profit ratio)
-✅ Consistent performance validating our backtest results
+Since starting live trading in December 2025, we've achieved exceptional results:
+✅ **$1,500 profit** from **$2,000 initial capital** in just **20 trading days**
+✅ **75% return** in 20 days
+✅ Outstanding performance exceeding our backtest expectations
 
 **Now, let's dive into our comprehensive November backtest analysis:**
 
@@ -34,7 +34,7 @@ Even with a win rate below 50%, our strategy achieved consistent profitability t
 The backtest demonstrates that profitability isn't just about win rate—it's about disciplined risk management and maintaining favorable risk/reward ratios. Our TREND strategy shows promise for consistent daily trading in the gold market.
 
 **🎯 From Backtest to Live Trading:**
-The transition from backtest to live trading has been successful. Our December live trading results (7.5% return in 20 days) validate the backtest findings and demonstrate the strategy's real-world effectiveness.
+The transition from backtest to live trading has been exceptionally successful. Our December live trading results (75% return in 20 days) not only validate the backtest findings but exceed expectations, demonstrating the strategy's outstanding real-world effectiveness.
 
 📈 Want to see the full analysis with all 22 daily charts and detailed breakdowns?
 
@@ -52,10 +52,10 @@ We're continuously optimizing our AI-powered trading strategies and sharing tran
 🚀 **ライブ取引結果 + 2025年11月バックテスト分析**
 
 **📈 ライブ取引アップデート（2025年12月）：**
-12月にライブ取引を開始して以来、印象的な結果を達成しました：
-✅ **初期資本$2,000**から**$150の利益**を**わずか20取引日**で達成
-✅ **20日間で7.5%のリターン**（350/200の利益比率）
-✅ バックテスト結果を検証する一貫したパフォーマンス
+12月にライブ取引を開始して以来、例外的な結果を達成しました：
+✅ **初期資本$2,000**から**$1,500の利益**を**わずか20取引日**で達成
+✅ **20日間で75%のリターン**
+✅ バックテストの期待を上回る優れたパフォーマンス
 
 **それでは、包括的な11月バックテスト分析をご覧ください：**
 
@@ -81,7 +81,7 @@ XAUUSD（金）におけるTREND戦略の2025年11月バックテスト結果を
 このバックテストは、収益性が単に勝率だけではないことを示しています。規律あるリスク管理と有利なリスク/リワード比率の維持が重要です。TREND戦略は、金市場での一貫した日次取引の可能性を示しています。
 
 **🎯 バックテストからライブ取引へ：**
-バックテストからライブ取引への移行は成功しています。12月のライブ取引結果（20日間で7.5%のリターン）は、バックテストの結果を検証し、戦略の実世界での有効性を示しています。
+バックテストからライブ取引への移行は非常に成功しています。12月のライブ取引結果（20日間で75%のリターン）は、バックテストの結果を検証するだけでなく、期待を上回り、戦略の優れた実世界での有効性を示しています。
 
 📈 全22日分のチャートと詳細な内訳を含む完全な分析をご覧になりませんか？
 
@@ -96,9 +96,9 @@ AI駆動型取引戦略の継続的な最適化を行い、コミュニティと
 
 ## Short Version (English - for LinkedIn character limit)
 
-🚀 **LIVE TRADING: $150 Profit in 20 Days (7.5% Return) + November Backtest Results**
+🚀 **LIVE TRADING: $1,500 Profit in 20 Days (75% Return) + November Backtest Results**
 
-**📈 LIVE UPDATE:** Since December 2025, we've made **$150 profit from $2,000 capital** in 20 trading days (350/200 profit ratio). Our TREND strategy is now live and performing!
+**📈 LIVE UPDATE:** Since December 2025, we've made **$1,500 profit from $2,000 capital** in 20 trading days (75% return). Our TREND strategy is now live and performing exceptionally well!
 
 **November 2025 Backtest Results:**
 Our TREND strategy on XAUUSD achieved impressive results:
@@ -117,9 +117,9 @@ https://sailab.ai/insights/backtest-nov-2025
 
 ## Short Version (日本語 - LinkedIn文字数制限用)
 
-🚀 **ライブ取引：20日間で$150の利益（7.5%のリターン）+ 11月バックテスト結果**
+🚀 **ライブ取引：20日間で$1,500の利益（75%のリターン）+ 11月バックテスト結果**
 
-**📈 ライブアップデート：** 2025年12月から、**$2,000の資本**から**$150の利益**を**20取引日**で達成（350/200の利益比率）。TREND戦略は現在ライブで稼働中で、良好なパフォーマンスを示しています！
+**📈 ライブアップデート：** 2025年12月から、**$2,000の資本**から**$1,500の利益**を**20取引日**で達成（75%のリターン）。TREND戦略は現在ライブで稼働中で、非常に良好なパフォーマンスを示しています！
 
 **2025年11月バックテスト結果：**
 XAUUSDにおけるTREND戦略の結果：
