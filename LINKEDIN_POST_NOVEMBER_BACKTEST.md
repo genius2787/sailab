@@ -15,7 +15,8 @@ Since starting live trading in December 2025, we've achieved exceptional results
 We're thrilled to share the comprehensive results from our TREND strategy backtest on XAUUSD (Gold) for November 2025.
 
 📊 **Key Highlights:**
-✅ $213.68 net profit (2.14% return) over 22 trading days
+✅ $213.68 net profit (71.2% return) over 22 trading days
+✅ Starting capital: $300 (0.01 lot size)
 ✅ 40.6% win rate across 449 trades
 ✅ 68% profitable trading days (15 out of 22 days)
 ✅ Average daily profit: $9.71
@@ -62,7 +63,8 @@ We're continuously optimizing our AI-powered trading strategies and sharing tran
 XAUUSD（金）におけるTREND戦略の2025年11月バックテスト結果をご報告いたします。
 
 📊 **主要なハイライト：**
-✅ 22取引日で$213.68の純利益（2.14%のリターン）
+✅ 22取引日で$213.68の純利益（71.2%のリターン）
+✅ 初期資本：$300（0.01ロットサイズ）
 ✅ 449回の取引で40.6%の勝率
 ✅ 68%の利益日（22日中15日）
 ✅ 1日平均利益：$9.71
@@ -102,7 +104,7 @@ AI駆動型取引戦略の継続的な最適化を行い、コミュニティと
 
 **November 2025 Backtest Results:**
 Our TREND strategy on XAUUSD achieved impressive results:
-✅ 2.14% return over 22 trading days
+✅ 71.2% return over 22 trading days (starting with $300, 0.01 lot)
 ✅ 68% profitable days
 ✅ 449 trades executed
 
@@ -123,7 +125,7 @@ https://sailab.ai/insights/backtest-nov-2025
 
 **2025年11月バックテスト結果：**
 XAUUSDにおけるTREND戦略の結果：
-✅ 22取引日で2.14%のリターン
+✅ 22取引日で71.2%のリターン（$300初期資本、0.01ロット）
 ✅ 68%の利益日
 ✅ 449回の取引実行
 

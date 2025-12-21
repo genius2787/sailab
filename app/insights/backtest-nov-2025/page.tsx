@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "November 2025 Backtest Results: TREND Strategy Performance Analysis - SAIL Lab",
-  description: "Comprehensive 22-day backtest results for our TREND strategy on XAUUSD (Gold) in November 2025. Achieved $213.68 net profit with 40.6% win rate across 449 trades.",
+  description: "Comprehensive 22-day backtest results for our TREND strategy on XAUUSD (Gold) in November 2025. Starting with $300 (0.01 lot), achieved $213.68 net profit (71.2% return) with 40.6% win rate across 449 trades.",
 };
 
 export default function BacktestNov2025Page() {
@@ -42,10 +42,10 @@ export default function BacktestNov2025Page() {
             </div>
             
             <p className="text-xl font-mono text-foreground/80 leading-relaxed mb-4">
-              Comprehensive 22-day backtest results for our TREND strategy on XAUUSD (Gold) in November 2025. Achieved $213.68 net profit with 40.6% win rate across 449 trades, demonstrating consistent performance with 68% profitable trading days.
+              Comprehensive 22-day backtest results for our TREND strategy on XAUUSD (Gold) in November 2025. Starting with $300 initial capital (0.01 lot), achieved $213.68 net profit (71.2% return) with 40.6% win rate across 449 trades, demonstrating consistent performance with 68% profitable trading days.
             </p>
             <p className="text-lg font-mono text-foreground/70 leading-relaxed">
-              2025年11月のXAUUSD（金）におけるTREND戦略の包括的な22日間バックテスト結果。449回の取引で40.6%の勝率を達成し、$213.68の純利益を獲得。68%の利益取引日で一貫したパフォーマンスを示しました。
+              2025年11月のXAUUSD（金）におけるTREND戦略の包括的な22日間バックテスト結果。$300の初期資本（0.01ロット）で開始し、449回の取引で40.6%の勝率を達成し、$213.68の純利益（71.2%のリターン）を獲得。68%の利益取引日で一貫したパフォーマンスを示しました。
             </p>
           </header>
 
@@ -103,23 +103,29 @@ export default function BacktestNov2025Page() {
                         <div className="text-3xl font-mono font-bold text-green-400 mb-2">$213.68</div>
                         <div className="text-sm font-mono text-foreground/60">Total Net Profit / 総純利益</div>
                       </div>
+                      <div className="text-center border-b border-border/20 pb-3 mb-3">
+                        <div className="text-lg font-mono font-bold text-foreground mb-1">$300</div>
+                        <div className="text-xs font-mono text-foreground/60">Initial Capital / 初期資本 (0.01 lot)</div>
+                      </div>
                       <div className="grid grid-cols-2 gap-4 text-center">
+                        <div>
+                          <div className="text-2xl font-mono font-bold text-foreground mb-1">71.2%</div>
+                          <div className="text-xs font-mono text-foreground/60">Return (22 days) / リターン（22日間）</div>
+                        </div>
                         <div>
                           <div className="text-2xl font-mono font-bold text-foreground mb-1">40.6%</div>
                           <div className="text-xs font-mono text-foreground/60">Win Rate / 勝率</div>
                         </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4 text-center">
                         <div>
-                          <div className="text-2xl font-mono font-bold text-foreground mb-1">68.2%</div>
+                          <div className="text-xl font-mono font-bold text-foreground mb-1">68.2%</div>
                           <div className="text-xs font-mono text-foreground/60">Profitable Days / 利益日</div>
                         </div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-xl font-mono font-bold text-foreground mb-1">449</div>
-                        <div className="text-xs font-mono text-foreground/60">Total Trades / 総取引数</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-lg font-mono font-bold text-foreground mb-1">2.14%</div>
-                        <div className="text-xs font-mono text-foreground/60">Return (22 days) / リターン（22日間）</div>
+                        <div>
+                          <div className="text-xl font-mono font-bold text-foreground mb-1">449</div>
+                          <div className="text-xs font-mono text-foreground/60">Total Trades / 総取引数</div>
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
@@ -720,10 +726,10 @@ export default function BacktestNov2025Page() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="font-mono text-foreground/80 leading-relaxed">
-                  The November 2025 backtest demonstrates that our TREND strategy is capable of generating consistent profits in the gold market, achieving a 2.14% return over 22 trading days with a 40.6% win rate. The strategy's ability to maintain profitability despite a win rate below 50% highlights the importance of proper risk/reward management.
+                  The November 2025 backtest demonstrates that our TREND strategy is capable of generating consistent profits in the gold market, achieving a 71.2% return over 22 trading days with a 40.6% win rate, starting with $300 initial capital (0.01 lot size). The strategy's ability to maintain profitability despite a win rate below 50% highlights the importance of proper risk/reward management.
                 </p>
                 <p className="font-mono text-foreground/70 leading-relaxed text-sm">
-                  2025年11月のバックテストは、TREND戦略が金市場で一貫した利益を生み出す能力があることを示しており、40.6%の勝率で22取引日に2.14%のリターンを達成しました。勝率が50%未満にもかかわらず収益性を維持する戦略の能力は、適切なリスク/リワード管理の重要性を強調しています。
+                  2025年11月のバックテストは、TREND戦略が金市場で一貫した利益を生み出す能力があることを示しており、$300の初期資本（0.01ロットサイズ）で40.6%の勝率を達成し、22取引日に71.2%のリターンを達成しました。勝率が50%未満にもかかわらず収益性を維持する戦略の能力は、適切なリスク/リワード管理の重要性を強調しています。
                 </p>
                 <p className="font-mono text-foreground/80 leading-relaxed pt-4 border-t border-primary/20">
                   While the results are promising, the presence of significant loss days indicates areas for improvement in risk management and market condition filtering. Continued optimization and live trading validation will help refine the strategy further.
