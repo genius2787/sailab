@@ -308,6 +308,13 @@ export function Blog() {
           <div className="mb-16" ref={(el) => { sectionRefs.current.featured = el; }}>
             {blogPosts
               .filter(post => post.featured && !post.hidden)
+              .sort((a, b) => {
+                // Always put the launch announcement last
+                if (a.slug === "sail-laboratory-official-launch-announcement") return 1;
+                if (b.slug === "sail-laboratory-official-launch-announcement") return -1;
+                // Sort others by date (newest first)
+                return new Date(b.date).getTime() - new Date(a.date).getTime();
+              })
               .map((post) => (
                 <Link key={post.id} href={`/blog/${post.slug}`}>
                   <Card

@@ -1577,7 +1577,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           {/* Recent Posts */}
           <div>
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-sentient">Recent Posts</h2>
+              <h2 className="text-2xl font-mono">Recent Posts</h2>
               <Link href="/blog">
                 <Button variant="outline" size="sm">See All</Button>
               </Link>
@@ -1593,10 +1593,10 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                           <img src={recentPost.image} alt={recentPost.title} className="w-full h-full object-cover" />
                         </div>
                       )}
-                      <Badge variant="outline" className="w-fit mb-2">
+                      <Badge variant="outline" className="w-fit mb-2 font-mono">
                         {recentPost.category}
                       </Badge>
-                      <h3 className="font-sentient group-hover:text-primary transition-colors line-clamp-2">
+                      <h3 className="font-mono group-hover:text-primary transition-colors line-clamp-2">
                         {recentPost.title}
                       </h3>
                     </CardHeader>
