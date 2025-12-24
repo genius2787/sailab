@@ -29,6 +29,21 @@ interface BlogPost {
 
 const blogPosts: BlogPost[] = [
   {
+    id: "12",
+    slug: "sail-lab-presents-llm-agentic-trader-at-ai-stock-selection-event",
+    title: "SAIL Lab Participates in AI Stock Selection Event as Guest Speaker\nSAIL Lab、AI選股票イベントにゲストスピーカーとして参加",
+    excerpt: "SAIL Lab participated in an AI stock selection event on December 21, 2025, where CTO Joe Wang delivered a keynote presentation introducing our flagship product LLM Agentic Trader, sharing insights on AI-powered quantitative trading and the future of intelligent asset management.",
+    category: "Company News",
+    readTime: "4 min read",
+    date: "2025-12-21",
+    author: "SAIL Lab Team",
+    featured: true,
+    image: "/ai-stock-selection-joe-speaking.jpg",
+    views: 0,
+    comments: 0,
+    likes: 0
+  },
+  {
     id: "11",
     slug: "cto-presents-at-emnlp-2025",
     title: "SAIL Lab CTO Presents Research at EMNLP 2025 in Suzhou\nSAIL Lab CTO、蘇州で開催されたEMNLP 2025で研究を発表",

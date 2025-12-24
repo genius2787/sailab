@@ -44,6 +44,203 @@ interface ExtendedBlogPost {
 // Extended blog data with full content
 const extendedBlogPosts: ExtendedBlogPost[] = [
   {
+    id: "12",
+    slug: "sail-lab-presents-llm-agentic-trader-at-ai-stock-selection-event",
+    title: "SAIL Lab Participates in AI Stock Selection Event as Guest Speaker\nSAIL Lab、AI選股票イベントにゲストスピーカーとして参加",
+    excerpt: "SAIL Lab participated in an AI stock selection event on December 21, 2025, where CTO Joe Wang delivered a keynote presentation introducing our flagship product LLM Agentic Trader, sharing insights on AI-powered quantitative trading and the future of intelligent asset management.",
+    content: `
+      <h2>SAIL Lab Participates in AI Stock Selection Event as Guest Speaker</h2>
+      <p><em>December 21, 2025 | Company News</em></p>
+
+      <p>We are excited to announce that <strong>SAIL Laboratory</strong> participated in a prestigious AI stock selection event on December 21, 2025, where our CTO and Founder <strong>Joe Wang</strong> delivered a keynote presentation as a guest speaker. The event brought together industry leaders, researchers, and practitioners to explore the latest advancements in AI-powered quantitative trading and intelligent asset management.</p>
+
+      <h3>Event Overview</h3>
+      <p>The AI stock selection event provided a platform for leading companies and researchers to share cutting-edge technologies and methodologies in applying artificial intelligence to financial markets. As a guest speaker, Joe Wang represented SAIL Lab and showcased our innovative approach to AI-driven trading systems.</p>
+
+      <p>The event attracted a diverse audience of:</p>
+      <ul>
+        <li>Quantitative trading professionals and researchers</li>
+        <li>Financial technology innovators</li>
+        <li>Investment managers and asset management firms</li>
+        <li>Academics and students interested in AI finance</li>
+        <li>Industry stakeholders exploring AI solutions for trading</li>
+      </ul>
+
+      <h3>Keynote Presentation: LLM Agentic Trader</h3>
+      <p>During his presentation, Joe Wang introduced SAIL Lab's flagship product, <strong>LLM Agentic Trader</strong>, a revolutionary AI-powered trading system that leverages Large Language Models (LLMs) and advanced agent architectures to make intelligent trading decisions.</p>
+
+      <p>The presentation covered several key aspects of our technology:</p>
+
+      <h4>1. LLM Agentic Trader Architecture</h4>
+      <p>Joe explained how LLM Agentic Trader combines the power of Large Language Models with sophisticated agent-based decision-making frameworks. The system uses multiple specialized agents that work together to:</p>
+      <ul>
+        <li>Analyze market conditions and financial data in real-time</li>
+        <li>Generate trading signals based on comprehensive market analysis</li>
+        <li>Execute trades with intelligent risk management</li>
+        <li>Adapt to changing market conditions dynamically</li>
+      </ul>
+
+      <h4>2. AI-Powered Stock Selection</h4>
+      <p>The presentation highlighted how LLM Agentic Trader uses advanced AI techniques to identify promising investment opportunities. The system leverages:</p>
+      <ul>
+        <li><strong>Natural Language Processing:</strong> To analyze financial news, reports, and market sentiment</li>
+        <li><strong>Multi-Agent Coordination:</strong> Where specialized agents focus on different aspects of analysis</li>
+        <li><strong>Reinforcement Learning:</strong> To continuously improve trading strategies based on market feedback</li>
+        <li><strong>Real-Time Adaptation:</strong> To adjust strategies as market conditions evolve</li>
+      </ul>
+
+      <h4>3. Performance and Results</h4>
+      <p>Joe shared insights into the performance of LLM Agentic Trader, including:</p>
+      <ul>
+        <li>Backtest results demonstrating consistent profitability</li>
+        <li>Live trading performance metrics</li>
+        <li>Risk management capabilities and drawdown control</li>
+        <li>Adaptability across different market conditions</li>
+      </ul>
+
+      <h4>4. Future of AI in Trading</h4>
+      <p>The presentation concluded with a forward-looking discussion on the future of AI in quantitative trading, including:</p>
+      <ul>
+        <li>Emerging trends in LLM applications for finance</li>
+        <li>The role of multi-agent systems in complex decision-making</li>
+        <li>Challenges and opportunities in deploying AI trading systems</li>
+        <li>SAIL Lab's vision for the next generation of intelligent trading platforms</li>
+      </ul>
+
+      <h3>Audience Engagement</h3>
+      <p>The presentation generated significant interest and engagement from the audience. Attendees participated in a lively Q&A session, exploring topics such as:</p>
+      <ul>
+        <li>Technical details of the LLM agent architecture</li>
+        <li>Risk management strategies and safeguards</li>
+        <li>Scalability and deployment considerations</li>
+        <li>Comparison with traditional quantitative trading approaches</li>
+        <li>Regulatory and compliance aspects of AI trading systems</li>
+      </ul>
+
+      <p>"The event provided an excellent opportunity to share our vision and technology with the broader AI and finance community," said Joe Wang. "The positive feedback and engaging discussions demonstrate the growing interest in LLM-powered trading systems and their potential to transform asset management."</p>
+
+      <h3>SAIL Lab's Commitment to Innovation</h3>
+      <p>Our participation in this event reflects SAIL Lab's commitment to:</p>
+      <ul>
+        <li><strong>Research Excellence:</strong> Advancing the state-of-the-art in AI-powered trading</li>
+        <li><strong>Industry Leadership:</strong> Sharing knowledge and insights with the community</li>
+        <li><strong>Practical Innovation:</strong> Developing solutions that deliver real-world value</li>
+        <li><strong>Collaboration:</strong> Building connections with researchers, practitioners, and industry leaders</li>
+      </ul>
+
+      <h3>About LLM Agentic Trader</h3>
+      <p>LLM Agentic Trader represents SAIL Lab's cutting-edge approach to quantitative trading, combining:</p>
+      <ul>
+        <li>Advanced Large Language Model technology for market analysis</li>
+        <li>Multi-agent systems for sophisticated decision-making</li>
+        <li>Reinforcement learning for continuous strategy improvement</li>
+        <li>Real-time risk management and position sizing</li>
+        <li>Adaptive algorithms that respond to market dynamics</li>
+      </ul>
+
+      <p>The system has demonstrated strong performance in both backtesting and live trading environments, showcasing the potential of LLM-based agents to revolutionize quantitative trading and asset management.</p>
+
+      <h3>Looking Forward</h3>
+      <p>SAIL Lab continues to push the boundaries of AI-powered financial technology. Our participation in events like this AI stock selection conference allows us to:</p>
+      <ul>
+        <li>Share our latest research and development achievements</li>
+        <li>Learn from other industry leaders and researchers</li>
+        <li>Build partnerships and collaborations</li>
+        <li>Contribute to the advancement of AI in finance</li>
+      </ul>
+
+      <p>We are grateful for the opportunity to participate in this event and look forward to continuing our engagement with the AI and finance communities as we develop the next generation of intelligent trading systems.</p>
+
+      <hr style="margin: 3rem 0;"/>
+
+      <h2>SAIL Lab、AI選股票イベントにゲストスピーカーとして参加</h2>
+      <p><em>2025年12月21日 | 会社ニュース</em></p>
+
+      <p>2025年12月21日に開催されたAI選股票イベントに、<strong>SAIL Laboratory</strong>が参加し、CTO兼創業者の<strong>Joe Wang</strong>がゲストスピーカーとして基調講演を行ったことをお知らせいたします。このイベントは、業界リーダー、研究者、実務家が一堂に会し、AIを活用した量的取引とインテリジェント資産運用の最新動向を探る場となりました。</p>
+
+      <h3>イベント概要</h3>
+      <p>AI選股票イベントは、金融市場に人工知能を応用する最新技術と方法論を共有するプラットフォームを提供しました。ゲストスピーカーとして、Joe WangはSAIL Labを代表し、AI駆動型取引システムへの革新的なアプローチを紹介しました。</p>
+
+      <h3>基調講演：LLM Agentic Trader</h3>
+      <p>講演中、Joe WangはSAIL Labの主力製品である<strong>LLM Agentic Trader</strong>を紹介しました。これは、大規模言語モデル（LLM）と高度なエージェントアーキテクチャを活用して、インテリジェントな取引判断を行う革新的なAI駆動型取引システムです。</p>
+
+      <h4>1. LLM Agentic Traderのアーキテクチャ</h4>
+      <p>Joeは、LLM Agentic Traderが大規模言語モデルの力と洗練されたエージェントベースの意思決定フレームワークをどのように組み合わせているかを説明しました。システムは複数の専門エージェントを協調させて、以下を実現します：</p>
+      <ul>
+        <li>市場状況と金融データのリアルタイム分析</li>
+        <li>包括的な市場分析に基づく取引シグナルの生成</li>
+        <li>インテリジェントなリスク管理による取引の実行</li>
+        <li>変化する市場状況への動的適応</li>
+      </ul>
+
+      <h4>2. AIを活用した株式選択</h4>
+      <p>講演では、LLM Agentic Traderが高度なAI技術を使用して有望な投資機会を特定する方法が強調されました。システムは以下を活用します：</p>
+      <ul>
+        <li><strong>自然言語処理：</strong>金融ニュース、レポート、市場センチメントの分析</li>
+        <li><strong>マルチエージェント協調：</strong>専門エージェントが分析の異なる側面に焦点を当てる</li>
+        <li><strong>強化学習：</strong>市場フィードバックに基づいて取引戦略を継続的に改善</li>
+        <li><strong>リアルタイム適応：</strong>市場状況の変化に応じて戦略を調整</li>
+      </ul>
+
+      <h3>聴衆との交流</h3>
+      <p>講演は聴衆から大きな関心と参加を集めました。参加者は活発な質疑応答セッションに参加し、以下のようなトピックを探求しました：</p>
+      <ul>
+        <li>LLMエージェントアーキテクチャの技術的詳細</li>
+        <li>リスク管理戦略と安全対策</li>
+        <li>スケーラビリティと展開の考慮事項</li>
+        <li>従来の量的取引アプローチとの比較</li>
+        <li>AI取引システムの規制とコンプライアンスの側面</li>
+      </ul>
+
+      <h3>SAIL Labのイノベーションへの取り組み</h3>
+      <p>このイベントへの参加は、SAIL Labの以下の取り組みを反映しています：</p>
+      <ul>
+        <li><strong>研究の卓越性：</strong>AIを活用した取引の最先端技術の推進</li>
+        <li><strong>業界リーダーシップ：</strong>コミュニティとの知識と洞察の共有</li>
+        <li><strong>実践的イノベーション：</strong>実世界の価値を提供するソリューションの開発</li>
+        <li><strong>協力：</strong>研究者、実務家、業界リーダーとのつながりの構築</li>
+      </ul>
+
+      <h3>今後の展望</h3>
+      <p>SAIL Labは、AIを活用した金融技術の境界を押し広げ続けています。このようなAI選股票イベントへの参加により、以下を実現します：</p>
+      <ul>
+        <li>最新の研究開発成果の共有</li>
+        <li>他の業界リーダーや研究者からの学習</li>
+        <li>パートナーシップとコラボレーションの構築</li>
+        <li>金融におけるAIの進歩への貢献</li>
+      </ul>
+    `,
+    category: "Company News",
+    readTime: "4 min read",
+    date: "2025-12-21",
+    author: "SAIL Lab Team",
+    featured: true,
+    image: "/ai-stock-selection-joe-speaking.jpg",
+    media: [
+      {
+        type: 'image',
+        url: '/ai-stock-selection-joe-speaking.jpg',
+        alt: 'CTO Joe Wang delivering keynote presentation at AI Stock Selection Event',
+        caption: 'CTO Joe Wang presenting LLM Agentic Trader at the AI Stock Selection Event on December 21, 2025'
+      },
+      {
+        type: 'image',
+        url: '/ai-stock-selection-panorama-1.jpg',
+        alt: 'Panoramic view of the AI Stock Selection Event audience',
+        caption: 'Panoramic view of the event venue showing engaged audience during the presentation'
+      },
+      {
+        type: 'image',
+        url: '/ai-stock-selection-panorama-2.jpg',
+        alt: 'Another panoramic view of the AI Stock Selection Event',
+        caption: 'Another view of the event showcasing the full audience and presentation setup'
+      }
+    ],
+    views: 0,
+    comments: 0,
+    likes: 0
+  },
+  {
     id: "12-hidden",
     slug: "november-2025-backtest-results",
     hidden: true,
