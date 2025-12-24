@@ -48,7 +48,7 @@ export function BlogMediaGallery({ media }: BlogMediaProps) {
     <>
       {/* Media Gallery */}
       <div className="my-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-6">
           {media.map((item, index) => (
             <div
               key={index}
@@ -59,7 +59,7 @@ export function BlogMediaGallery({ media }: BlogMediaProps) {
                 <img
                   src={item.url}
                   alt={item.alt || `Media ${index + 1}`}
-                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-auto max-h-[600px] object-contain group-hover:scale-105 transition-transform duration-300"
                 />
               )}
 
@@ -68,7 +68,7 @@ export function BlogMediaGallery({ media }: BlogMediaProps) {
                   <img
                     src={item.thumbnail || item.url}
                     alt={item.alt || `Video ${index + 1}`}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-auto max-h-[600px] object-contain group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/20 transition-colors">
                     <Play className="w-12 h-12 text-white opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all" />
@@ -81,7 +81,7 @@ export function BlogMediaGallery({ media }: BlogMediaProps) {
                   <img
                     src={item.thumbnail || getYouTubeThumbnail(item.url) || item.url}
                     alt={item.alt || `YouTube Video ${index + 1}`}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-auto max-h-[600px] object-contain group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/20 transition-colors">
                     <div className="w-16 h-12 bg-red-600 rounded flex items-center justify-center group-hover:scale-110 transition-transform">

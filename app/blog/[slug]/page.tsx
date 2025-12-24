@@ -1483,6 +1483,13 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             </Button>
           </div>
 
+          {/* Media Gallery - Before Article Content */}
+          {post.media && post.media.length > 0 && (
+            <div className="mb-8">
+              <BlogMediaGallery media={post.media} />
+            </div>
+          )}
+
           {/* Article Content */}
           <Card className="bg-card/60 backdrop-blur-sm border-border/40 mb-16">
             <CardContent className="prose prose-invert max-w-none p-8">
@@ -1490,11 +1497,6 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                 className="font-mono leading-relaxed text-foreground/90"
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
-
-              {/* Media Gallery */}
-              {post.media && post.media.length > 0 && (
-                <BlogMediaGallery media={post.media} />
-              )}
             </CardContent>
           </Card>
 
