@@ -251,9 +251,16 @@ export function Blog() {
     };
   }, []);
 
-  const filteredPosts = selectedCategory === "All"
+  const filteredPosts = (selectedCategory === "All"
     ? blogPosts.filter(post => !post.hidden) // Hide posts with hidden: true
-    : blogPosts.filter(post => post.category === selectedCategory && !post.hidden);
+    : blogPosts.filter(post => post.category === selectedCategory && !post.hidden)
+  ).sort((a, b) => {
+    // Always put the launch announcement first
+    if (a.slug === "sail-laboratory-official-launch-announcement") return -1;
+    if (b.slug === "sail-laboratory-official-launch-announcement") return 1;
+    // Sort others by date (newest first)
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
