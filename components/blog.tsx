@@ -76,8 +76,8 @@ const blogPosts: BlogPost[] = [
   {
     id: "10",
     slug: "cto-wang-featured-in-waseda-university-interview",
-    title: "SAIL Lab CTO Featured in Waseda University Interview\nSAIL Lab CTO、早稲田大学インタビューに掲載",
-    excerpt: "Our CTO Joe Wang was featured in an exclusive interview by Waseda University's Computer Science and Engineering Department, sharing insights on his journey from academic research to founding SAIL Laboratory and pioneering AI-powered financial technology.",
+    title: "SAIL Lab CTO Featured in Waseda University Interview as Visiting Researcher\nSAIL Lab CTO、早稲田大学招聘研究員としてインタビューに掲載",
+    excerpt: "Our CTO Joe Wang was featured in a 2022 alumni interview by Waseda University's Department of Integrated Mechanical Engineering as a visiting researcher, sharing his research work in deep reinforcement learning and collaborative research with JAXA.",
     category: "Company News",
     readTime: "3 min read",
     date: "2025-10-08",

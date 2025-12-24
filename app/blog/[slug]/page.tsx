@@ -904,104 +904,28 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
   {
     id: "10",
     slug: "cto-wang-featured-in-waseda-university-interview",
-    title: "SAIL Lab CTO Featured in Waseda University Interview\nSAIL Lab CTO、早稲田大学インタビューに掲載",
-    excerpt: "Our CTO Joe Wang was featured in an exclusive interview by Waseda University's Computer Science and Engineering Department, sharing insights on his journey from academic research to founding SAIL Laboratory and pioneering AI-powered financial technology.",
+    title: "SAIL Lab CTO Featured in Waseda University Interview as Visiting Researcher\nSAIL Lab CTO、早稲田大学招聘研究員としてインタビューに掲載",
+    excerpt: "Our CTO Joe Wang was featured in a 2022 alumni interview by Waseda University's Department of Integrated Mechanical Engineering as a visiting researcher, sharing his research work in deep reinforcement learning and collaborative research with JAXA.",
     content: `
-      <h2>From Waseda Research to AI Innovation in Finance</h2>
-      <p><em>October 2025 | Waseda University</em></p>
+      <h2>SAIL Lab CTO Featured in Waseda University Interview as Visiting Researcher</h2>
+      <p><em>2022 | Waseda University</em></p>
 
-      <p>We are honored to share that Joe Wang, SAIL Laboratory's CTO and Founder, has been featured in an exclusive alumni interview by <strong>Waseda University's Department of Computer Science and Engineering</strong>. The interview highlights Joe's remarkable journey from academic research to entrepreneurship and his contributions to advancing AI technology.</p>
+      <p>Our CTO Joe Wang (王釗) was featured in a 2022 alumni interview by Waseda University's Department of Integrated Mechanical Engineering as a visiting researcher (招聘研究員). Joe graduated from the doctoral program in 2018, studying under Professor Ohtani's laboratory.</p>
 
-      <h3>The Interview</h3>
-      <p>The full interview is now published on Waseda University's official website:</p>
-      <p><a href="https://www.cse.sci.waseda.ac.jp/careers/ob/wangzhao/" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline font-mono">Visit the Waseda University Interview →</a></p>
+      <p>In the interview, Joe shared his research work in deep reinforcement learning, focusing on optimization problems and routing algorithms. He also discussed his collaborative research with JAXA on drone-based image processing using deep reinforcement learning for disaster response scenarios.</p>
 
-      <h3>Joe's Journey</h3>
-      <p>In the interview, Joe reflects on his academic foundation at Waseda University and how it shaped his career path:</p>
-
-      <ul>
-        <li><strong>Academic Excellence:</strong> His time at Waseda's Computer Science and Engineering Department, where he developed a strong foundation in AI and machine learning</li>
-        <li><strong>Research Experience:</strong> Conducting cutting-edge research that would later inform his work at Sony and SAIL Lab</li>
-        <li><strong>Entrepreneurial Vision:</strong> The decision to found SAIL Laboratory and apply AI research to financial technology</li>
-        <li><strong>Industry Impact:</strong> Bridging the gap between academic research and real-world applications in finance</li>
-      </ul>
-
-      <h3>Key Insights Shared</h3>
-      <p>The interview covers several important topics:</p>
-
-      <ul>
-        <li><strong>The Power of LLM Agents:</strong> How Large Language Model agents are transforming decision-making in finance and beyond</li>
-        <li><strong>Research to Production:</strong> The challenges and rewards of turning academic research into commercial products</li>
-        <li><strong>Dual Roles:</strong> Balancing fundamental research at Sony with practical innovation at SAIL Lab</li>
-        <li><strong>Future of AI in Finance:</strong> Vision for how AI will continue to revolutionize asset management and trading</li>
-        <li><strong>Advice for Students:</strong> Guidance for aspiring researchers and entrepreneurs in the AI field</li>
-      </ul>
-
-      <h3>Waseda's Legacy in AI Innovation</h3>
-      <p>Joe's success reflects Waseda University's strong tradition in computer science and engineering education. His work at SAIL Lab continues to demonstrate the university's impact on global technology innovation.</p>
-
-      <p>"Waseda provided me with not just technical knowledge, but also the critical thinking and problem-solving skills that are essential for both research and entrepreneurship," Joe shared in the interview. "The foundation I built there continues to guide my work today."</p>
-
-      <h3>SAIL Lab's Mission</h3>
-      <p>As highlighted in the interview, SAIL Laboratory represents the convergence of Joe's academic training, research experience, and entrepreneurial ambition:</p>
-
-      <ul>
-        <li>Applying cutting-edge AI research to practical financial solutions</li>
-        <li>Building autonomous LLM agent systems for intelligent trading</li>
-        <li>Maintaining academic rigor in commercial product development</li>
-        <li>Contributing back to the research community through publications and open-source work</li>
-      </ul>
-
-      <p>This recognition from Waseda University underscores SAIL Lab's commitment to excellence and innovation at the intersection of AI and finance.</p>
+      <p>Joe's expertise in deep learning and reinforcement learning has been a foundation for his work in AI-powered financial technology at SAIL Lab.</p>
 
       <hr style="margin: 3rem 0;"/>
 
-      <h2>SAIL Lab CTO、早稲田大学卒業生インタビューに掲載</h2>
-      <p><em>2025年10月 | 早稲田大学</em></p>
+      <h2>SAIL Lab CTO、早稲田大学招聘研究員としてインタビューに掲載</h2>
+      <p><em>2022年 | 早稲田大学</em></p>
 
-      <p>SAIL Laboratory の CTO 兼創業者である Joe Wang が、<strong>早稲田大学コンピュータ理工学科</strong>による卒業生インタビューに掲載されたことをお知らせいたします。このインタビューは、学術研究から起業まで、そして AI 技術の進歩への貢献に至る Joe の注目すべき道のりを紹介しています。</p>
+      <p>SAIL Lab の CTO Joe Wang（王釗）が、早稲田大学総合機械工学専攻による2022年度卒業生インタビューに招聘研究員として掲載されました。Joe は2018年に博士後期課程を修了し、大谷研究室で研究を行いました。</p>
 
-      <h3>インタビュー</h3>
-      <p>完全なインタビューは早稲田大学の公式ウェブサイトで公開されています：</p>
-      <p><a href="https://www.cse.sci.waseda.ac.jp/careers/ob/wangzhao/" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline font-mono">早稲田大学インタビューを見る →</a></p>
+      <p>インタビューでは、深層強化学習を用いた最適化問題やルーティングアルゴリズムの研究について語りました。また、JAXAとの共同研究で、災害対応シナリオにおける深層強化学習を用いたドローン画像処理の研究についても紹介しました。</p>
 
-      <h3>Joe の道のり</h3>
-      <p>インタビューで、Joe は早稲田大学での学びと、それがキャリアパスをどのように形作ったかを振り返ります：</p>
-
-      <ul>
-        <li><strong>学術的卓越性：</strong> AI と機械学習の強固な基盤を築いた早稲田大学のコンピュータ理工学科での時間</li>
-        <li><strong>研究経験：</strong> 後に Sony と SAIL Lab での仕事に影響を与える最先端の研究を実施</li>
-        <li><strong>起業家精神：</strong> SAIL Laboratory を設立し、AI 研究を金融技術に応用する決断</li>
-        <li><strong>産業への影響：</strong> 学術研究と金融における実世界のアプリケーションとのギャップを埋める</li>
-      </ul>
-
-      <h3>共有された主要な洞察</h3>
-      <p>インタビューはいくつかの重要なトピックをカバーしています：</p>
-
-      <ul>
-        <li><strong>LLM エージェントの力：</strong> 大規模言語モデルエージェントが金融やその他の分野での意思決定をどのように変革しているか</li>
-        <li><strong>研究から製品化へ：</strong> 学術研究を商業製品に転換する際の課題と報酬</li>
-        <li><strong>二つの役割：</strong> Sony での基礎研究と SAIL Lab での実践的イノベーションのバランス</li>
-        <li><strong>金融における AI の未来：</strong> AI が資産運用と取引を革新し続ける方法についてのビジョン</li>
-        <li><strong>学生へのアドバイス：</strong> AI 分野の研究者や起業家を目指す人々へのガイダンス</li>
-      </ul>
-
-      <h3>AI イノベーションにおける早稲田の遺産</h3>
-      <p>Joe の成功は、コンピュータサイエンスとエンジニアリング教育における早稲田大学の強い伝統を反映しています。SAIL Lab での彼の仕事は、グローバルな技術革新に対する大学の影響を示し続けています。</p>
-
-      <p>「早稲田は私に技術的知識だけでなく、研究と起業の両方に不可欠な批判的思考と問題解決スキルを提供してくれました」と Joe はインタビューで語りました。「そこで築いた基盤は、今日も私の仕事を導き続けています。」</p>
-
-      <h3>SAIL Lab の使命</h3>
-      <p>インタビューで強調されているように、SAIL Laboratory は Joe の学術的訓練、研究経験、起業家精神の収束を表しています：</p>
-
-      <ul>
-        <li>最先端の AI 研究を実用的な金融ソリューションに応用</li>
-        <li>インテリジェント取引のための自律 LLM エージェントシステムの構築</li>
-        <li>商業製品開発における学術的厳密性の維持</li>
-        <li>出版物とオープンソース活動を通じた研究コミュニティへの貢献</li>
-      </ul>
-
-      <p>早稲田大学からのこの認識は、AI と金融の交差点における卓越性とイノベーションへの SAIL Lab のコミットメントを強調しています。</p>
+      <p>Joe の深層学習と強化学習の専門知識は、SAIL Lab での AI 駆動型金融技術の基盤となっています。</p>
     `,
     category: "Company News",
     readTime: "3 min read",
