@@ -52,7 +52,7 @@ export function Hero() {
               [About Us]
             </Button>
           </Link>
-          <Link href="/insights/backtest-sep-2025">
+          <Link href="/insights">
             <Button
               className={`hover-lift bg-purple-600 text-white hover:bg-purple-700 border-purple-600 ${isLoaded ? 'animate-fade-in-up animate-delay-800' : ''}`}
               onMouseEnter={() => setHovering(true)}
@@ -103,7 +103,7 @@ export function Hero() {
               [About Us]
             </Button>
           </Link>
-          <Link href="/insights/backtest-sep-2025">
+          <Link href="/insights">
             <Button
               size="sm"
               className={`hover-lift bg-purple-600 text-white hover:bg-purple-700 border-purple-600 ${isLoaded ? 'animate-fade-in-up animate-delay-800' : ''}`}
