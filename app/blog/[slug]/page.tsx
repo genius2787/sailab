@@ -606,180 +606,56 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
   {
     id: "11",
     slug: "cto-presents-at-emnlp-2025",
-    title: "SAIL Lab CTO Presents Research at EMNLP 2025 in Suzhou\nSAIL Lab CTO、蘇州で開催されたEMNLP 2025で研究を発表",
-    excerpt: "Our CTO Joe Wang presented groundbreaking research at EMNLP 2025 in Suzhou, including a Main Conference Oral paper, an Industry Track paper, and delivered an Invited Talk on Industrial LLM Agents, showcasing SAIL Lab's leadership in advancing AI-powered financial technology.",
+    title: "SAIL Lab CTO Presents Research at EMNLP 2025\nSAIL Lab CTO、EMNLP 2025で研究を発表",
+    excerpt: "Our CTO Joe Wang, as a Sony researcher, presented two research papers and delivered an Invited Talk at EMNLP 2025, showcasing his contributions to advancing Large Language Models and their industrial applications.",
     content: `
       <h2>Leading Research at the Premier NLP Conference</h2>
-      <p><em>November 2025 | Suzhou, China</em></p>
+      <p><em>November 2025 | EMNLP 2025</em></p>
 
-      <p>We are proud to announce that Joe Wang, SAIL Laboratory's CTO and Founder, made significant contributions to <strong>EMNLP 2025 (Empirical Methods in Natural Language Processing)</strong>, one of the world's most prestigious conferences in computational linguistics and natural language processing. The conference was held in Suzhou, China, bringing together leading researchers, practitioners, and industry experts from around the globe.</p>
+      <p>We are proud to announce that Joe Wang, SAIL Laboratory's CTO and Founder, made significant contributions to <strong>EMNLP 2025 (Empirical Methods in Natural Language Processing)</strong>, one of the world's most prestigious conferences in computational linguistics and natural language processing. As a Sony researcher, Joe presented two research papers and delivered an Invited Talk, showcasing his contributions to advancing Large Language Models and their industrial applications.</p>
 
-      <p>Joe's participation at EMNLP 2025 demonstrates SAIL Lab's commitment to advancing the state-of-the-art in Large Language Models (LLMs) and their applications in financial technology. His presentations spanned both academic research and industry applications, highlighting the bridge between cutting-edge NLP research and practical AI solutions.</p>
+      <h3>Research Paper 1</h3>
+      <p>Joe Wang presented the first research paper as a Sony researcher, addressing fundamental challenges in Large Language Models and their applications. The research introduces novel methodologies for improving the reliability and efficiency of LLM-based systems in industrial settings.</p>
 
-      <h3>About EMNLP</h3>
-      <p>The Conference on Empirical Methods in Natural Language Processing (EMNLP) is one of the premier conferences in computational linguistics and natural language processing. Organized by the Association for Computational Linguistics (ACL), EMNLP has been a leading forum for sharing groundbreaking research in:</p>
-      
-      <ul>
-        <li>Large Language Models and Foundation Models</li>
-        <li>Natural Language Understanding and Generation</li>
-        <li>LLM Agents and Multi-Agent Systems</li>
-        <li>Applications of NLP in Real-World Domains</li>
-        <li>Industry Applications and Deployments</li>
-      </ul>
-
-      <h3>Main Conference Oral Presentation</h3>
-      <p>Joe Wang presented a <strong>Main Conference Oral paper</strong> that addresses fundamental challenges in LLM-based systems. The research introduces novel methodologies for improving the reliability and efficiency of Large Language Models in high-stakes applications.</p>
-
-      <p>The oral presentation received significant attention from the EMNLP community, sparking engaging discussions on:</p>
-
-      <ul>
-        <li><strong>Advanced LLM Architectures:</strong> Novel approaches to enhancing model performance and interpretability</li>
-        <li><strong>Efficient Inference:</strong> Techniques for deploying LLMs in resource-constrained environments</li>
-        <li><strong>Robustness and Reliability:</strong> Methods for ensuring consistent performance across diverse inputs</li>
-        <li><strong>Real-World Applications:</strong> Bridging the gap between research and practical deployment</li>
-      </ul>
-
-      <p>The paper's acceptance as an oral presentation reflects the high quality and significance of the research, as only a small percentage of submissions receive this prestigious recognition at EMNLP.</p>
-
-      <h3>Industry Track Paper</h3>
-      <p>In addition to the main conference paper, Joe presented an <strong>Industry Track paper</strong> that focuses on practical applications of LLM technology in financial services. This work demonstrates how cutting-edge NLP research can be translated into real-world solutions that deliver measurable business value.</p>
-
-      <p>The Industry Track paper addresses critical challenges in deploying LLM systems in production environments:</p>
-
-      <ul>
-        <li><strong>Production Deployment:</strong> Strategies for scaling LLM systems to handle high-volume financial data processing</li>
-        <li><strong>Cost Optimization:</strong> Techniques for reducing computational costs while maintaining performance</li>
-        <li><strong>Integration Challenges:</strong> Best practices for integrating LLM systems with existing financial infrastructure</li>
-        <li><strong>Performance Monitoring:</strong> Frameworks for tracking and optimizing LLM performance in production</li>
-      </ul>
-
-      <p>This work showcases SAIL Lab's expertise in bridging academic research with industry needs, demonstrating how theoretical advances can be transformed into practical solutions that drive innovation in financial technology.</p>
+      <h3>Research Paper 2</h3>
+      <p>In addition to the first paper, Joe presented a second research paper that focuses on advanced techniques in natural language processing and their practical applications. This work demonstrates how cutting-edge NLP research can be translated into real-world solutions.</p>
 
       <h3>Invited Talk: Industrial LLM Agents</h3>
-      <p>Joe Wang was honored to deliver an <strong>Invited Talk</strong> on "Industrial LLM Agents: From Research to Production," sharing insights from SAIL Lab's experience in building and deploying LLM agent systems for financial applications.</p>
+      <p>Joe Wang was honored to deliver an <strong>Invited Talk</strong> on "Industrial LLM Agents: From Research to Production," sharing insights from his experience in building and deploying LLM agent systems for industrial applications.</p>
 
       <p>The invited talk covered several key topics:</p>
 
       <ul>
         <li><strong>LLM Agent Architectures:</strong> Design patterns for building robust, scalable agent systems</li>
-        <li><strong>Multi-Agent Coordination:</strong> Strategies for orchestrating multiple LLM agents to solve complex financial problems</li>
-        <li><strong>Real-Time Decision Making:</strong> Techniques for enabling LLM agents to make time-sensitive decisions in financial markets</li>
-        <li><strong>Safety and Reliability:</strong> Best practices for ensuring LLM agents operate safely in high-stakes financial environments</li>
-        <li><strong>Case Studies:</strong> Real-world examples of LLM agent deployments in asset management and trading</li>
+        <li><strong>Multi-Agent Coordination:</strong> Strategies for orchestrating multiple LLM agents to solve complex problems</li>
+        <li><strong>Real-World Applications:</strong> Techniques for deploying LLM agents in production environments</li>
+        <li><strong>Safety and Reliability:</strong> Best practices for ensuring LLM agents operate safely in industrial settings</li>
       </ul>
-
-      <p>"The invited talk provided an excellent opportunity to share our learnings from building production LLM agent systems," said Joe Wang. "We discussed not just the technical challenges, but also the practical considerations that determine success in real-world deployments."</p>
-
-      <h3>SAIL Lab's Research Impact</h3>
-      <p>Joe's participation at EMNLP 2025 reflects SAIL Lab's commitment to advancing the state-of-the-art in AI and NLP research while maintaining a strong focus on practical applications. The research presented at the conference directly informs SAIL Lab's product development:</p>
-
-      <ul>
-        <li>Advanced LLM techniques enhance our trading algorithms and market analysis capabilities</li>
-        <li>Multi-agent systems enable more sophisticated decision-making in our investment strategies</li>
-        <li>Production deployment insights improve the reliability and efficiency of our AI systems</li>
-        <li>Research-backed methodologies ensure our solutions are both innovative and robust</li>
-      </ul>
-
-      <p>This dual focus on research excellence and practical application positions SAIL Lab at the forefront of AI-powered financial technology, enabling us to deliver cutting-edge solutions that combine academic rigor with real-world effectiveness.</p>
-
-      <h3>Community Engagement</h3>
-      <p>Beyond the presentations, Joe engaged with the EMNLP community through:</p>
-
-      <ul>
-        <li>Discussions with leading researchers on the future of LLM agents</li>
-        <li>Collaborations with academic institutions on joint research projects</li>
-        <li>Sharing insights with industry practitioners on deployment best practices</li>
-        <li>Networking with potential partners and collaborators</li>
-      </ul>
-
-      <p>These interactions strengthen SAIL Lab's connections with the global NLP and AI research community, fostering opportunities for future collaboration and knowledge exchange.</p>
 
       <hr style="margin: 3rem 0;"/>
 
-      <h2>SAIL Lab CTO、蘇州で開催されたEMNLP 2025で研究を発表</h2>
-      <p><em>2025年11月 | 中国・蘇州</em></p>
+      <h2>SAIL Lab CTO、EMNLP 2025で研究を発表</h2>
+      <p><em>2025年11月 | EMNLP 2025</em></p>
 
-      <p>SAIL Laboratory の CTO 兼創業者である Joe Wang が、計算言語学と自然言語処理における世界最高峰の国際会議の一つである<strong>EMNLP 2025（Empirical Methods in Natural Language Processing）</strong>で重要な貢献を果たしたことをご報告いたします。本会議は中国の蘇州で開催され、世界中から第一線の研究者、実務家、業界専門家が集まりました。</p>
+      <p>SAIL Laboratory の CTO 兼創業者である Joe Wang が、計算言語学と自然言語処理における世界最高峰の国際会議の一つである<strong>EMNLP 2025（Empirical Methods in Natural Language Processing）</strong>で重要な貢献を果たしたことをご報告いたします。Sony研究員として、Joe は2つの研究論文を発表し、招待講演を行いました。</p>
 
-      <p>Joe の EMNLP 2025 への参加は、大規模言語モデル（LLM）とその金融技術への応用における最先端技術の推進への SAIL Lab のコミットメントを示しています。彼の発表は学術研究と産業応用の両方にまたがり、最先端の NLP 研究と実践的な AI ソリューションとの架け橋を強調しました。</p>
+      <h3>研究論文1</h3>
+      <p>Joe Wang は、Sony研究員として最初の研究論文を発表し、大規模言語モデルとその産業応用における基本的な課題に取り組みました。この研究は、産業環境における LLM ベースシステムの信頼性と効率を向上させるための新しい方法論を紹介しています。</p>
 
-      <h3>EMNLP について</h3>
-      <p>Empirical Methods in Natural Language Processing（EMNLP）は、計算言語学と自然言語処理における最高峰の国際会議の一つです。計算言語学会（ACL）が主催する EMNLP は、以下の分野における画期的な研究を共有する主要なフォーラムとなっています：</p>
-      
-      <ul>
-        <li>大規模言語モデルと基盤モデル</li>
-        <li>自然言語理解と生成</li>
-        <li>LLM エージェントとマルチエージェントシステム</li>
-        <li>実世界ドメインにおける NLP の応用</li>
-        <li>産業応用と展開</li>
-      </ul>
-
-      <h3>メインカンファレンス口頭発表</h3>
-      <p>Joe Wang は、LLM ベースのシステムにおける基本的な課題に取り組む<strong>メインカンファレンス口頭発表論文</strong>を発表しました。この研究は、高リスクアプリケーションにおける大規模言語モデルの信頼性と効率を向上させるための新しい方法論を紹介しています。</p>
-
-      <p>口頭発表は EMNLP コミュニティから大きな注目を集め、以下について活発な議論が行われました：</p>
-
-      <ul>
-        <li><strong>高度な LLM アーキテクチャ：</strong> モデルのパフォーマンスと解釈可能性を向上させる新しいアプローチ</li>
-        <li><strong>効率的な推論：</strong> リソース制約のある環境で LLM を展開する技術</li>
-        <li><strong>堅牢性と信頼性：</strong> 多様な入力に対して一貫したパフォーマンスを確保する方法</li>
-        <li><strong>実世界の応用：</strong> 研究と実践的な展開の間のギャップを埋める</li>
-      </ul>
-
-      <p>論文が口頭発表として採択されたことは、研究の高い品質と重要性を反映しており、EMNLP では提出論文のごく一部のみがこの名誉ある認識を受けます。</p>
-
-      <h3>インダストリートラック論文</h3>
-      <p>メインカンファレンス論文に加えて、Joe は金融サービスにおける LLM 技術の実践的な応用に焦点を当てた<strong>インダストリートラック論文</strong>を発表しました。この研究は、最先端の NLP 研究が測定可能なビジネス価値を提供する実世界のソリューションにどのように変換できるかを示しています。</p>
-
-      <p>インダストリートラック論文は、本番環境で LLM システムを展開する際の重要な課題に取り組みます：</p>
-
-      <ul>
-        <li><strong>本番展開：</strong> 高ボリュームの金融データ処理を処理するために LLM システムをスケーリングする戦略</li>
-        <li><strong>コスト最適化：</strong> パフォーマンスを維持しながら計算コストを削減する技術</li>
-        <li><strong>統合の課題：</strong> 既存の金融インフラストラクチャに LLM システムを統合するためのベストプラクティス</li>
-        <li><strong>パフォーマンス監視：</strong> 本番環境で LLM のパフォーマンスを追跡および最適化するフレームワーク</li>
-      </ul>
-
-      <p>この研究は、学術研究と産業ニーズを橋渡しする SAIL Lab の専門知識を示し、理論的進歩が金融技術のイノベーションを推進する実践的なソリューションにどのように変換できるかを実証しています。</p>
+      <h3>研究論文2</h3>
+      <p>最初の論文に加えて、Joe は自然言語処理における高度な技術とその実践的な応用に焦点を当てた2つ目の研究論文を発表しました。この研究は、最先端の NLP 研究が実世界のソリューションにどのように変換できるかを示しています。</p>
 
       <h3>招待講演：産業 LLM エージェント</h3>
-      <p>Joe Wang は、「産業 LLM エージェント：研究から本番へ」というテーマで<strong>招待講演</strong>を行い、金融アプリケーション向けの LLM エージェントシステムの構築と展開における SAIL Lab の経験から得られた洞察を共有しました。</p>
+      <p>Joe Wang は、「産業 LLM エージェント：研究から本番へ」というテーマで<strong>招待講演</strong>を行い、産業アプリケーション向けの LLM エージェントシステムの構築と展開における経験から得られた洞察を共有しました。</p>
 
       <p>招待講演では、以下の主要なトピックをカバーしました：</p>
 
       <ul>
         <li><strong>LLM エージェントアーキテクチャ：</strong> 堅牢でスケーラブルなエージェントシステムを構築するためのデザインパターン</li>
-        <li><strong>マルチエージェント調整：</strong> 複数の LLM エージェントを調整して複雑な金融問題を解決する戦略</li>
-        <li><strong>リアルタイム意思決定：</strong> 金融市場で時間に敏感な決定を LLM エージェントが行えるようにする技術</li>
-        <li><strong>安全性と信頼性：</strong> 高リスクの金融環境で LLM エージェントが安全に動作することを確保するためのベストプラクティス</li>
-        <li><strong>ケーススタディ：</strong> 資産運用と取引における LLM エージェント展開の実世界の例</li>
+        <li><strong>マルチエージェント調整：</strong> 複数の LLM エージェントを調整して複雑な問題を解決する戦略</li>
+        <li><strong>実世界の応用：</strong> 本番環境で LLM エージェントを展開する技術</li>
+        <li><strong>安全性と信頼性：</strong> 産業環境で LLM エージェントが安全に動作することを確保するためのベストプラクティス</li>
       </ul>
-
-      <p>「招待講演は、本番 LLM エージェントシステムの構築から得られた学びを共有する素晴らしい機会でした」と Joe Wang は述べました。「技術的な課題だけでなく、実世界の展開における成功を決定する実践的な考慮事項についても議論しました。」</p>
-
-      <h3>SAIL Lab の研究への影響</h3>
-      <p>Joe の EMNLP 2025 への参加は、実践的な応用に強い焦点を維持しながら、AI と NLP 研究の最先端技術を推進する SAIL Lab のコミットメントを反映しています。会議で発表された研究は、SAIL Lab の製品開発に直接反映されます：</p>
-
-      <ul>
-        <li>高度な LLM 技術が、当社の取引アルゴリズムと市場分析能力を強化</li>
-        <li>マルチエージェントシステムが、投資戦略におけるより洗練された意思決定を可能に</li>
-        <li>本番展開の洞察が、AI システムの信頼性と効率を向上</li>
-        <li>研究に基づいた方法論が、ソリューションの革新性と堅牢性を確保</li>
-      </ul>
-
-      <p>研究の卓越性と実践的な応用へのこの二重の焦点により、SAIL Lab は AI 駆動型金融技術の最前線に位置し、学術的厳密性と実世界の有効性を組み合わせた最先端のソリューションを提供することができます。</p>
-
-      <h3>コミュニティへの参加</h3>
-      <p>発表を超えて、Joe は以下を通じて EMNLP コミュニティと交流しました：</p>
-
-      <ul>
-        <li>LLM エージェントの未来について第一線の研究者との議論</li>
-        <li>共同研究プロジェクトに関する学術機関との協力</li>
-        <li>展開のベストプラクティスについて産業実務家との洞察の共有</li>
-        <li>潜在的なパートナーや協力者とのネットワーキング</li>
-      </ul>
-
-      <p>これらの交流は、SAIL Lab とグローバルな NLP および AI 研究コミュニティとのつながりを強化し、将来の協力と知識交換の機会を促進します。</p>
     `,
     category: "Research News",
     readTime: "6 min read",
@@ -792,19 +668,19 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
         type: 'image',
         url: '/emnlp-2025-poster.jpg',
         alt: 'Joe Wang at EMNLP 2025 Poster Session',
-        caption: 'CTO Joe Wang presenting research at the EMNLP 2025 poster session in Suzhou'
+        caption: 'CTO Joe Wang presenting research at the EMNLP 2025 poster session'
       },
       {
         type: 'image',
         url: '/emnlp-2025-oral-presentation.jpg',
-        alt: 'Main Conference Oral Presentation',
-        caption: 'Joe Wang delivering the Main Conference Oral presentation at EMNLP 2025'
+        alt: 'Research Paper Presentation',
+        caption: 'Joe Wang presenting research paper as a Sony researcher at EMNLP 2025'
       },
       {
         type: 'image',
         url: '/emnlp-2025-industry-track.jpg',
-        alt: 'Industry Track Presentation',
-        caption: 'Presenting the Industry Track paper on practical LLM applications in financial services'
+        alt: 'Second Research Paper Presentation',
+        caption: 'Presenting the second research paper at EMNLP 2025'
       },
       {
         type: 'image',
@@ -816,7 +692,7 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
         type: 'image',
         url: '/emnlp-2025-conference-hall.jpg',
         alt: 'EMNLP 2025 Conference Hall',
-        caption: 'The main conference hall at EMNLP 2025 in Suzhou with attendees from around the world'
+        caption: 'The main conference hall at EMNLP 2025 with attendees from around the world'
       }
     ],
     views: 0,
