@@ -22,6 +22,17 @@ interface InsightArticle {
 
 const insightArticles: InsightArticle[] = [
   {
+    id: "backtest-dec-2025",
+    title: "December 2025 Backtest Results: TREND Strategy Performance Analysis - Upgrading to 0.04 Lot (4x) Next Month",
+    description: "Comprehensive 23-day backtest results for our TREND strategy on XAUUSD (Gold) in December 2025. Achieved $775.10 net profit with 36.7% win rate across 450 trades. Plus live trading update: $846 profit in December 2025. Due to excellent performance, we're upgrading from 0.01 to 0.04 lot (4x) next month - stay tuned!",
+    category: "AI Trading",
+    readTime: "10 min read",
+    date: "2026-01-20",
+    author: "SAIL Lab Team",
+    featured: true,
+    image: "/backtest/backtest_XAUUSD_2025-12-30_0000_to_2025-12-30_2359_winrate_73pct_profit_250_Trailing.png"
+  },
+  {
     id: "backtest-nov-2025",
     title: "November 2025 Backtest Results: TREND Strategy Performance Analysis",
     description: "Comprehensive 22-day backtest results for our TREND strategy on XAUUSD (Gold) in November 2025. Achieved $213.68 net profit with 40.6% win rate across 449 trades. Plus live trading update: $150 profit from $2,000 capital in 20 days (7.5% return).",
