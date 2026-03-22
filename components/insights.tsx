@@ -18,9 +18,22 @@ interface InsightArticle {
   author: string;
   featured?: boolean;
   image?: string;
+  translationKey?: string;  // e.g. "insights.aiAgentMyth" - uses t(key + ".title"), t(key + ".description")
 }
 
 const insightArticles: InsightArticle[] = [
+  {
+    id: "ai-agent-quant-myth",
+    title: "AI Agent Quant Research: Seriously Misleading?",
+    description: "We ran a controlled experiment with QuantaAlpha: Alpha158 baseline vs LLM factor mining vs evolution. The backtest results speak for themselves.",
+    category: "AI Trading",
+    readTime: "4 min read",
+    date: "2026-03-22",
+    author: "SAIL Lab",
+    featured: true,
+    image: "/insights/ai-agent-quant-comparison.png",
+    translationKey: "insights.aiAgentMyth"
+  },
   {
     id: "backtest-dec-2025",
     title: "December 2025 Backtest Results: TREND Strategy Performance Analysis - Upgrading to 0.04 Lot (4x) Next Month",
@@ -211,11 +224,11 @@ export function Insights() {
                         </div>
                         
                         <h3 className={`text-xl md:text-2xl font-mono leading-tight hover:text-primary transition-colors duration-300 ${visibleSections.has('featured') ? 'animate-fade-in-up animate-delay-400' : ''}`}>
-                          {article.title}
+                          {article.translationKey ? t(article.translationKey + ".title") : article.title}
                         </h3>
                         
                         <p className="text-sm leading-relaxed font-mono text-foreground/80 line-clamp-3">
-                          {article.description}
+                          {article.translationKey ? t(article.translationKey + ".description") : article.description}
                         </p>
                         
                         <div className="flex items-center gap-3 text-xs font-mono text-foreground/60">
@@ -223,7 +236,7 @@ export function Insights() {
                           <span>•</span>
                           <span>{formatDate(article.date)}</span>
                           <span>•</span>
-                          <span>{article.readTime}</span>
+                          <span>{article.translationKey ? t(article.translationKey + ".readTime") : article.readTime}</span>
                         </div>
                       </div>
                       
@@ -268,10 +281,10 @@ export function Insights() {
                     </span>
                   </div>
                   <CardTitle className="text-xl font-mono leading-tight group-hover:text-primary transition-colors duration-300">
-                    {article.title}
+                    {article.translationKey ? t(article.translationKey + ".title") : article.title}
                   </CardTitle>
                   <CardDescription className="leading-relaxed font-mono">
-                    {article.description}
+                    {article.translationKey ? t(article.translationKey + ".description") : article.description}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>

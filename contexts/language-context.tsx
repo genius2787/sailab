@@ -204,6 +204,23 @@ const translations = {
     "insights.categoryRisk": "Risk Management",
     "insights.categoryExplainable": "Explainable AI",
 
+    // AI Agent Quant Myth Article
+    "insights.aiAgentMyth.title": "AI Agent Quant Research: Seriously Misleading?",
+    "insights.aiAgentMyth.description": "We ran a controlled experiment with QuantaAlpha: Alpha158 baseline vs LLM factor mining vs evolution. The backtest results speak for themselves.",
+    "insights.aiAgentMyth.badgeCritical": "Critical",
+    "insights.aiAgentMyth.lead": "Academic AI Agent papers are everywhere: LLM auto factor mining, evolutionary strategies, multi-agent collaboration... We replicated the experiments. The results?",
+    "insights.aiAgentMyth.sectionDesign": "Experiment Design",
+    "insights.aiAgentMyth.designText": "Using QuantaAlpha, CSI300 market, 2022 out-of-sample backtest. Three groups: Blue line Alpha158 baseline (20 factors, no mining) | Orange line QuantaAlpha without evolution | Green line QuantaAlpha with evolution (Dir=2, Rounds=3)",
+    "insights.aiAgentMyth.sectionData": "What the Data Shows",
+    "insights.aiAgentMyth.dataText1": "Alpha158 baseline: Year-end cumulative excess return +13.7%. QuantaAlpha without evolution: -0.8%. QuantaAlpha with evolution: -1.1%, with worse max drawdown.",
+    "insights.aiAgentMyth.dataText2": "In other words: spending massive compute on LLM mining, evolution, and iteration still underperforms 20 classic price-volume factors.",
+    "insights.aiAgentMyth.sectionReflect": "A Few Reflections",
+    "insights.aiAgentMyth.reflectText1": "We're not saying AI Agents are useless—but many papers have flimsy experimental design. Cherry-picked time periods, weak baselines, no replication after publication—this kind of 'serious nonsense' is common in top venues.",
+    "insights.aiAgentMyth.reflectText2": "In quant, we fear nothing more than self-delusion. A strategy that makes money is what matters. Can Agents help? Perhaps. But show us real backtest results first, not fancy frameworks.",
+    "insights.aiAgentMyth.footer": "SAIL Lab · No hype, data speaks",
+    "insights.aiAgentMyth.date": "March 2026",
+    "insights.aiAgentMyth.readTime": "4 min read",
+
     // Common
     "common.loading": "Loading...",
     "common.error": "Error",
@@ -399,6 +416,23 @@ const translations = {
     "insights.categoryRisk": "风险管理",
     "insights.categoryExplainable": "可解释AI",
 
+    // AI Agent Quant Myth Article
+    "insights.aiAgentMyth.title": "AI Agent 量化研究：一本正经的胡说八道？",
+    "insights.aiAgentMyth.description": "我们用 QuantaAlpha 做了对照实验：Alpha158 基线 vs LLM 因子挖掘 vs 进化策略。回测结果让人沉默。",
+    "insights.aiAgentMyth.badgeCritical": "批判",
+    "insights.aiAgentMyth.lead": "学术圈 AI Agent 论文铺天盖地：LLM 自动挖掘因子、进化策略、多智能体协作……我们照着做了实验。结果？",
+    "insights.aiAgentMyth.sectionDesign": "实验设计",
+    "insights.aiAgentMyth.designText": "使用 QuantaAlpha 框架，CSI300 市场，2022 年样本外回测。对比三组：蓝线 Alpha158 基线（20 因子，不挖掘）｜橙线 QuantaAlpha 无进化｜绿线 QuantaAlpha 进化版（Dir=2, Rounds=3）",
+    "insights.aiAgentMyth.sectionData": "数据说话",
+    "insights.aiAgentMyth.dataText1": "Alpha158 基线：年末累计超额收益 +13.7%。QuantaAlpha 无进化：-0.8%。QuantaAlpha 进化版：-1.1%，最大回撤更惨。",
+    "insights.aiAgentMyth.dataText2": "也就是说：花大把算力让 LLM 挖掘、进化、折腾，还不如直接用 20 个经典量价因子。",
+    "insights.aiAgentMyth.sectionReflect": "一点反思",
+    "insights.aiAgentMyth.reflectText1": "不是说 AI Agent 没用，而是：很多论文的实验设计经不起推敲。选 cherry-pick 的区间、不 rigorous 的 baseline、发完就不管复现——这种「一本正经胡说八道」在顶会里并不少见。",
+    "insights.aiAgentMyth.reflectText2": "我们做量化的人，最怕的就是自嗨。策略能赚钱才是硬道理。Agent 能帮上忙吗？也许。但先拿真金白银的回测结果说话，别拿 fancy 的框架糊弄人。",
+    "insights.aiAgentMyth.footer": "SAIL Lab · 不吹不黑，数据为王",
+    "insights.aiAgentMyth.date": "2026年3月",
+    "insights.aiAgentMyth.readTime": "4 分钟阅读",
+
     // Common
     "common.loading": "加载中...",
     "common.error": "错误",
@@ -593,6 +627,23 @@ const translations = {
     "insights.categoryNLP": "自然言語処理",
     "insights.categoryRisk": "リスク管理",
     "insights.categoryExplainable": "説明可能AI",
+
+    // AI Agent Quant Myth Article
+    "insights.aiAgentMyth.title": "AIエージェント量化研究：まじめなデタラメ？",
+    "insights.aiAgentMyth.description": "QuantaAlphaで対照実験を実施：Alpha158ベースライン vs LLM因子マイニング vs 進化戦略。バックテスト結果が物語る。",
+    "insights.aiAgentMyth.badgeCritical": "批判",
+    "insights.aiAgentMyth.lead": "学術界のAIエージェント論文が氾濫：LLMによる自動因子マイニング、進化戦略、マルチエージェント協調……実際に実験してみた。結果は？",
+    "insights.aiAgentMyth.sectionDesign": "実験設計",
+    "insights.aiAgentMyth.designText": "QuantaAlphaを使用、CSI300市場、2022年サンプル外バックテスト。3群比較：青線 Alpha158ベースライン（20因子、マイニングなし）｜橙線 QuantaAlpha 進化なし｜緑線 QuantaAlpha 進化版（Dir=2, Rounds=3）",
+    "insights.aiAgentMyth.sectionData": "データが語る",
+    "insights.aiAgentMyth.dataText1": "Alpha158ベースライン：年末累積超過リターン +13.7%。QuantaAlpha 進化なし：-0.8%。QuantaAlpha 進化版：-1.1%、最大ドローダウンはさらに悪化。",
+    "insights.aiAgentMyth.dataText2": "つまり：LLMマイニング・進化に膨大な計算資源を投じても、20個の古典的量価因子に及ばない。",
+    "insights.aiAgentMyth.sectionReflect": "所感",
+    "insights.aiAgentMyth.reflectText1": "AIエージェントが無用だと言うのではない。しかし多くの論文の実験設計は吟味に耐えない。Cherry-pickされた期間、甘いベースライン、発表後の再現性軽視——こうした「まじめなデタラメ」はトップ学会でも珍しくない。",
+    "insights.aiAgentMyth.reflectText2": "クオンツで最も恐れるのは自己満足だ。儲かる戦略が本質。エージェントは役立つか？ひょっとしたら。だがまず本物のバックテスト結果を見せてほしい。fancyなフレームワークでごまかさずに。",
+    "insights.aiAgentMyth.footer": "SAIL Lab · hype抜き、データが語る",
+    "insights.aiAgentMyth.date": "2026年3月",
+    "insights.aiAgentMyth.readTime": "4分で読める",
 
     // Common
     "common.loading": "読み込み中...",
