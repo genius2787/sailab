@@ -77,10 +77,42 @@ export default function AIAgentQuantMythPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="font-mono text-foreground/80">
-                  {t("insights.aiAgentMyth.dataText1")}
+                <p className="font-mono text-sm text-foreground/70">
+                  {t("insights.aiAgentMyth.dataSource")}
                 </p>
-                <p className="font-mono text-foreground/70">
+                <div className="overflow-x-auto rounded-lg border border-border/40">
+                  <table className="w-full font-mono text-sm">
+                    <thead>
+                      <tr className="bg-background/50 border-b border-border/40">
+                        <th className="px-4 py-3 text-left text-foreground/80 font-medium">{t("insights.aiAgentMyth.dataColExperiment")}</th>
+                        <th className="px-4 py-3 text-right text-foreground/80 font-medium">{t("insights.aiAgentMyth.dataColReturn")}</th>
+                        <th className="px-4 py-3 text-right text-foreground/80 font-medium">{t("insights.aiAgentMyth.dataColMaxDD")}</th>
+                        <th className="px-4 py-3 text-right text-foreground/80 font-medium">{t("insights.aiAgentMyth.dataColRankIC")}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b border-border/20">
+                        <td className="px-4 py-3 text-foreground/90">{t("insights.aiAgentMyth.dataRow1")}</td>
+                        <td className="px-4 py-3 text-right text-green-400 font-semibold">{t("insights.aiAgentMyth.dataVal1")}</td>
+                        <td className="px-4 py-3 text-right text-foreground/80">{t("insights.aiAgentMyth.dataDD1")}</td>
+                        <td className="px-4 py-3 text-right text-foreground/80">{t("insights.aiAgentMyth.dataIC1")}</td>
+                      </tr>
+                      <tr className="border-b border-border/20">
+                        <td className="px-4 py-3 text-foreground/90">{t("insights.aiAgentMyth.dataRow2")}</td>
+                        <td className="px-4 py-3 text-right text-red-400 font-semibold">{t("insights.aiAgentMyth.dataVal2")}</td>
+                        <td className="px-4 py-3 text-right text-foreground/80">{t("insights.aiAgentMyth.dataDD2")}</td>
+                        <td className="px-4 py-3 text-right text-foreground/60">{t("insights.aiAgentMyth.dataIC2")}</td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-3 text-foreground/90">{t("insights.aiAgentMyth.dataRow3")}</td>
+                        <td className="px-4 py-3 text-right text-red-400 font-semibold">{t("insights.aiAgentMyth.dataVal3")}</td>
+                        <td className="px-4 py-3 text-right text-red-400">{t("insights.aiAgentMyth.dataDD3")}</td>
+                        <td className="px-4 py-3 text-right text-foreground/60">{t("insights.aiAgentMyth.dataIC3")}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p className="font-mono text-foreground/70 pt-2">
                   {t("insights.aiAgentMyth.dataText2")}
                 </p>
               </CardContent>
