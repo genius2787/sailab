@@ -29,7 +29,7 @@ const teamMembers: TeamMember[] = [
     name: "Joe Wang",
     title: "Founder & CTO",
     expertise: "Waseda University PhD, 15+ years AI research, 12 years investment experience",
-    email: "joe@saillab.ai"
+    email: "joe@sail-lab.ai"
   },
   {
     name: "Evy Yang",
@@ -137,7 +137,7 @@ export function Contact() {
       alert(t('contact.successMessage') || 'Your message has been sent successfully!');
     } catch (error) {
       console.error('Error sending message:', error);
-      alert('Failed to send message. Please try again or contact us directly at wasedajoe@gmail.com');
+      alert('Failed to send message. Please try again or contact us directly at joe@sail-lab.ai');
     } finally {
       setIsSubmitting(false);
     }
@@ -331,10 +331,10 @@ export function Contact() {
                   <div>
                     <p className="font-mono text-sm text-foreground/80">{t('contact.email')}</p>
                     <a
-                      href="mailto:wasedajoe@gmail.com"
+                      href="mailto:joe@sail-lab.ai"
                       className="font-mono text-primary hover:text-primary/80 transition-colors duration-150"
                     >
-                      wasedajoe@gmail.com
+                      joe@sail-lab.ai
                     </a>
                   </div>
                 </div>
