@@ -165,6 +165,13 @@ export function Contact() {
               <p className={`font-mono text-foreground/60 text-lg max-w-2xl mx-auto ${isLoaded ? 'animate-fade-in-up animate-delay-400' : ''}`}>
                 {t('contact.subtitle')}
               </p>
+              <div className={`flex justify-center mt-10 ${isLoaded ? 'animate-fade-in-up animate-delay-600' : ''}`}>
+                <img
+                  src="/sail-lab-signature.png"
+                  alt="SAIL Lab Co., Ltd. - AI-Powered Financial Innovation"
+                  className="max-w-[280px] md:max-w-[360px] h-auto"
+                />
+              </div>
             </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
