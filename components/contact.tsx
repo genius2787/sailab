@@ -159,19 +159,19 @@ export function Contact() {
           <div>
             {/* Header */}
             <div className="text-center mb-16" ref={(el) => { sectionRefs.current.header = el; }}>
-              <h2 className={`text-4xl md:text-5xl lg:text-6xl font-mono mb-6 ${isLoaded ? 'animate-fade-in-up' : ''}`}>
-                {t('contact.title')}
-              </h2>
-              <p className={`font-mono text-foreground/60 text-lg max-w-2xl mx-auto ${isLoaded ? 'animate-fade-in-up animate-delay-400' : ''}`}>
-                {t('contact.subtitle')}
-              </p>
-              <div className={`flex justify-center mt-10 ${isLoaded ? 'animate-fade-in-up animate-delay-600' : ''}`}>
+              <div className={`flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 mb-6 ${isLoaded ? 'animate-fade-in-up' : ''}`}>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-mono shrink-0">
+                  {t('contact.title')}
+                </h2>
                 <img
                   src="/sail-lab-signature.png"
                   alt="SAIL Lab Co., Ltd. - AI-Powered Financial Innovation"
-                  className="max-w-[280px] md:max-w-[360px] h-auto"
+                  className="max-w-[220px] md:max-w-[280px] h-auto"
                 />
               </div>
+              <p className={`font-mono text-foreground/60 text-lg max-w-2xl mx-auto ${isLoaded ? 'animate-fade-in-up animate-delay-400' : ''}`}>
+                {t('contact.subtitle')}
+              </p>
             </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
