@@ -35,9 +35,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
       authorize: async (credentials) => {
         console.log("Authorize called with:", credentials);
-        
+
+        // Normalize input: emails are case-insensitive and may carry stray
+        // whitespace / auto-capitalization (mobile keyboards). Password stays exact.
+        const inputEmail = String(credentials?.email ?? "").trim().toLowerCase();
+        const inputPassword = String(credentials?.password ?? "");
+
         const user = MEMBERS.find(
-          u => u.email === credentials.email && u.password === credentials.password
+          u => u.email.toLowerCase() === inputEmail && u.password === inputPassword
         )
         
         console.log("Found user:", user);

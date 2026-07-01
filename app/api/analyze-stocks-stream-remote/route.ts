@@ -20,9 +20,12 @@ export async function POST(request: NextRequest) {
     return new Response('TradeAgent API not configured', { status: 500 });
   }
 
-  // Check quota before starting analysis
+  // Check quota before starting analysis.
+  // Use the incoming request's own origin so this server-to-server call always hits the
+  // current domain, even if NEXTAUTH_URL is stale (e.g. points to a previous domain).
+  const origin = new URL(request.url).origin;
   try {
-    const quotaResponse = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/quota`, {
+    const quotaResponse = await fetch(`${origin}/api/quota`, {
       method: 'POST',
       headers: {
         'Cookie': request.headers.get('cookie') || '',
