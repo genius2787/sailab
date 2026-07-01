@@ -328,12 +328,13 @@ export function Insights() {
                   {t('insights.subscribeDesc')}
                 </p>
                 <Button
+                  asChild
                   size="default"
                   className={`hover-lift ${visibleSections.has('cta') ? 'animate-fade-in-up animate-delay-400' : ''}`}
                   onMouseEnter={() => setHovering(true)}
                   onMouseLeave={() => setHovering(false)}
                 >
-                  {t('insights.subscribe')}
+                  <Link href="/contact">{t('insights.subscribe')}</Link>
                 </Button>
               </div>
             </div>

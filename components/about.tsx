@@ -7,6 +7,7 @@ import { Button } from "./ui/button";
 import { GL } from "./gl";
 import { useState, useEffect, useRef } from "react";
 import { useLanguage } from "@/contexts/language-context";
+import Link from "next/link";
 
 export function About() {
   const { t } = useLanguage();
@@ -249,11 +250,12 @@ export function About() {
             {t('about.ctaDescription')}
           </p>
           <Button
+            asChild
             className={`mx-auto hover-lift ${visibleSections.has('cta') ? 'animate-fade-in-up animate-delay-400' : ''}`}
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}
           >
-            [{t('about.contactTeam')}]
+            <Link href="/contact">[{t('about.contactTeam')}]</Link>
           </Button>
         </div>
         </section>
