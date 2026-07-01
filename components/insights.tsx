@@ -31,7 +31,7 @@ const insightArticles: InsightArticle[] = [
     date: "2026-03-22",
     author: "SAIL Lab Team",
     featured: true,
-    image: "/insights/deepagent-fx-pipeline.png"
+    image: "/insights/ml-vs-baseline-teaser.png"
   },
   {
     id: "ai-agent-quant-myth",

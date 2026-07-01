@@ -18,6 +18,17 @@ export default function MLContinuousLearningPage() {
       <div className="relative z-10 container mx-auto pt-40 pb-24 px-6 max-w-4xl">
         <article className="prose prose-invert max-w-none">
           <header className="mb-12">
+            <div className="overflow-hidden rounded-xl border border-primary/30 mb-10 shadow-lg shadow-primary/10">
+              <Image
+                src="/insights/ml-vs-baseline-teaser.png"
+                alt="With AI vs Without AI: XAUUSD trading comparison — profit, drawdown, recovery factor, Sharpe ratio"
+                width={1400}
+                height={788}
+                className="w-full h-auto"
+                priority
+              />
+            </div>
+
             <div className="flex items-center gap-3 mb-6 flex-wrap">
               <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 font-mono">
                 Featured
@@ -66,16 +77,6 @@ export default function MLContinuousLearningPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div className="overflow-hidden rounded-lg border border-border/40">
-                  <Image
-                    src="/insights/ml-vs-baseline-optimizer.png"
-                    alt="MT5 optimizer comparison: ML trade mode vs dataset-only baseline"
-                    width={1400}
-                    height={200}
-                    className="w-full h-auto"
-                  />
-                </div>
-
                 <div className="overflow-x-auto rounded-lg border border-border/40">
                   <table className="w-full font-mono text-sm">
                     <thead>
