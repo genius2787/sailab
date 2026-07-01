@@ -23,6 +23,17 @@ interface InsightArticle {
 
 const insightArticles: InsightArticle[] = [
   {
+    id: "ml-continuous-learning",
+    title: "ML Filter vs Baseline: Why Continuous Learning Matters on XAUUSD",
+    description: "Controlled MT5 optimizer test: MODE_ML_TRADE vs MODE_DATASET_ONLY on XAUUSD M5. ML delivered 3× profit, 46% fewer trades, 21.8% drawdown vs 32.5%, Sharpe 15.81 vs 2.35. Includes DeepAgent FX pipeline and continuous retraining loop.",
+    category: "AI Trading",
+    readTime: "12 min read",
+    date: "2026-03-22",
+    author: "SAIL Lab Team",
+    featured: true,
+    image: "/insights/deepagent-fx-pipeline.png"
+  },
+  {
     id: "ai-agent-quant-myth",
     title: "AI Agent Quant Research: Seriously Misleading?",
     description: "We ran a controlled experiment with QuantaAlpha: Alpha158 baseline vs LLM factor mining vs evolution. The backtest results speak for themselves.",
