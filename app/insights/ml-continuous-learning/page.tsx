@@ -101,10 +101,60 @@ export default function MLContinuousLearningPage() {
             <Card className="bg-background/30 backdrop-blur-sm border-primary/30">
               <CardHeader>
                 <CardTitle className="text-2xl font-mono text-primary">
-                  {t(`${p}.sectionExperiment`)}
+                  {t(`${p}.sectionLiveTrading`)}
                 </CardTitle>
                 <CardDescription className="font-mono text-foreground/70">
-                  {t(`${p}.sectionExperimentDesc`)}
+                  {t(`${p}.sectionLiveTradingDesc`)}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 font-mono text-sm">
+                  <div className="p-3 rounded-lg bg-background/40 border border-border/40">
+                    <div className="text-foreground/60 text-xs mb-1">{t(`${p}.liveStatDeposit`)}</div>
+                    <div className="font-semibold">$1,456.57</div>
+                  </div>
+                  <div className="p-3 rounded-lg bg-background/40 border border-border/40">
+                    <div className="text-foreground/60 text-xs mb-1">{t(`${p}.liveStatBalance`)}</div>
+                    <div className="font-semibold">$2,570.17</div>
+                  </div>
+                  <div className="p-3 rounded-lg bg-background/40 border border-green-500/30">
+                    <div className="text-foreground/60 text-xs mb-1">{t(`${p}.liveStatProfit`)}</div>
+                    <div className="font-semibold text-green-400">+$1,113.60</div>
+                  </div>
+                  <div className="p-3 rounded-lg bg-background/40 border border-green-500/30">
+                    <div className="text-foreground/60 text-xs mb-1">{t(`${p}.liveStatGrowth`)}</div>
+                    <div className="font-semibold text-green-400">+76.45%</div>
+                  </div>
+                </div>
+
+                <div className="overflow-hidden rounded-lg border border-border/40">
+                  <Image
+                    src="/insights/deepagent-fx-live-trading.jpg"
+                    alt="DeepAgent FX live XAUUSD trading record on MT5"
+                    width={1400}
+                    height={900}
+                    className="w-full h-auto"
+                  />
+                  <p className="px-4 py-2 text-xs font-mono text-foreground/50 border-t border-border/40">
+                    {t(`${p}.liveImageCaption`)}
+                  </p>
+                </div>
+
+                <p className="text-sm font-mono text-foreground/60 leading-relaxed">
+                  {t(`${p}.liveNote`)}
+                </p>
+              </CardContent>
+            </Card>
+          </section>
+
+          <section className="mb-12">
+            <Card className="bg-background/30 backdrop-blur-sm border-border/40">
+              <CardHeader>
+                <CardTitle className="text-2xl font-mono">
+                  {t(`${p}.sectionComparison`)}
+                </CardTitle>
+                <CardDescription className="font-mono text-foreground/70">
+                  {t(`${p}.sectionComparisonDesc`)}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
