@@ -24,10 +24,10 @@ interface InsightArticle {
 const insightArticles: InsightArticle[] = [
   {
     id: "xauusd-adaptive-policy-14-months",
-    title: "Adaptive Beats Fixed: SAIL Lab's 60-Day Re-Optimization Policy Outperforms 97% of 3,001 XAUUSD Strategies",
-    description: "14 months of tick-by-tick walk-forward research on gold: +2,610 pts out-of-sample, 2.2x the median fixed strategy.",
+    title: "Would You Take +923 Points With a −1,129 Drawdown, or +1,718 With Only −310? How SAIL Lab's AI Balances Profit and Risk",
+    description: "14 months of tick-by-tick walk-forward research on gold: SAIL Lab's optimization, entry filters and ML nearly doubled the profit while cutting the maximum drawdown by 73%.",
     category: "AI Trading",
-    readTime: "20 min read",
+    readTime: "3 min read",
     date: "2026-10-14",
     author: "SAIL Lab Team",
     featured: true,
