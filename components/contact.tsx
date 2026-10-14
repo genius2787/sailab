@@ -21,7 +21,9 @@ interface TeamMember {
   name: string;
   title: string;
   expertise: string;
-  email: string;
+  email?: string;
+  photo: string;
+  linkedin?: string;
 }
 
 const teamMembers: TeamMember[] = [
@@ -29,13 +31,23 @@ const teamMembers: TeamMember[] = [
     name: "Joe Wang",
     title: "Founder & CTO",
     expertise: "Waseda University PhD, 15+ years AI research, 12 years investment experience",
-    email: "joe@sail-lab.ai"
+    email: "joe@sail-lab.ai",
+    photo: "/Joe.jpg",
+    linkedin: "https://www.linkedin.com/in/wang1946may7"
   },
   {
     name: "Evy Yang",
     title: "COO",
     expertise: "University of Tokyo graduate, 5+ years trading experience",
-    email: "evy@saillab.ai"
+    email: "evy@saillab.ai",
+    photo: "/Evy.jpg"
+  },
+  {
+    name: "Léo Dody",
+    title: "Chief Scientist",
+    expertise: "PhD in finance (iaelyon, Lyon), full-time researcher, deep learning on full order book data",
+    photo: "/Leo.png",
+    linkedin: "https://www.linkedin.com/in/leo-dody/"
   }
 ];
 
@@ -386,7 +398,7 @@ export function Contact() {
                       <div className="flex items-center gap-4">
                         <div className="w-16 h-16 relative overflow-hidden rounded-full border-2 border-primary/20 flex-shrink-0 group-hover:border-primary/40 group-hover:shadow-lg group-hover:shadow-primary/20 transition-all duration-300">
                           <img
-                            src={`/${member.name.split(' ')[0]}.jpg`}
+                            src={member.photo}
                             alt={`${member.name}, ${member.title} of SAIL Lab`}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                           />
@@ -404,10 +416,10 @@ export function Contact() {
                           hoveredCard === member.name ? "translate-x-2" : ""
                         }`}>
                           <a
-                            href={member.name === "Joe Wang" ? "https://www.linkedin.com/in/wang1946may7" : `mailto:${member.email}`}
+                            href={member.linkedin ?? `mailto:${member.email}`}
                             className="text-primary hover:text-primary/80 transition-colors duration-150 font-mono text-sm"
-                            target={member.name === "Joe Wang" ? "_blank" : undefined}
-                            rel={member.name === "Joe Wang" ? "noopener noreferrer" : undefined}
+                            target={member.linkedin ? "_blank" : undefined}
+                            rel={member.linkedin ? "noopener noreferrer" : undefined}
                           >
                             {t('contact.contactAction')} →
                           </a>
