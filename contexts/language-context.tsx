@@ -26,7 +26,7 @@ const translations = {
     // Home page
     "home.title": "AI-Powered\nFinancial Innovation",
     "home.headline1": "The First Fully Autonomous",
-    "home.headline2": "AI Asset Manager",
+    "home.headline2": "AI Asset Management Agent",
     "home.tagline": "No traders. Only AI researchers.",
     "home.subtitle": "Every investment decision at SAIL Lab is made and executed by our AI. Our researchers build, test and supervise the AI; nobody trades by hand.",
     "home.contact": "Contact Us",
@@ -363,7 +363,7 @@ const translations = {
     // Home page
     "home.title": "AI驱动的\n金融创新",
     "home.headline1": "首家全自动",
-    "home.headline2": "AI 资产管理公司",
+    "home.headline2": "AI 资产管理智能体",
     "home.tagline": "没有交易员，只有 AI 研究员。",
     "home.subtitle": "SAIL Lab 的每一个投资决策都由 AI 做出并执行。我们的研究员负责构建、验证和监督 AI，没有人手动下单。",
     "home.contact": "联系我们",
@@ -700,7 +700,7 @@ const translations = {
     // Home page
     "home.title": "AI駆動\n金融イノベーション",
     "home.headline1": "初の完全自律型",
-    "home.headline2": "AI資産運用会社",
+    "home.headline2": "AI資産運用エージェント",
     "home.tagline": "トレーダーはいません。いるのはAI研究者だけです。",
     "home.subtitle": "SAIL Labの投資判断と執行は、すべてAIが行います。研究者はAIを開発・検証・監督し、人の手による発注は一切ありません。",
     "home.contact": "お問い合わせ",
