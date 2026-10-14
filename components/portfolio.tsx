@@ -124,6 +124,26 @@ export function Portfolio() {
             </p>
           </div>
 
+          <div className="mb-20 max-w-5xl mx-auto" ref={(el) => { sectionRefs.current.philosophy = el; }}>
+            <h2 className={`text-4xl font-mono text-center mb-6 ${visibleSections.has('philosophy') ? 'animate-fade-in-up' : ''}`}>{t('portfolio.philosophyTitle')}</h2>
+            <blockquote className={`font-mono text-xl md:text-2xl text-center text-foreground/90 leading-relaxed mb-4 ${visibleSections.has('philosophy') ? 'animate-fade-in-up animate-delay-200' : ''}`}>
+              “{t('portfolio.philosophyVision')}”
+            </blockquote>
+            <p className={`font-mono text-center text-foreground/60 max-w-3xl mx-auto mb-10 ${visibleSections.has('philosophy') ? 'animate-fade-in-up animate-delay-300' : ''}`}>
+              {t('portfolio.philosophyLead')}
+            </p>
+            <div className="grid md:grid-cols-3 gap-6">
+              {[1, 2, 3].map((n) => (
+                <Card key={n} className={`bg-card/60 backdrop-blur-sm border-border/40 hover:bg-card/80 hover-lift transition-all duration-300 ${visibleSections.has('philosophy') ? 'animate-scale-in' : ''}`} style={{ animationDelay: visibleSections.has('philosophy') ? `${n * 0.1 + 0.3}s` : '0s' }}>
+                  <CardHeader>
+                    <CardTitle className="font-mono text-lg text-primary">{t(`portfolio.principle${n}Title`)}</CardTitle>
+                    <CardDescription className="font-mono text-foreground/70 leading-relaxed">{t(`portfolio.principle${n}Desc`)}</CardDescription>
+                  </CardHeader>
+                </Card>
+              ))}
+            </div>
+          </div>
+
           <div className="mb-20" ref={(el) => { sectionRefs.current.services = el; }}>
             <h2 className={`text-4xl font-mono text-center mb-12 ${visibleSections.has('services') ? 'animate-fade-in-up' : ''}`}>{t('portfolio.coreServices')}</h2>
             <div className="grid lg:grid-cols-3 gap-8">
