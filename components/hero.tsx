@@ -25,10 +25,13 @@ export function Hero() {
         <div className="w-full max-w-4xl py-32 sm:py-0">
         <Pill className={`mb-6 ${isLoaded ? 'animate-fade-in-up' : ''}`}>SAIL LAB</Pill>
         <h1 className={`text-5xl sm:text-6xl md:text-7xl font-mono ${isLoaded ? 'animate-fade-in-up animate-delay-200' : ''}`}>
-          AI-Powered <br />
-          Financial Innovation
+          {t('home.headline1')} <br />
+          {t('home.headline2')}
         </h1>
-        <p className={`font-mono text-sm sm:text-base text-foreground/60 text-balance mt-8 max-w-[440px] mx-auto ${isLoaded ? 'animate-fade-in-up animate-delay-400' : ''}`}>
+        <p className={`font-mono text-base sm:text-lg text-foreground/85 text-balance mt-8 max-w-[560px] mx-auto ${isLoaded ? 'animate-fade-in-up animate-delay-400' : ''}`}>
+          {t('home.tagline')}
+        </p>
+        <p className={`font-mono text-sm sm:text-base text-foreground/60 text-balance mt-4 max-w-[520px] mx-auto ${isLoaded ? 'animate-fade-in-up animate-delay-400' : ''}`}>
           {t('home.subtitle')}
         </p>
 

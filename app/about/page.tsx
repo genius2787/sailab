@@ -3,7 +3,7 @@ import { About } from "@/components/about";
 
 export const metadata: Metadata = {
   title: "About - SAIL Lab",
-  description: "Learn about SAIL Lab's mission, team, and approach to AI-powered financial technology solutions",
+  description: "SAIL Lab is the first fully autonomous AI asset management company: every investment decision is made and executed by AI, built by a team of AI researchers with no traders.",
 };
 
 export default function AboutPage() {

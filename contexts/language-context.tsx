@@ -25,7 +25,10 @@ const translations = {
 
     // Home page
     "home.title": "AI-Powered\nFinancial Innovation",
-    "home.subtitle": "Revolutionary AI solutions for quants systems, investment analysis, and trading automation",
+    "home.headline1": "The First Fully Autonomous",
+    "home.headline2": "AI Asset Manager",
+    "home.tagline": "No traders. Only AI researchers.",
+    "home.subtitle": "Every investment decision at SAIL Lab is made and executed by our AI. Our researchers build, test and supervise the AI; nobody trades by hand.",
     "home.contact": "Contact Us",
     "home.cta": "Start Trading",
     "home.learn": "Learn More",
@@ -94,10 +97,10 @@ const translations = {
 
     // About Page
     "about.title": "About SAIL Lab",
-    "about.subtitle": "Pioneering the future of financial technology through advanced AI research and cutting-edge multi-agent systems",
+    "about.subtitle": "The first fully autonomous AI asset management company. No traders, only AI researchers.",
     "about.mission": "Our Mission",
-    "about.missionText1": "Our core mission is to empower individuals and organizations with cutting-edge tools for portfolio management, driven by our proprietary LLM-based multi-agent analysis engine.",
-    "about.missionText2": "Developed by a team of AI researchers and financial experts, our technology continuously monitors and analyzes global markets, financial news, and institutional insights—offering dynamic, data-driven recommendations with human-level understanding.",
+    "about.missionText1": "SAIL Lab runs asset management end to end with AI. Our systems research the markets, choose and size every position and execute every trade, around the clock. There is no trading desk and no discretionary trader.",
+    "about.missionText2": "Our team is made up of AI researchers. Their work is to build, test and improve the AI itself: walk-forward research on tick data, risk controls, continuous retraining and our LLM-based multi-agent analysis engine. Not to place trades by hand.",
     "about.team": "Meet Our Team",
     "about.ceo": "CEO & Founder",
     "about.ceoDesc": "Leading SAIL Lab's vision for democratizing AI-powered financial analysis",
@@ -350,7 +353,10 @@ const translations = {
 
     // Home page
     "home.title": "AI驱动的\n金融创新",
-    "home.subtitle": "为量化系统、投资分析和交易自动化提供革命性AI解决方案",
+    "home.headline1": "首家全自动",
+    "home.headline2": "AI 资产管理公司",
+    "home.tagline": "没有交易员，只有 AI 研究员。",
+    "home.subtitle": "SAIL Lab 的每一个投资决策都由 AI 做出并执行。我们的研究员负责构建、验证和监督 AI，没有人手动下单。",
     "home.contact": "联系我们",
     "home.cta": "开始交易",
     "home.learn": "了解更多",
@@ -419,10 +425,10 @@ const translations = {
 
     // About Page
     "about.title": "关于SAIL实验室",
-    "about.subtitle": "通过先进的AI研究和尖端多智能体系统，引领金融科技的未来",
+    "about.subtitle": "首家全自动 AI 资产管理公司。没有交易员，只有 AI 研究员。",
     "about.mission": "我们的使命",
-    "about.missionText1": "我们的核心使命是通过我们专有的基于LLM的多智能体分析引擎，为个人和组织提供前沿的投资组合管理工具。",
-    "about.missionText2": "由AI研究人员和金融专家团队开发，我们的技术持续监控和分析全球市场、金融新闻和机构洞察——提供具有人类级理解能力的动态、数据驱动的建议。",
+    "about.missionText1": "SAIL Lab 用 AI 完成资产管理的全流程：研究市场、选择并确定每个仓位的规模、执行每一笔交易，全天候运行。我们没有交易台，也没有主观交易员。",
+    "about.missionText2": "我们的团队由 AI 研究员组成。他们的工作是构建、验证和改进 AI 本身：基于 Tick 数据的滚动前向研究、风险控制、持续再训练，以及我们基于 LLM 的多智能体分析引擎，而不是手动下单。",
     "about.team": "认识我们的团队",
     "about.ceo": "首席执行官兼创始人",
     "about.ceoDesc": "领导SAIL实验室实现AI金融分析民主化的愿景",
@@ -675,7 +681,10 @@ const translations = {
 
     // Home page
     "home.title": "AI駆動\n金融イノベーション",
-    "home.subtitle": "クオンツシステム、投資分析、取引自動化のための革新的AIソリューション",
+    "home.headline1": "初の完全自律型",
+    "home.headline2": "AI資産運用会社",
+    "home.tagline": "トレーダーはいません。いるのはAI研究者だけです。",
+    "home.subtitle": "SAIL Labの投資判断と執行は、すべてAIが行います。研究者はAIを開発・検証・監督し、人の手による発注は一切ありません。",
     "home.contact": "お問い合わせ",
     "home.cta": "取引開始",
     "home.learn": "詳細を見る",
@@ -744,10 +753,10 @@ const translations = {
 
     // About Page
     "about.title": "SAIL Labについて",
-    "about.subtitle": "先進的なAI研究と最先端のマルチエージェントシステムを通じて、金融テクノロジーの未来を切り開く",
+    "about.subtitle": "初の完全自律型AI資産運用会社。トレーダーはおらず、AI研究者だけのチームです。",
     "about.mission": "私たちのミッション",
-    "about.missionText1": "私たちの中核的使命は、独自のLLMベースのマルチエージェント分析エンジンによって、個人と組織に最先端のポートフォリオ管理ツールを提供することです。",
-    "about.missionText2": "AI研究者と金融専門家のチームによって開発された当社の技術は、グローバル市場、金融ニュース、機関投資家の洞察を継続的に監視・分析し、人間レベルの理解力を持つ動的でデータ駆動型の推奨事項を提供します。",
+    "about.missionText1": "SAIL Labは資産運用のすべてをAIで行います。市場の調査、ポジションの選択とサイズ決定、すべての取引の執行まで、24時間稼働します。トレーディングデスクも裁量トレーダーもいません。",
+    "about.missionText2": "当社のチームはAI研究者で構成されています。その仕事は、AIそのものを開発・検証・改善することです。ティックデータによるウォークフォワード検証、リスク管理、継続的な再学習、LLMベースのマルチエージェント分析エンジン。手作業で発注することではありません。",
     "about.team": "チームの紹介",
     "about.ceo": "CEO兼創設者",
     "about.ceoDesc": "AI金融分析の民主化というSAIL Labのビジョンをリード",
