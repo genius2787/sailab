@@ -39,15 +39,15 @@ const teamMembers: TeamMember[] = [
     name: "Evy Yang",
     title: "COO",
     expertise: "University of Tokyo graduate, 5+ years trading experience",
-    email: "evy@saillab.ai",
+    email: "yang@sail-lab.ai",
     photo: "/Evy.jpg"
   },
   {
     name: "Léo Dody",
     title: "Chief Scientist",
     expertise: "PhD in finance (iaelyon, Lyon), full-time researcher, deep learning on full order book data",
-    photo: "/Leo.png",
-    linkedin: "https://www.linkedin.com/in/leo-dody/"
+    email: "leo@sail-lab.ai",
+    photo: "/Leo.png"
   }
 ];
 
