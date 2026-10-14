@@ -23,6 +23,17 @@ interface InsightArticle {
 
 const insightArticles: InsightArticle[] = [
   {
+    id: "xauusd-adaptive-policy-14-months",
+    title: "Adaptive Beats Fixed: SAIL Lab's 60-Day Re-Optimization Policy Outperforms 97% of 3,001 XAUUSD Strategies",
+    description: "14 months of tick-by-tick walk-forward research on gold: +2,610 pts out-of-sample, 2.2x the median fixed strategy.",
+    category: "AI Trading",
+    readTime: "20 min read",
+    date: "2026-10-14",
+    author: "SAIL Lab Team",
+    featured: true,
+    translationKey: "insights.xauusdAdaptive"
+  },
+  {
     id: "ml-continuous-learning",
     title: "ML Filter vs Baseline: Why Continuous Learning Matters on XAUUSD",
     description: "Controlled MT5 optimizer test: MODE_ML_TRADE vs MODE_DATASET_ONLY on XAUUSD M5.",
