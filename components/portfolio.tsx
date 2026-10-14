@@ -122,6 +122,9 @@ export function Portfolio() {
             <p className={`font-mono text-foreground/60 text-lg max-w-2xl mx-auto ${isLoaded ? 'animate-fade-in-up animate-delay-400' : ''}`}>
               {t('portfolio.subtitle')}
             </p>
+            <p className={`font-mono text-primary text-lg md:text-xl max-w-2xl mx-auto mt-6 ${isLoaded ? 'animate-fade-in-up animate-delay-500' : ''}`}>
+              {t('home.headline1')} {t('home.headline2')}. {t('home.tagline')}
+            </p>
           </div>
 
           <div className="mb-20 max-w-5xl mx-auto" ref={(el) => { sectionRefs.current.philosophy = el; }}>
