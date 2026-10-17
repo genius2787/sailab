@@ -31,9 +31,6 @@ export function Hero() {
         <p className={`font-mono text-base sm:text-lg text-foreground/85 text-balance mt-8 max-w-[560px] mx-auto ${isLoaded ? 'animate-fade-in-up animate-delay-400' : ''}`}>
           {t('home.tagline')}
         </p>
-        <p className={`font-mono text-sm sm:text-base text-foreground/60 text-balance mt-4 max-w-[520px] mx-auto ${isLoaded ? 'animate-fade-in-up animate-delay-400' : ''}`}>
-          {t('home.subtitle')}
-        </p>
 
         {/* Desktop buttons */}
         <div className="flex flex-wrap gap-4 justify-center mt-14 max-sm:hidden">

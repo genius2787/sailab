@@ -11,14 +11,8 @@ import Link from "next/link";
 export function Portfolio() {
   const { t } = useLanguage();
   const [hovering, setHovering] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
   const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoaded(true), 100);
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     const observers = new Map();
@@ -115,24 +109,9 @@ export function Portfolio() {
 
       <div className="relative z-10 container mx-auto pt-40 pb-24 px-6">
         <section className="py-20 md:py-32">
-          <div className="text-center mb-16" ref={(el) => { sectionRefs.current.header = el; }}>
-            <h2 className={`text-4xl md:text-5xl lg:text-6xl font-mono mb-6 ${isLoaded ? 'animate-fade-in-up' : ''}`}>
-              {t('portfolio.title')}
-            </h2>
-            <p className={`font-mono text-foreground/60 text-lg max-w-2xl mx-auto ${isLoaded ? 'animate-fade-in-up animate-delay-400' : ''}`}>
-              {t('portfolio.subtitle')}
-            </p>
-            <p className={`font-mono text-primary text-lg md:text-xl max-w-2xl mx-auto mt-6 ${isLoaded ? 'animate-fade-in-up animate-delay-500' : ''}`}>
-              {t('home.headline1')} {t('home.headline2')}. {t('home.tagline')}
-            </p>
-          </div>
-
           <div className="mb-20 max-w-5xl mx-auto" ref={(el) => { sectionRefs.current.philosophy = el; }}>
             <h2 className={`text-4xl font-mono text-center mb-6 ${visibleSections.has('philosophy') ? 'animate-fade-in-up' : ''}`}>{t('portfolio.philosophyTitle')}</h2>
-            <blockquote className={`font-mono text-xl md:text-2xl text-center text-foreground/90 leading-relaxed mb-4 ${visibleSections.has('philosophy') ? 'animate-fade-in-up animate-delay-200' : ''}`}>
-              “{t('portfolio.philosophyVision')}”
-            </blockquote>
-            <p className={`font-mono text-center text-foreground/60 max-w-3xl mx-auto mb-10 ${visibleSections.has('philosophy') ? 'animate-fade-in-up animate-delay-300' : ''}`}>
+            <p className={`font-mono text-center text-foreground/60 max-w-3xl mx-auto mb-10 ${visibleSections.has('philosophy') ? 'animate-fade-in-up animate-delay-200' : ''}`}>
               {t('portfolio.philosophyLead')}
             </p>
             <div className="grid md:grid-cols-3 gap-6">

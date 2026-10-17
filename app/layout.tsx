@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "SAIL Lab",
-  description: "The first fully autonomous AI asset management company. No traders, only AI researchers.",
+  description: "SAIL Lab is a Tokyo-based AI asset management company. Our AI Agent runs the fund end to end: no traders, only AI researchers.",
   generator: 'v0.app',
   icons: {
     icon: '/icon',
