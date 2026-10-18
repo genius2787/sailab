@@ -29,7 +29,7 @@ interface TeamMember {
 const teamMembers: TeamMember[] = [
   {
     name: "Joe Wang",
-    title: "Founder & CTO",
+    title: "Founder & CEO",
     expertise: "Waseda University PhD, 15+ years AI research, 12 years investment experience",
     email: "joe@sail-lab.ai",
     photo: "/Joe.jpg",

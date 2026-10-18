@@ -123,7 +123,7 @@ export function About() {
                 <div className="w-32 h-32 mx-auto mb-4 relative overflow-hidden rounded-full border-2 border-primary/20 group-hover:border-primary/40 group-hover:shadow-lg group-hover:shadow-primary/20 transition-all duration-300">
                   <img
                     src="/Joe.jpg"
-                    alt="Joe Wang, CTO of SAIL Lab"
+                    alt="Joe Wang, CEO of SAIL Lab"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
@@ -131,7 +131,7 @@ export function About() {
                   Joe Wang
                 </CardTitle>
                 <Badge variant="outline" className="w-fit mx-auto mb-2 border-primary/50 text-primary group-hover:bg-primary/10 transition-colors">
-                  Founder & CTO
+                  Founder & CEO
                 </Badge>
                 <CardDescription className="font-mono text-foreground/70">
                   {t('about.joeDesc')}

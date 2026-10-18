@@ -44,15 +44,83 @@ interface ExtendedBlogPost {
 // Extended blog data with full content
 const extendedBlogPosts: ExtendedBlogPost[] = [
   {
+    id: "14",
+    slug: "ceo-presents-webgen-v-bench-at-kdd-2026",
+    title: "SAIL Lab CEO Presents Research at KDD 2026\nSAIL Lab CEO、KDD 2026で研究を発表",
+    excerpt: "Our CEO Joe Wang presented 'WebGen-V Bench: Structured Representation for Enhancing Visual Design in LLM-based Web Generation and Evaluation' at KDD 2026 in Jeju, Korea.",
+    content: `
+      <h2>SAIL Lab CEO Presents Research at KDD 2026</h2>
+      <p><em>August 2026 | KDD 2026, Jeju, Korea</em></p>
+
+      <p>Our CEO <strong>Joe Wang</strong> attended <strong>KDD 2026</strong>, the 32nd ACM SIGKDD Conference on Knowledge Discovery and Data Mining, and presented the paper:</p>
+      <p><strong><a href="https://dl.acm.org/doi/10.1145/3770855.3817486" target="_blank" rel="noopener noreferrer">WebGen-V Bench: Structured Representation for Enhancing Visual Design in LLM-based Web Generation and Evaluation</a></strong></p>
+
+      <hr style="margin: 3rem 0;"/>
+
+      <h2>SAIL Lab CEO、KDD 2026で研究を発表</h2>
+      <p><em>2026年8月 | KDD 2026（韓国・済州島）</em></p>
+
+      <p>CEOの<strong>Joe Wang</strong>が<strong>KDD 2026</strong>（第32回 ACM SIGKDD Conference on Knowledge Discovery and Data Mining）に参加し、以下の論文を発表しました。</p>
+      <p><strong><a href="https://dl.acm.org/doi/10.1145/3770855.3817486" target="_blank" rel="noopener noreferrer">WebGen-V Bench: Structured Representation for Enhancing Visual Design in LLM-based Web Generation and Evaluation</a></strong></p>
+    `,
+    category: "Research News",
+    readTime: "1 min read",
+    date: "2026-08-09",
+    author: "Joe Wang",
+    featured: true,
+    image: "/KDD1.jpeg",
+    media: [
+      { type: 'image', url: '/KDD1.jpeg', alt: 'Joe Wang at KDD 2026', caption: 'CEO Joe Wang at KDD 2026 in Jeju, Korea' },
+      { type: 'image', url: '/KDD2.jpeg', alt: 'Joe Wang at KDD 2026', caption: 'Presenting WebGen-V Bench at KDD 2026' }
+    ],
+    views: 0,
+    comments: 0,
+    likes: 0
+  },
+  {
+    id: "13",
+    slug: "ceo-presents-a-mpqc-at-icml-2026",
+    title: "SAIL Lab CEO Presents Research at ICML 2026\nSAIL Lab CEO、ICML 2026で研究を発表",
+    excerpt: "Our CEO Joe Wang presented 'Agentic Model Predictive Questioning Control in Visual Design' at ICML 2026 in Seoul, Korea.",
+    content: `
+      <h2>SAIL Lab CEO Presents Research at ICML 2026</h2>
+      <p><em>July 2026 | ICML 2026, Seoul, Korea</em></p>
+
+      <p>Our CEO <strong>Joe Wang</strong> attended <strong>ICML 2026</strong>, the International Conference on Machine Learning, and presented the paper:</p>
+      <p><strong><a href="https://icml.cc/virtual/2026/poster/62292" target="_blank" rel="noopener noreferrer">Agentic Model Predictive Questioning Control in Visual Design</a></strong></p>
+
+      <hr style="margin: 3rem 0;"/>
+
+      <h2>SAIL Lab CEO、ICML 2026で研究を発表</h2>
+      <p><em>2026年7月 | ICML 2026（韓国・ソウル）</em></p>
+
+      <p>CEOの<strong>Joe Wang</strong>が<strong>ICML 2026</strong>（International Conference on Machine Learning）に参加し、以下の論文を発表しました。</p>
+      <p><strong><a href="https://icml.cc/virtual/2026/poster/62292" target="_blank" rel="noopener noreferrer">Agentic Model Predictive Questioning Control in Visual Design</a></strong></p>
+    `,
+    category: "Research News",
+    readTime: "1 min read",
+    date: "2026-07-08",
+    author: "Joe Wang",
+    featured: true,
+    image: "/ICML1.jpeg",
+    media: [
+      { type: 'image', url: '/ICML1.jpeg', alt: 'Joe Wang at ICML 2026', caption: 'CEO Joe Wang at ICML 2026 in Seoul, Korea' },
+      { type: 'image', url: '/ICML2.jpeg', alt: 'Joe Wang at ICML 2026', caption: 'Presenting Agentic Model Predictive Questioning Control at ICML 2026' }
+    ],
+    views: 0,
+    comments: 0,
+    likes: 0
+  },
+  {
     id: "12",
     slug: "sail-lab-presents-llm-agentic-trader-at-ai-stock-selection-event",
     title: "SAIL Lab Participates in AI Stock Selection Event as Guest Speaker\nSAIL Lab、AI選股票イベントにゲストスピーカーとして参加",
-    excerpt: "SAIL Lab participated in an AI stock selection event on December 21, 2025, where CTO Joe Wang delivered a keynote presentation introducing our flagship product LLM Agentic Trader, sharing insights on AI-powered quantitative trading and the future of intelligent asset management.",
+    excerpt: "SAIL Lab participated in an AI stock selection event on December 21, 2025, where CEO Joe Wang delivered a keynote presentation introducing our flagship product LLM Agentic Trader, sharing insights on AI-powered quantitative trading and the future of intelligent asset management.",
     content: `
       <h2>SAIL Lab Participates in AI Stock Selection Event as Guest Speaker</h2>
       <p><em>December 21, 2025 | Company News</em></p>
 
-      <p>We are excited to announce that <strong>SAIL Laboratory</strong> participated in a prestigious AI stock selection event on December 21, 2025, where our CTO and Founder <strong>Joe Wang</strong> delivered a keynote presentation as a guest speaker. The event brought together industry leaders, researchers, and practitioners to explore the latest advancements in AI-powered quantitative trading and intelligent asset management.</p>
+      <p>We are excited to announce that <strong>SAIL Laboratory</strong> participated in a prestigious AI stock selection event on December 21, 2025, where our CEO and Founder <strong>Joe Wang</strong> delivered a keynote presentation as a guest speaker. The event brought together industry leaders, researchers, and practitioners to explore the latest advancements in AI-powered quantitative trading and intelligent asset management.</p>
 
       <h3>Event Overview</h3>
       <p>The AI stock selection event provided a platform for leading companies and researchers to share cutting-edge technologies and methodologies in applying artificial intelligence to financial markets. As a guest speaker, Joe Wang represented SAIL Lab and showcased our innovative approach to AI-driven trading systems.</p>
@@ -156,7 +224,7 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
       <h2>SAIL Lab、AI選股票イベントにゲストスピーカーとして参加</h2>
       <p><em>2025年12月21日 | 会社ニュース</em></p>
 
-      <p>2025年12月21日に開催されたAI選股票イベントに、<strong>SAIL Laboratory</strong>が参加し、CTO兼創業者の<strong>Joe Wang</strong>がゲストスピーカーとして基調講演を行ったことをお知らせいたします。このイベントは、業界リーダー、研究者、実務家が一堂に会し、AIを活用した量的取引とインテリジェント資産運用の最新動向を探る場となりました。</p>
+      <p>2025年12月21日に開催されたAI選股票イベントに、<strong>SAIL Laboratory</strong>が参加し、CEO兼創業者の<strong>Joe Wang</strong>がゲストスピーカーとして基調講演を行ったことをお知らせいたします。このイベントは、業界リーダー、研究者、実務家が一堂に会し、AIを活用した量的取引とインテリジェント資産運用の最新動向を探る場となりました。</p>
 
       <h3>イベント概要</h3>
       <p>AI選股票イベントは、金融市場に人工知能を応用する最新技術と方法論を共有するプラットフォームを提供しました。ゲストスピーカーとして、Joe WangはSAIL Labを代表し、AI駆動型取引システムへの革新的なアプローチを紹介しました。</p>
@@ -220,8 +288,8 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
       {
         type: 'image',
         url: '/ai-stock-selection-joe-speaking.jpg',
-        alt: 'CTO Joe Wang delivering keynote presentation at AI Stock Selection Event',
-        caption: 'CTO Joe Wang presenting LLM Agentic Trader at the AI Stock Selection Event on December 21, 2025'
+        alt: 'CEO Joe Wang delivering keynote presentation at AI Stock Selection Event',
+        caption: 'CEO Joe Wang presenting LLM Agentic Trader at the AI Stock Selection Event on December 21, 2025'
       },
       {
         type: 'image',
@@ -606,13 +674,13 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
   {
     id: "11",
     slug: "cto-presents-at-emnlp-2025",
-    title: "SAIL Lab CTO Presents Research at EMNLP 2025\nSAIL Lab CTO、EMNLP 2025で研究を発表",
-    excerpt: "Our CTO Joe Wang, as a Sony researcher, presented two research papers and delivered an Invited Talk at EMNLP 2025, showcasing his contributions to advancing Large Language Models and their industrial applications.",
+    title: "SAIL Lab CEO Presents Research at EMNLP 2025\nSAIL Lab CEO、EMNLP 2025で研究を発表",
+    excerpt: "Our CEO Joe Wang, as a Sony researcher, presented two research papers and delivered an Invited Talk at EMNLP 2025, showcasing his contributions to advancing Large Language Models and their industrial applications.",
     content: `
       <h2>Leading Research at the Premier NLP Conference</h2>
       <p><em>November 2025 | EMNLP 2025</em></p>
 
-      <p>We are proud to announce that Joe Wang, SAIL Laboratory's CTO and Founder, made significant contributions to <strong>EMNLP 2025 (Empirical Methods in Natural Language Processing)</strong>, one of the world's most prestigious conferences in computational linguistics and natural language processing. As a Sony researcher, Joe presented two research papers and delivered an Invited Talk, showcasing his contributions to advancing Large Language Models and their industrial applications.</p>
+      <p>We are proud to announce that Joe Wang, SAIL Laboratory's CEO and Founder, made significant contributions to <strong>EMNLP 2025 (Empirical Methods in Natural Language Processing)</strong>, one of the world's most prestigious conferences in computational linguistics and natural language processing. As a Sony researcher, Joe presented two research papers and delivered an Invited Talk, showcasing his contributions to advancing Large Language Models and their industrial applications.</p>
 
       <h3>Research Paper 1</h3>
       <p>Joe Wang presented the first research paper as a Sony researcher, addressing fundamental challenges in Large Language Models and their applications. The research introduces novel methodologies for improving the reliability and efficiency of LLM-based systems in industrial settings.</p>
@@ -634,10 +702,10 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
 
       <hr style="margin: 3rem 0;"/>
 
-      <h2>SAIL Lab CTO、EMNLP 2025で研究を発表</h2>
+      <h2>SAIL Lab CEO、EMNLP 2025で研究を発表</h2>
       <p><em>2025年11月 | EMNLP 2025</em></p>
 
-      <p>SAIL Laboratory の CTO 兼創業者である Joe Wang が、計算言語学と自然言語処理における世界最高峰の国際会議の一つである<strong>EMNLP 2025（Empirical Methods in Natural Language Processing）</strong>で重要な貢献を果たしたことをご報告いたします。Sony研究員として、Joe は2つの研究論文を発表し、招待講演を行いました。</p>
+      <p>SAIL Laboratory の CEO 兼創業者である Joe Wang が、計算言語学と自然言語処理における世界最高峰の国際会議の一つである<strong>EMNLP 2025（Empirical Methods in Natural Language Processing）</strong>で重要な貢献を果たしたことをご報告いたします。Sony研究員として、Joe は2つの研究論文を発表し、招待講演を行いました。</p>
 
       <h3>研究論文1</h3>
       <p>Joe Wang は、Sony研究員として最初の研究論文を発表し、大規模言語モデルとその産業応用における基本的な課題に取り組みました。この研究は、産業環境における LLM ベースシステムの信頼性と効率を向上させるための新しい方法論を紹介しています。</p>
@@ -668,7 +736,7 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
         type: 'image',
         url: '/emnlp-2025-poster.jpg',
         alt: 'Joe Wang at EMNLP 2025 Poster Session',
-        caption: 'CTO Joe Wang presenting research at the EMNLP 2025 poster session'
+        caption: 'CEO Joe Wang presenting research at the EMNLP 2025 poster session'
       },
       {
         type: 'image',
@@ -780,13 +848,13 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
   {
     id: "10",
     slug: "cto-wang-featured-in-waseda-university-interview",
-    title: "SAIL Lab CTO Featured in Waseda University Interview as Visiting Researcher\nSAIL Lab CTO、早稲田大学招聘研究員としてインタビューに掲載",
-    excerpt: "Our CTO Joe Wang was featured in a 2022 alumni interview by Waseda University's Department of Integrated Mechanical Engineering as a visiting researcher, sharing his research work in deep reinforcement learning and collaborative research with JAXA.",
+    title: "SAIL Lab CEO Featured in Waseda University Interview as Visiting Researcher\nSAIL Lab CEO、早稲田大学招聘研究員としてインタビューに掲載",
+    excerpt: "Our CEO Joe Wang was featured in a 2022 alumni interview by Waseda University's Department of Integrated Mechanical Engineering as a visiting researcher, sharing his research work in deep reinforcement learning and collaborative research with JAXA.",
     content: `
-      <h2>SAIL Lab CTO Featured in Waseda University Interview as Visiting Researcher</h2>
+      <h2>SAIL Lab CEO Featured in Waseda University Interview as Visiting Researcher</h2>
       <p><em>2022 | Waseda University</em></p>
 
-      <p>Our CTO Joe Wang (王釗) was featured in a 2022 alumni interview by Waseda University's Department of Integrated Mechanical Engineering as a visiting researcher (招聘研究員). Joe graduated from the doctoral program in 2018, studying under Professor Ohtani's laboratory.</p>
+      <p>Our CEO Joe Wang (王釗) was featured in a 2022 alumni interview by Waseda University's Department of Integrated Mechanical Engineering as a visiting researcher (招聘研究員). Joe graduated from the doctoral program in 2018, studying under Professor Ohtani's laboratory.</p>
 
       <p>In the interview, Joe shared his research work in deep reinforcement learning, focusing on optimization problems and routing algorithms. He also discussed his collaborative research with JAXA on drone-based image processing using deep reinforcement learning for disaster response scenarios.</p>
 
@@ -794,10 +862,10 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
 
       <hr style="margin: 3rem 0;"/>
 
-      <h2>SAIL Lab CTO、早稲田大学招聘研究員としてインタビューに掲載</h2>
+      <h2>SAIL Lab CEO、早稲田大学招聘研究員としてインタビューに掲載</h2>
       <p><em>2022年 | 早稲田大学</em></p>
 
-      <p>SAIL Lab の CTO Joe Wang（王釗）が、早稲田大学総合機械工学専攻による2022年度卒業生インタビューに招聘研究員として掲載されました。Joe は2018年に博士後期課程を修了し、大谷研究室で研究を行いました。</p>
+      <p>SAIL Lab の CEO Joe Wang（王釗）が、早稲田大学総合機械工学専攻による2022年度卒業生インタビューに招聘研究員として掲載されました。Joe は2018年に博士後期課程を修了し、大谷研究室で研究を行いました。</p>
 
       <p>インタビューでは、深層強化学習を用いた最適化問題やルーティングアルゴリズムの研究について語りました。また、JAXAとの共同研究で、災害対応シナリオにおける深層強化学習を用いたドローン画像処理の研究についても紹介しました。</p>
 
@@ -819,7 +887,7 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
         type: 'image',
         url: '/waseda-joe-portrait.jpg',
         alt: 'Joe Wang - Waseda University Alumni',
-        caption: 'SAIL Lab CTO Joe Wang, proud alumnus of Waseda University\'s Computer Science and Engineering Department'
+        caption: 'SAIL Lab CEO Joe Wang, proud alumnus of Waseda University\'s Computer Science and Engineering Department'
       }
     ],
     views: 95,
@@ -829,13 +897,13 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
   {
     id: "9",
     slug: "cto-presents-okg-at-coling-2025-as-sony-researcher",
-    title: "SAIL Lab CTO Presents First LLM Agent Work at COLING 2025\nSAIL Lab CTO、COLING 2025で初のLLM Agent研究を発表",
-    excerpt: "Our CTO Joe Wang, as a Sony researcher, presented the first LLM agent work in keyword generation at COLING 2025—'On-the-Fly Keyword Generation' introduces autonomous AI agents that dynamically adapt to market trends, revolutionizing digital advertising.",
+    title: "SAIL Lab CEO Presents First LLM Agent Work at COLING 2025\nSAIL Lab CEO、COLING 2025で初のLLM Agent研究を発表",
+    excerpt: "Our CEO Joe Wang, as a Sony researcher, presented the first LLM agent work in keyword generation at COLING 2025—'On-the-Fly Keyword Generation' introduces autonomous AI agents that dynamically adapt to market trends, revolutionizing digital advertising.",
     content: `
       <h2>Pioneering LLM Agent Research in Keyword Generation</h2>
       <p><em>January 2025 | COLING Conference</em></p>
 
-      <p>Our CTO Joe Wang, as a Sony researcher, presented the first LLM agent work in keyword generation at COLING 2025. The paper "On-the-Fly Keyword Generation" introduces autonomous AI agents that dynamically adapt to market trends, revolutionizing digital advertising.</p>
+      <p>Our CEO Joe Wang, as a Sony researcher, presented the first LLM agent work in keyword generation at COLING 2025. The paper "On-the-Fly Keyword Generation" introduces autonomous AI agents that dynamically adapt to market trends, revolutionizing digital advertising.</p>
 
       <p>This groundbreaking research demonstrates how LLM agents can autonomously generate and adapt keywords in real-time, providing significant improvements in digital advertising efficiency and effectiveness.</p>
     `,
@@ -851,13 +919,13 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
   {
     id: "8",
     slug: "cto-presents-research-at-kdd-2025-as-sony-researcher",
-    title: "SAIL Lab CTO Presents Research at KDD 2025 as Sony Researcher\nSAIL Lab CTO、Sony研究員としてKDD 2025で研究を発表",
-    excerpt: "Our CTO Joe Wang, in his role as a researcher at Sony, presented groundbreaking research on AI systems at KDD 2025 (Knowledge Discovery and Data Mining), one of the world's premier conferences in data science and machine learning.",
+    title: "SAIL Lab CEO Presents Research at KDD 2025 as Sony Researcher\nSAIL Lab CEO、Sony研究員としてKDD 2025で研究を発表",
+    excerpt: "Our CEO Joe Wang, in his role as a researcher at Sony, presented groundbreaking research on AI systems at KDD 2025 (Knowledge Discovery and Data Mining), one of the world's premier conferences in data science and machine learning.",
     content: `
       <h2>Research Excellence at the World's Premier Data Science Conference</h2>
       <p><em>August 2025 | Toronto, Canada</em></p>
 
-      <p>We are proud to share that Joe Wang, SAIL Laboratory's CTO and Founder, presented cutting-edge research at <strong>KDD 2025 (ACM SIGKDD Conference on Knowledge Discovery and Data Mining)</strong> in his role as a <strong>researcher at Sony</strong>. The conference was held in Toronto, Canada, and is widely recognized as the world's premier conference in data science, data mining, and knowledge discovery, bringing together leading researchers, practitioners, and industry experts from around the globe.</p>
+      <p>We are proud to share that Joe Wang, SAIL Laboratory's CEO and Founder, presented cutting-edge research at <strong>KDD 2025 (ACM SIGKDD Conference on Knowledge Discovery and Data Mining)</strong> in his role as a <strong>researcher at Sony</strong>. The conference was held in Toronto, Canada, and is widely recognized as the world's premier conference in data science, data mining, and knowledge discovery, bringing together leading researchers, practitioners, and industry experts from around the globe.</p>
 
       <p>This dual role exemplifies the rich cross-pollination between academic research and practical industry applications. Joe's work at Sony focuses on fundamental AI research, while his leadership at SAIL Lab applies these insights to revolutionary financial technology solutions.</p>
 
@@ -922,10 +990,10 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
 
       <hr style="margin: 3rem 0;"/>
 
-      <h2>SAIL Lab CTO、Sony研究員としてKDD 2025で研究を発表</h2>
+      <h2>SAIL Lab CEO、Sony研究員としてKDD 2025で研究を発表</h2>
       <p><em>2025年8月 | トロント、カナダ</em></p>
 
-      <p>SAIL Laboratory の CTO 兼創業者である Joe Wang が、<strong>Sony の研究員</strong>として、カナダのトロントで開催された<strong>KDD 2025（ACM SIGKDD Conference on Knowledge Discovery and Data Mining）</strong>で最先端の研究を発表したことをご報告いたします。KDD は、データサイエンス、データマイニング、知識発見における世界最高峰の国際会議として広く認識されており、世界中から第一線の研究者、実務家、業界専門家が集まります。</p>
+      <p>SAIL Laboratory の CEO 兼創業者である Joe Wang が、<strong>Sony の研究員</strong>として、カナダのトロントで開催された<strong>KDD 2025（ACM SIGKDD Conference on Knowledge Discovery and Data Mining）</strong>で最先端の研究を発表したことをご報告いたします。KDD は、データサイエンス、データマイニング、知識発見における世界最高峰の国際会議として広く認識されており、世界中から第一線の研究者、実務家、業界専門家が集まります。</p>
 
       <p>この二つの役割は、学術研究と実践的な産業応用との豊かな相互交流を示しています。Joe の Sony での研究は基礎的な AI 研究に焦点を当てており、SAIL Lab でのリーダーシップはこれらの洞察を革新的な金融技術ソリューションに応用しています。</p>
 
@@ -1003,7 +1071,7 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
         type: 'image',
         url: '/kdd-joe-presenting.jpg',
         alt: 'Joe Wang presenting at KDD 2025',
-        caption: 'CTO Joe Wang delivering the research presentation at KDD 2025 in Toronto'
+        caption: 'CEO Joe Wang delivering the research presentation at KDD 2025 in Toronto'
       },
       {
         type: 'image',
@@ -1025,8 +1093,8 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
   {
     id: "7",
     slug: "cto-attends-sts-forum-2025",
-    title: "SAIL Lab CTO Participates in STS Forum 2025\nSAIL Lab CTO、STS フォーラム 2025 に参加",
-    excerpt: "Our CTO Joe Wang attended the prestigious Science and Technology in Society (STS) Forum 2025 in Kyoto, Japan, engaging with global leaders on AI governance, ethical technology deployment, and the future of AI in financial markets.",
+    title: "SAIL Lab CEO Participates in STS Forum 2025\nSAIL Lab CEO、STS フォーラム 2025 に参加",
+    excerpt: "Our CEO Joe Wang attended the prestigious Science and Technology in Society (STS) Forum 2025 in Kyoto, Japan, engaging with global leaders on AI governance, ethical technology deployment, and the future of AI in financial markets.",
     content: `
       <h2>Representing SAIL Lab at the Global Stage</h2>
       <p><em>October 2025 | Kyoto, Japan</em></p>
@@ -1082,10 +1150,10 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
 
       <hr style="margin: 3rem 0;"/>
 
-      <h2>SAIL Lab CTO、STS フォーラム 2025 に参加</h2>
+      <h2>SAIL Lab CEO、STS フォーラム 2025 に参加</h2>
       <p><em>2025年10月 | 京都、日本</em></p>
 
-      <p>当社の最高技術責任者（CTO）兼創業者であるJoe Wangが、京都で開催された権威ある<strong>科学技術と社会フォーラム（STS Forum）2025</strong>に出席したことをご報告いたします。本フォーラムは、科学技術と社会的影響の接点における重要なグローバル課題について議論するため、政府、産業界、学術界、市民社会のリーダーが一堂に会する国際会議です。</p>
+      <p>当社の最高経営責任者（CEO）兼創業者であるJoe Wangが、京都で開催された権威ある<strong>科学技術と社会フォーラム（STS Forum）2025</strong>に出席したことをご報告いたします。本フォーラムは、科学技術と社会的影響の接点における重要なグローバル課題について議論するため、政府、産業界、学術界、市民社会のリーダーが一堂に会する国際会議です。</p>
 
       <h3>STS フォーラムについて</h3>
       <p>STS フォーラムは、科学技術政策に関する世界で最も影響力のある対話の場の一つです。毎年、ノーベル賞受賞者、各国の閣僚、主要企業のCEO、著名な研究者が集まり、気候変動、医療イノベーション、AI ガバナンス、デジタル倫理など、人類が直面する喫緊の課題に取り組んでいます。</p>
