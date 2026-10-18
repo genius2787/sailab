@@ -24,7 +24,7 @@ export function Hero() {
       <div className="flex-1 flex items-center justify-center text-center relative px-6">
         <div className="w-full max-w-4xl py-32 sm:py-0">
         <Pill className={`mb-6 ${isLoaded ? 'animate-fade-in-up' : ''}`}>SAIL LAB</Pill>
-        <h1 className={`text-5xl sm:text-6xl md:text-7xl font-mono ${isLoaded ? 'animate-fade-in-up animate-delay-200' : ''}`}>
+        <h1 className={`text-3xl sm:text-4xl md:text-5xl font-mono ${isLoaded ? 'animate-fade-in-up animate-delay-200' : ''}`}>
           {t('home.headline1')} <br />
           {t('home.headline2')}
         </h1>

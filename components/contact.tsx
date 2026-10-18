@@ -363,13 +363,13 @@ export function Contact() {
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                           />
                         </div>
-                        <div className="flex-1 flex flex-wrap items-center gap-x-3 gap-y-1">
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                           <h4 className="font-mono text-lg group-hover:text-primary transition-colors">{member.name}</h4>
                           <Badge variant="outline" className="font-mono text-xs group-hover:border-primary/50 group-hover:text-primary transition-colors">
                             {member.title}
                           </Badge>
                         </div>
-                        <div className={`ml-auto flex-shrink-0 transition-all duration-300 ${
+                        <div className={`ml-4 flex-shrink-0 transition-all duration-300 ${
                           hoveredCard === member.name ? "translate-x-1" : ""
                         }`}>
                           <a
