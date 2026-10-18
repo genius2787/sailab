@@ -34,20 +34,6 @@ const teamMembers: TeamMember[] = [
     email: "joe@sail-lab.ai",
     photo: "/Joe.jpg",
     linkedin: "https://www.linkedin.com/in/wang1946may7"
-  },
-  {
-    name: "Evy Yang",
-    title: "COO",
-    expertise: "University of Tokyo graduate, 5+ years trading experience",
-    email: "yang@sail-lab.ai",
-    photo: "/Evy.jpg"
-  },
-  {
-    name: "Léo Dody",
-    title: "Chief Scientist",
-    expertise: "PhD in finance (iaelyon, Lyon), full-time researcher, deep learning on full order book data",
-    email: "leo@sail-lab.ai",
-    photo: "/Leo.png"
   }
 ];
 
@@ -299,30 +285,6 @@ export function Contact() {
             </CardContent>
           </Card>
 
-            {/* Quick Response */}
-            <Card className={`border-primary/20 bg-primary/5 backdrop-blur-sm hover-lift ${visibleSections.has('form') ? 'animate-scale-in animate-delay-600' : ''}`}>
-              <CardContent className="py-6">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="text-primary animate-bounce-subtle">⚡</div>
-                  <h4 className="font-mono text-lg">{t('contact.quickResponse')}</h4>
-                </div>
-                <p className="text-sm text-foreground/80 leading-relaxed mb-3">
-                  We typically respond to inquiries within 24 hours during business days. For urgent matters, please call our office directly.
-                </p>
-                <p className="text-sm text-foreground/80 leading-relaxed">
-                  Feel free to connect with us on{' '}
-                  <a 
-                    href="https://www.linkedin.com/in/wang1946may7" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-primary hover:text-primary/80 transition-colors duration-150 underline font-medium"
-                  >
-                    LinkedIn
-                  </a>
-                  {' '}as listed on the right.
-                </p>
-              </CardContent>
-            </Card>
           </div>
 
           {/* Right Column: Contact Information */}
