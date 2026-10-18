@@ -271,7 +271,7 @@ export function Portfolio() {
                 <div className={`${visibleSections.has('solutions') ? 'animate-fade-in-up animate-delay-700' : ''}`}>
                   <div className="text-3xl font-mono text-primary mb-2">{t('portfolio.refinePrice')}</div>
                   <p className="font-mono text-sm text-foreground/70 mb-6">{t('portfolio.refinePriceNote')}</p>
-                  <a href="/SAIL_Lab_QRT_2026.pdf" download="SAIL_Lab_QRT_2026.pdf">
+                  <a href="/SAIL_Lab_Strategy_Refine_Agent.pdf" download="SAIL_Lab_Strategy_Refine_Agent.pdf">
                     <Button className="font-mono hover-lift" variant="default">
                       [{t('portfolio.refineDownload')}]
                     </Button>
