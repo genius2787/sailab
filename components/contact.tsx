@@ -20,7 +20,6 @@ interface ContactFormData {
 interface TeamMember {
   name: string;
   title: string;
-  expertise: string;
   email?: string;
   photo: string;
   linkedin?: string;
@@ -30,7 +29,6 @@ const teamMembers: TeamMember[] = [
   {
     name: "Joe Wang",
     title: "Founder & CEO",
-    expertise: "Waseda University PhD, 15+ years AI research, 12 years investment experience",
     email: "joe@sail-lab.ai",
     photo: "/Joe.jpg",
     linkedin: "https://www.linkedin.com/in/wang1946may7"
@@ -370,9 +368,7 @@ export function Contact() {
                           <div className="flex items-center gap-2 mt-1">
                             <Badge variant="outline" className="font-mono text-xs group-hover:border-primary/50 group-hover:text-primary transition-colors">
                               {member.title}
-                            </Badge>
-                            <span className="text-sm text-foreground/60 group-hover:text-foreground/80 transition-colors">{member.expertise}</span>
-                          </div>
+                            </Badge>                          </div>
                         </div>
                         <div className={`transition-all duration-300 ${
                           hoveredCard === member.name ? "translate-x-2" : ""
