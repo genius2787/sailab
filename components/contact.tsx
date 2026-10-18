@@ -398,6 +398,8 @@ export function Contact() {
               <div className="flex flex-wrap justify-center gap-6">
                 <a
                   href="https://linkedin.com/company/sail-lab"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`flex items-center gap-2 px-6 py-3 border border-border/40 rounded-lg bg-background/30 backdrop-blur-sm hover:border-primary/40 hover:bg-background/50 hover-lift transition-all duration-300 ${visibleSections.has('social') ? 'animate-slide-in-left animate-delay-200' : ''}`}
                   onMouseEnter={() => setHovering(true)}
                   onMouseLeave={() => setHovering(false)}
@@ -406,22 +408,15 @@ export function Contact() {
                   <span className="font-mono text-sm">{t('contact.linkedin')}</span>
                 </a>
                 <a
-                  href="https://github.com/sail-lab"
+                  href="https://github.com/Sail-Lab-AI"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`flex items-center gap-2 px-6 py-3 border border-border/40 rounded-lg bg-background/30 backdrop-blur-sm hover:border-primary/40 hover:bg-background/50 hover-lift transition-all duration-300 ${visibleSections.has('social') ? 'animate-fade-in-up animate-delay-300' : ''}`}
                   onMouseEnter={() => setHovering(true)}
                   onMouseLeave={() => setHovering(false)}
                 >
                   <span>🐙</span>
                   <span className="font-mono text-sm">{t('contact.github')}</span>
-                </a>
-                <a
-                  href="https://twitter.com/sail_lab"
-                  className={`flex items-center gap-2 px-6 py-3 border border-border/40 rounded-lg bg-background/30 backdrop-blur-sm hover:border-primary/40 hover:bg-background/50 hover-lift transition-all duration-300 ${visibleSections.has('social') ? 'animate-slide-in-right animate-delay-400' : ''}`}
-                  onMouseEnter={() => setHovering(true)}
-                  onMouseLeave={() => setHovering(false)}
-                >
-                  <span>🐦</span>
-                  <span className="font-mono text-sm">{t('contact.twitter')}</span>
                 </a>
               </div>
             </div>
