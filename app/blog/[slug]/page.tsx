@@ -68,7 +68,7 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
     date: "2026-08-09",
     author: "Joe Wang",
     featured: true,
-    image: "/KDD1.jpeg",
+    image: "/KDD2.jpeg",
     media: [
       { type: 'image', url: '/KDD1.jpeg', alt: 'Joe Wang at KDD 2026', caption: 'CEO Joe Wang at KDD 2026 in Jeju, Korea' },
       { type: 'image', url: '/KDD2.jpeg', alt: 'Joe Wang at KDD 2026', caption: 'Presenting WebGen-V Bench at KDD 2026' }
@@ -102,7 +102,7 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
     date: "2026-07-08",
     author: "Joe Wang",
     featured: true,
-    image: "/ICML1.jpeg",
+    image: "/ICML2.jpeg",
     media: [
       { type: 'image', url: '/ICML1.jpeg', alt: 'Joe Wang at ICML 2026', caption: 'CEO Joe Wang at ICML 2026 in Seoul, Korea' },
       { type: 'image', url: '/ICML2.jpeg', alt: 'Joe Wang at ICML 2026', caption: 'Presenting Agentic Model Predictive Questioning Control at ICML 2026' }
@@ -919,147 +919,29 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
   {
     id: "8",
     slug: "cto-presents-research-at-kdd-2025-as-sony-researcher",
-    title: "SAIL Lab CEO Presents Research at KDD 2025 as Sony Researcher\nSAIL Lab CEO、Sony研究員としてKDD 2025で研究を発表",
-    excerpt: "Our CEO Joe Wang, in his role as a researcher at Sony, presented groundbreaking research on AI systems at KDD 2025 (Knowledge Discovery and Data Mining), one of the world's premier conferences in data science and machine learning.",
+    title: "SAIL Lab CEO Presents Research at KDD 2025\nSAIL Lab CEO?KDD 2025??????",
+    excerpt: "Our CEO Joe Wang presented 'Auto-bidding in Real-Time Auctions via Oracle Imitation Learning' at KDD 2025 in Toronto, Canada.",
     content: `
-      <h2>Research Excellence at the World's Premier Data Science Conference</h2>
-      <p><em>August 2025 | Toronto, Canada</em></p>
+      <h2>SAIL Lab CEO Presents Research at KDD 2025</h2>
+      <p><em>August 2025 | KDD 2025, Toronto, Canada</em></p>
 
-      <p>We are proud to share that Joe Wang, SAIL Laboratory's CEO and Founder, presented cutting-edge research at <strong>KDD 2025 (ACM SIGKDD Conference on Knowledge Discovery and Data Mining)</strong> in his role as a <strong>researcher at Sony</strong>. The conference was held in Toronto, Canada, and is widely recognized as the world's premier conference in data science, data mining, and knowledge discovery, bringing together leading researchers, practitioners, and industry experts from around the globe.</p>
-
-      <p>This dual role exemplifies the rich cross-pollination between academic research and practical industry applications. Joe's work at Sony focuses on fundamental AI research, while his leadership at SAIL Lab applies these insights to revolutionary financial technology solutions.</p>
-
-      <h3>About KDD</h3>
-      <p>The ACM SIGKDD Conference on Knowledge Discovery and Data Mining is the flagship conference of the Association for Computing Machinery's Special Interest Group on Knowledge Discovery and Data Mining. For over three decades, KDD has been the leading forum for sharing cutting-edge research in:</p>
-      
-      <ul>
-        <li>Machine Learning and Deep Learning</li>
-        <li>Data Mining and Pattern Recognition</li>
-        <li>Large-scale Data Analytics</li>
-        <li>AI Applications in Real-world Systems</li>
-        <li>Reinforcement Learning and Decision Making</li>
-      </ul>
-
-      <h3>The Research: Auto-bidding in Real-Time Auctions</h3>
-      <p>Joe Wang's presentation introduced <strong>"Auto-bidding in Real-Time Auctions via Oracle Imitation Learning"</strong>, a groundbreaking framework that addresses one of the most challenging problems in online advertising and real-time auction systems.</p>
-
-      <p>The research proposes a novel approach that leverages oracle signals to bridge the gap between ideal decision-making and deployable bidding agents. By combining offline policy learning with real-time adaptability, the method significantly improves ad auction efficiency and return on investment.</p>
-
-      <h3>Key Innovation: Oracle Imitation Learning</h3>
-      <p>The core contribution of this work is the Oracle Imitation Learning (OIL) framework, which:</p>
-
-      <ul>
-        <li><strong>Leverages Oracle Signals:</strong> Uses optimal bidding signals from hindsight to guide the learning process, creating a more efficient training paradigm</li>
-        <li><strong>Bridges Theory and Practice:</strong> Combines the theoretical optimality of oracle-based decisions with the practical constraints of real-time deployment</li>
-        <li><strong>Offline Policy Learning:</strong> Trains bidding agents on historical auction data, learning from past optimal decisions without online experimentation costs</li>
-        <li><strong>Real-time Adaptability:</strong> Enables deployed agents to adapt to changing auction dynamics and market conditions in real-time</li>
-        <li><strong>Improves ROI:</strong> Demonstrates significant improvements in return on investment compared to traditional auto-bidding approaches</li>
-      </ul>
-
-      <h3>Research Resources</h3>
-      <p>The full research is available to the academic community:</p>
-      <ul>
-        <li><strong>Paper:</strong> <a href="https://arxiv.org/abs/2412.11434" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">arXiv:2412.11434</a></li>
-        <li><strong>Code:</strong> <a href="https://github.com/sony/oil" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">github.com/sony/oil</a></li>
-        <li><strong>Video Presentation:</strong> Available on YouTube (embedded below)</li>
-      </ul>
-
-      <h3>Community Reception</h3>
-      <p>The presentation received significant interest from the KDD community, sparking engaging discussions on:</p>
-
-      <ul>
-        <li>The ethical implications of AI-driven financial systems</li>
-        <li>Challenges in deploying LLMs in high-stakes real-time environments</li>
-        <li>Future directions for multi-agent systems in finance</li>
-        <li>Balancing model complexity with interpretability and reliability</li>
-      </ul>
-
-      <p>"Presenting at KDD 2025 was an incredible opportunity to share our work with the world's leading data science community," said Joe Wang. "The feedback and discussions have been invaluable, and we're excited to incorporate these insights into our ongoing research and product development."</p>
-
-      <h3>Bridging Research and Industry</h3>
-      <p>While the research presented at KDD was conducted as part of Joe's work at Sony, the insights and methodologies developed inform SAIL Lab's approach to building practical financial technology solutions:</p>
-
-      <ul>
-        <li>Advanced AI techniques from fundamental research inspire our trading algorithms</li>
-        <li>Research-backed methodologies enhance our risk management systems</li>
-        <li>Cutting-edge data mining approaches improve our market analysis capabilities</li>
-        <li>Academic rigor in explainability translates to transparency in our automated systems</li>
-      </ul>
-
-      <p>This synergy between fundamental research at Sony and practical applications at SAIL Lab exemplifies how academic excellence can drive real-world innovation in financial technology.</p>
+      <p>Our CEO <strong>Joe Wang</strong> attended <strong>KDD 2025</strong>, the 31st ACM SIGKDD Conference on Knowledge Discovery and Data Mining, and presented the paper:</p>
+      <p><strong><a href="https://arxiv.org/abs/2412.11434" target="_blank" rel="noopener noreferrer">Auto-bidding in Real-Time Auctions via Oracle Imitation Learning</a></strong></p>
 
       <hr style="margin: 3rem 0;"/>
 
-      <h2>SAIL Lab CEO、Sony研究員としてKDD 2025で研究を発表</h2>
-      <p><em>2025年8月 | トロント、カナダ</em></p>
+      <h2>SAIL Lab CEO?KDD 2025??????</h2>
+      <p><em>2025?8? | KDD 2025??????????</em></p>
 
-      <p>SAIL Laboratory の CEO 兼創業者である Joe Wang が、<strong>Sony の研究員</strong>として、カナダのトロントで開催された<strong>KDD 2025（ACM SIGKDD Conference on Knowledge Discovery and Data Mining）</strong>で最先端の研究を発表したことをご報告いたします。KDD は、データサイエンス、データマイニング、知識発見における世界最高峰の国際会議として広く認識されており、世界中から第一線の研究者、実務家、業界専門家が集まります。</p>
-
-      <p>この二つの役割は、学術研究と実践的な産業応用との豊かな相互交流を示しています。Joe の Sony での研究は基礎的な AI 研究に焦点を当てており、SAIL Lab でのリーダーシップはこれらの洞察を革新的な金融技術ソリューションに応用しています。</p>
-
-      <h3>KDD について</h3>
-      <p>ACM SIGKDD Conference on Knowledge Discovery and Data Mining は、ACM（Association for Computing Machinery）の知識発見とデータマイニングに関する特別興味グループの旗艦会議です。30年以上にわたり、KDD は以下の分野における最先端の研究を共有する主要なフォーラムとなっています：</p>
-      
-      <ul>
-        <li>機械学習とディープラーニング</li>
-        <li>データマイニングとパターン認識</li>
-        <li>大規模データ解析</li>
-        <li>実世界システムにおける AI アプリケーション</li>
-        <li>強化学習と意思決定</li>
-      </ul>
-
-      <h3>研究内容：リアルタイムオークションにおける自動入札</h3>
-      <p>Joe Wang の発表は、<strong>「Oracle Imitation Learning によるリアルタイムオークションにおける自動入札」</strong>を紹介しました。これは、オンライン広告とリアルタイムオークションシステムにおける最も困難な問題の一つに取り組む画期的なフレームワークです。</p>
-
-      <p>この研究は、オラクル信号を活用して、理想的な意思決定と展開可能な入札エージェントとのギャップを埋める新しいアプローチを提案します。オフラインポリシー学習とリアルタイム適応性を組み合わせることで、この手法は広告オークションの効率と投資収益率を大幅に向上させます。</p>
-
-      <h3>主要なイノベーション：Oracle Imitation Learning</h3>
-      <p>この研究の中核的な貢献は、Oracle Imitation Learning（OIL）フレームワークです：</p>
-
-      <ul>
-        <li><strong>オラクル信号の活用：</strong> 事後的な最適入札信号を使用して学習プロセスを導き、より効率的な訓練パラダイムを作成</li>
-        <li><strong>理論と実践の架け橋：</strong> オラクルベースの決定の理論的最適性と、リアルタイム展開の実践的制約を組み合わせる</li>
-        <li><strong>オフラインポリシー学習：</strong> 過去のオークションデータで入札エージェントを訓練し、オンライン実験コストなしで過去の最適決定から学習</li>
-        <li><strong>リアルタイム適応性：</strong> 展開されたエージェントが、変化するオークションダイナミクスと市場状況にリアルタイムで適応できるようにする</li>
-        <li><strong>ROI の向上：</strong> 従来の自動入札アプローチと比較して、投資収益率の大幅な改善を実証</li>
-      </ul>
-
-      <h3>研究リソース</h3>
-      <p>完全な研究は学術コミュニティに公開されています：</p>
-      <ul>
-        <li><strong>論文：</strong> <a href="https://arxiv.org/abs/2412.11434" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">arXiv:2412.11434</a></li>
-        <li><strong>コード：</strong> <a href="https://github.com/sony/oil" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">github.com/sony/oil</a></li>
-        <li><strong>ビデオプレゼンテーション：</strong> YouTube で利用可能（以下に埋め込み）</li>
-      </ul>
-
-      <h3>コミュニティの反応</h3>
-      <p>この発表は KDD コミュニティから大きな関心を集め、以下について活発な議論が行われました：</p>
-
-      <ul>
-        <li>AI 駆動型金融システムの倫理的影響</li>
-        <li>高リスクのリアルタイム環境で LLM を展開する際の課題</li>
-        <li>金融におけるマルチエージェントシステムの将来の方向性</li>
-        <li>モデルの複雑さと解釈可能性および信頼性のバランス</li>
-      </ul>
-
-      <p>「KDD 2025 での発表は、世界をリードするデータサイエンスコミュニティと私たちの研究を共有する素晴らしい機会でした」と Joe Wang は述べました。「フィードバックと議論は非常に貴重であり、これらの洞察を進行中の研究と製品開発に組み込むことを楽しみにしています。」</p>
-
-      <h3>研究と産業の架け橋</h3>
-      <p>KDD で発表された研究は Joe の Sony での研究活動の一環として実施されたものですが、開発された洞察と方法論は SAIL Lab の実践的な金融技術ソリューションの構築アプローチに反映されています：</p>
-
-      <ul>
-        <li>基礎研究から得られた高度な AI 技術が当社の取引アルゴリズムにインスピレーションを与える</li>
-        <li>研究に基づいた方法論がリスク管理システムを強化</li>
-        <li>最先端のデータマイニング手法が市場分析能力を向上</li>
-        <li>説明可能性における学術的厳密さが自動化システムの透明性に変換される</li>
-      </ul>
-
-      <p>Sony での基礎研究と SAIL Lab での実践的応用とのこの相乗効果は、学術的卓越性が金融技術における実世界のイノベーションをどのように推進できるかを示しています。</p>
+      <p>CEO?<strong>Joe Wang</strong>?<strong>KDD 2025</strong>??31? ACM SIGKDD Conference on Knowledge Discovery and Data Mining???????????????????</p>
+      <p><strong><a href="https://arxiv.org/abs/2412.11434" target="_blank" rel="noopener noreferrer">Auto-bidding in Real-Time Auctions via Oracle Imitation Learning</a></strong></p>
     `,
     category: "Research News",
-    readTime: "5 min read",
-    date: "2025-08-20",
+    readTime: "1 min read",
+    date: "2025-08-05",
     author: "Joe Wang",
+    featured: false,
+    image: "/kdd-poster-session.jpg",
     media: [
       {
         type: 'youtube',
@@ -1083,7 +965,7 @@ const extendedBlogPosts: ExtendedBlogPost[] = [
         type: 'image',
         url: '/kdd-poster-session.jpg',
         alt: 'Poster Session at KDD 2025',
-        caption: 'Interactive poster session discussing multi-agent trading systems'
+        caption: 'CEO Joe Wang with the poster "Auto-bidding in Real-Time Auctions via Oracle Imitation Learning" at KDD 2025'
       }
     ],
     views: 142,

@@ -38,7 +38,7 @@ const blogPosts: BlogPost[] = [
     date: "2026-08-09",
     author: "Joe Wang",
     featured: true,
-    image: "/KDD1.jpeg",
+    image: "/KDD2.jpeg",
     views: 0,
     comments: 0,
     likes: 0
@@ -53,7 +53,7 @@ const blogPosts: BlogPost[] = [
     date: "2026-07-08",
     author: "Joe Wang",
     featured: true,
-    image: "/ICML1.jpeg",
+    image: "/ICML2.jpeg",
     views: 0,
     comments: 0,
     likes: 0
@@ -135,13 +135,14 @@ const blogPosts: BlogPost[] = [
   {
     id: "8",
     slug: "cto-presents-research-at-kdd-2025-as-sony-researcher",
-    title: "SAIL Lab CEO Presents Research at KDD 2025 as Sony Researcher\nSAIL Lab CEO、Sony研究員としてKDD 2025で研究を発表",
-    excerpt: "Our CEO Joe Wang, as a Sony researcher, presented 'Auto-bidding in Real-Time Auctions via Oracle Imitation Learning' at KDD 2025, introducing a novel framework that significantly improves auction efficiency and ROI through oracle-guided policy learning.",
+    title: "SAIL Lab CEO Presents Research at KDD 2025\nSAIL Lab CEO、KDD 2025で研究を発表",
+    excerpt: "Our CEO Joe Wang presented 'Auto-bidding in Real-Time Auctions via Oracle Imitation Learning' at KDD 2025 in Toronto, Canada.",
     category: "Research News",
-    readTime: "5 min read",
-    date: "2025-08-20",
+    readTime: "1 min read",
+    date: "2025-08-05",
     author: "Joe Wang",
     featured: false,
+    image: "/kdd-poster-session.jpg",
     views: 142,
     comments: 18,
     likes: 29

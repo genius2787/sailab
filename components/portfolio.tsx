@@ -250,23 +250,32 @@ export function Portfolio() {
           </div>
 
           <div className="mb-20" ref={(el) => { sectionRefs.current.solutions = el; }}>
-            <Card className={`max-w-4xl mx-auto bg-card/80 backdrop-blur-sm border-border/50 hover-lift ${visibleSections.has('solutions') ? 'animate-scale-in' : ''}`}>
+            <Card className={`max-w-5xl mx-auto bg-card/80 backdrop-blur-sm border-border/50 hover-lift ${visibleSections.has('solutions') ? 'animate-scale-in' : ''}`}>
               <CardHeader className="text-center">
-                <CardTitle className={`text-3xl font-mono ${visibleSections.has('solutions') ? 'animate-fade-in-up animate-delay-200' : ''}`}>{t('portfolio.customSolutions')}</CardTitle>
+                <CardTitle className={`text-3xl font-mono ${visibleSections.has('solutions') ? 'animate-fade-in-up animate-delay-200' : ''}`}>{t('portfolio.refineTitle')}</CardTitle>
+                <p className={`text-xl font-mono text-primary mt-2 ${visibleSections.has('solutions') ? 'animate-fade-in-up animate-delay-300' : ''}`}>{t('portfolio.refineLead')}</p>
               </CardHeader>
               <CardContent className="text-center">
-                <p className={`text-lg font-mono text-foreground/90 leading-relaxed mb-6 ${visibleSections.has('solutions') ? 'animate-fade-in-up animate-delay-400' : ''}`}>
-                  {t('portfolio.customDesc')}
+                <p className={`text-lg font-mono text-foreground/90 leading-relaxed mb-6 max-w-3xl mx-auto ${visibleSections.has('solutions') ? 'animate-fade-in-up animate-delay-400' : ''}`}>
+                  {t('portfolio.refineDesc')}
                 </p>
-                <div className="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
-                  <div className={`p-4 rounded-lg border border-border/30 bg-background/20 hover-lift ${visibleSections.has('solutions') ? 'animate-slide-in-left animate-delay-600' : ''}`}>
-                    <h4 className="font-mono text-primary mb-2 hover:text-primary/80 transition-colors">{t('portfolio.regulatoryAI')}</h4>
-                    <p className="font-mono text-sm text-foreground/70">{t('portfolio.regulatoryDesc')}</p>
-                  </div>
-                  <div className={`p-4 rounded-lg border border-border/30 bg-background/20 hover-lift ${visibleSections.has('solutions') ? 'animate-slide-in-right animate-delay-700' : ''}`}>
-                    <h4 className="font-mono text-primary mb-2 hover:text-primary/80 transition-colors">{t('portfolio.customAlgorithms')}</h4>
-                    <p className="font-mono text-sm text-foreground/70">{t('portfolio.customAlgDesc')}</p>
-                  </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div key={i} className={`p-4 rounded-lg border border-border/30 bg-background/20 hover-lift text-left ${visibleSections.has('solutions') ? 'animate-fade-in-up animate-delay-600' : ''}`}>
+                      <div className="font-mono text-sm text-foreground/50 mb-1">0{i}</div>
+                      <h4 className="font-mono text-primary mb-2">{t(`portfolio.refineStep${i}Title`)}</h4>
+                      <p className="font-mono text-sm text-foreground/70">{t(`portfolio.refineStep${i}Desc`)}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className={`${visibleSections.has('solutions') ? 'animate-fade-in-up animate-delay-700' : ''}`}>
+                  <div className="text-3xl font-mono text-primary mb-2">{t('portfolio.refinePrice')}</div>
+                  <p className="font-mono text-sm text-foreground/70 mb-6">{t('portfolio.refinePriceNote')}</p>
+                  <a href="/SAIL_Lab_QRT_2026.pdf" download="SAIL_Lab_QRT_2026.pdf">
+                    <Button className="font-mono hover-lift" variant="default">
+                      [{t('portfolio.refineDownload')}]
+                    </Button>
+                  </a>
                 </div>
               </CardContent>
             </Card>
@@ -278,19 +287,15 @@ export function Portfolio() {
               {t('portfolio.ctaDesc')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                className={`hover-lift ${visibleSections.has('cta') ? 'animate-fade-in-up animate-delay-400' : ''}`}
-                onMouseEnter={() => setHovering(true)}
-                onMouseLeave={() => setHovering(false)}
-              >
-                [{t('portfolio.scheduleConsult')}]
-              </Button>
-              <Button
-                variant="default"
-                className={`bg-background border-primary/50 text-foreground hover:bg-primary/10 hover-lift ${visibleSections.has('cta') ? 'animate-fade-in-up animate-delay-500' : ''}`}
-              >
-                [{t('portfolio.viewPricing')}]
-              </Button>
+              <Link href="/contact">
+                <Button
+                  className={`hover-lift ${visibleSections.has('cta') ? 'animate-fade-in-up animate-delay-400' : ''}`}
+                  onMouseEnter={() => setHovering(true)}
+                  onMouseLeave={() => setHovering(false)}
+                >
+                  [{t('portfolio.scheduleConsult')}]
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
