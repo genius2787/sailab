@@ -363,15 +363,14 @@ export function Contact() {
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                           />
                         </div>
-                        <div className="flex-1">
+                        <div className="flex-1 flex flex-wrap items-center gap-x-3 gap-y-1">
                           <h4 className="font-mono text-lg group-hover:text-primary transition-colors">{member.name}</h4>
-                          <div className="flex items-center gap-2 mt-1">
-                            <Badge variant="outline" className="font-mono text-xs group-hover:border-primary/50 group-hover:text-primary transition-colors">
-                              {member.title}
-                            </Badge>                          </div>
+                          <Badge variant="outline" className="font-mono text-xs group-hover:border-primary/50 group-hover:text-primary transition-colors">
+                            {member.title}
+                          </Badge>
                         </div>
-                        <div className={`transition-all duration-300 ${
-                          hoveredCard === member.name ? "translate-x-2" : ""
+                        <div className={`ml-auto flex-shrink-0 transition-all duration-300 ${
+                          hoveredCard === member.name ? "translate-x-1" : ""
                         }`}>
                           <a
                             href={member.linkedin ?? `mailto:${member.email}`}
@@ -379,7 +378,7 @@ export function Contact() {
                             target={member.linkedin ? "_blank" : undefined}
                             rel={member.linkedin ? "noopener noreferrer" : undefined}
                           >
-                            {t('contact.contactAction')} →
+                            {member.linkedin ? "LinkedIn" : t('contact.contactAction')} →
                           </a>
                         </div>
                       </div>
